@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Attribution_projet</fullName>
+    <active>false</active>
+    <label>Attribution projet</label>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pas exécuté</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+        <values>
+            <fullName>Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Quote</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Marché Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mise à jour offre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offre interne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projet à suivre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remplir soumission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rédiger offre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tâche</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tâche SAV</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
