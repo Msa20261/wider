@@ -176,7 +176,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_NeedCreateContactMO</targetReference>
+            <targetReference>Dec_NeedRelinkContactMO</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -208,7 +208,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_NeedCreateContactDT</targetReference>
+            <targetReference>Dec_NeedRelinkContactDT</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -428,6 +428,56 @@
                 <targetReference>CreateAccountMO</targetReference>
             </connector>
             <label>Nécessaire</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Dec_NeedRelinkContactMO</name>
+        <label>Recontacter un Contact MO existant au nouveau Compte ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Dec_NeedCreateContactMO</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pas de contact existant</defaultConnectorLabel>
+        <rules>
+            <name>NeedRelinkContactMO</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarContactMOId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>RelinkContactMO</targetReference>
+            </connector>
+            <label>Contact existant à relier</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Dec_NeedRelinkContactDT</name>
+        <label>Recontacter un Contact DT existant au nouveau Compte ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Dec_NeedCreateContactDT</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pas de contact existant</defaultConnectorLabel>
+        <rules>
+            <name>NeedRelinkContactDT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarContactDTId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>RelinkContactDT</targetReference>
+            </connector>
+            <label>Contact existant à relier</label>
         </rules>
     </decisions>
     <decisions>
@@ -1134,6 +1184,62 @@
         <object>Publication_Simap__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>RelinkContactMO</name>
+        <label>RelinkContactMO</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Dec_NeedCreateContactMO</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>ErrorScreen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarContactMOId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>VarAccountMOId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>RelinkContactDT</name>
+        <label>RelinkContactDT</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Dec_NeedCreateContactDT</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>ErrorScreen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarContactDTId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>VarAccountDTId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
     <recordUpdates>
         <name>MajProjet</name>
         <label>MajProjet</label>
