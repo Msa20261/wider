@@ -63,11 +63,18 @@ Les droits déjà en place et vérifiés compatibles (aucune action requise) :
 - CRUD Create/Edit/Read sur Account, Contact, Projet__c : déjà présents sur les deux profils.
 - FLS sur les champs `Maitre_d_ouvrage__c`, `Maitre_d_ouvrage_Contact__c`, `Direction_des_travaux_Compte__c`, `Direction_des_travaux__c` (Projet__c) : déjà en édition sur les deux profils.
 
-## 4. Point de vigilance vérifié : règle de validation
+## 4. Tests Apex
+
+Exécutés sur `wider-test` le 2026-08-17 :
+- `PublicationSimapTest`, `SimapPublicationDetailServiceTest`, `SimapUtilsTest`, `SimapHeadersServiceTest` → **42/42 passent (100%)**, aucune régression.
+- Couverture : `SimapPublicationDetailService.cls` 100% ; `PublicationSimap.cls` 97% (les 2 lignes non couvertes sont des branches `else` préexistantes, non liées à cette évolution). Les nouvelles lignes de mapping (Service achat/demandeur, contacts) sont couvertes par `testUpdatePublicationWithDetails`.
+- Aucun nouveau test dédié n'a été écrit spécifiquement pour les 3 nouveaux champs — la couverture vient du test existant qui exerce déjà `updatePublicationWithDetails`.
+
+## 5. Point de vigilance vérifié : règle de validation
 
 `VR_Maitre_ouvrage` (active sur `Projet__c`) interdit de renseigner `Maitre_d_ouvrage_Contact__c` si `Maitre_d_ouvrage__c` est vide. La logique du flow a été relue pour ce cas précis (y compris le correctif de rattachement automatique) : le Compte MO est toujours résolu avant ou en même temps que le Contact, dans tous les chemins. **Aucun conflit attendu**, mais à garder en tête si un comportement inattendu apparaît en prod.
 
-## 5. Étapes de déploiement recommandées
+## 6. Étapes de déploiement recommandées
 
 1. **Vérifier l'état actuel de `Fl_ScrenConvertirEnProjet_DRAFT` en prod** avant de déployer (version active actuelle, pour savoir ce qui sera remplacé) — non vérifiable depuis cette session (aucun org prod Wider connecté en CLI ici).
 2. Déployer les champs + classes Apex + flow via le manifeste :
@@ -79,11 +86,11 @@ Les droits déjà en place et vérifiés compatibles (aucune action requise) :
 5. **Tester manuellement la nouvelle version en Draft dans Setup → Flows** (Debug) sur au moins une publication SIMAP réelle en prod avant activation.
 6. Une fois validé, activer la nouvelle version du flow (Setup → Flows → `Fl_ScrenConvertirEnProjet_DRAFT` → sélectionner la version déployée → Activate).
 
-## 6. Rollback
+## 7. Rollback
 
 - Champs et classes Apex : additifs, aucun impact sur l'existant si on ne les utilise pas — pas de rollback nécessaire en cas de problème mineur.
 - Flow : si la nouvelle version pose problème après activation, réactiver l'ancienne version depuis Setup → Flows → onglet Versions (aucune donnée n'est perdue, les deux versions coexistent).
 
-## 7. Remarque hors-scope
+## 8. Remarque hors-scope
 
 Le flow s'appelle `Fl_ScrenConvertirEnProjet_DRAFT` (suffixe "_DRAFT" dans le nom d'API) alors qu'il s'agit du flow réellement utilisé. Un renommage n'est pas recommandé ici (recréerait le flow avec un nouvel Id et perdrait l'historique de versions) mais mérite d'être signalé pour clarification côté métier.
