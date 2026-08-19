@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ADRES_ID_entete_TECH__c</fullName>
+    <description>Champ technique alimenté par flow. Consommé par TrivisoContactMapper pour produire la balise ADRES_ID_entete du XML exporté vers Triviso. Remonte automatiquement sur Account en ADRES_ID_entete_TECH__pc pour les comptes personnels.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Valeur technique de l&apos;en-tête envoyée à Triviso. Ne pas saisir manuellement : alimenté par flow.</inlineHelpText>
+    <label>ADRES_ID_entete_TECH</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
