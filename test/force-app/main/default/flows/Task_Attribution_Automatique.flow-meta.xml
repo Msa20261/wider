@@ -5,7 +5,7 @@
         <name>Assign_Owner_Queue</name>
         <label>Assigner OwnerId a la Queue</label>
         <locationX>446</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -18,7 +18,7 @@
         <name>Assign_Owner_User</name>
         <label>Assigner OwnerId au User</label>
         <locationX>182</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
@@ -31,7 +31,7 @@
         <name>Decision_Attribution</name>
         <label>Determiner OwnerId</label>
         <locationX>314</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <defaultConnectorLabel>Aucune correspondance</defaultConnectorLabel>
         <rules>
             <name>Contact_Interne_Trouve</name>
@@ -64,7 +64,34 @@
             <label>Queue trouvee</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Decision_Faut_Il_Reevaluer</name>
+        <label>Faut-il reevaluer OwnerId ?</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <defaultConnectorLabel>Non - ne rien faire</defaultConnectorLabel>
+        <rules>
+            <name>Oui_Reevaluer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmlDoitReevaluer</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Contact_Interne</targetReference>
+            </connector>
+            <label>Oui - nouvelle tache ou WhoId modifie</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>frmlDoitReevaluer</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(ISNEW(), ISCHANGED({!$Record.WhoId}))</expression>
+    </formulas>
     <interviewLabel>Task Attribution Automatique {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Task Attribution Automatique</label>
     <processMetadataValues>
@@ -78,7 +105,7 @@
         <name>Get_Contact_Interne</name>
         <label>Get Contact Interne</label>
         <locationX>314</locationX>
-        <locationY>215</locationY>
+        <locationY>323</locationY>
         <connector>
             <targetReference>Get_Queue_Taches_Non_Attribuees</targetReference>
         </connector>
@@ -98,7 +125,7 @@
         <name>Get_Queue_Taches_Non_Attribuees</name>
         <label>Get Queue Taches Non Attribuees</label>
         <locationX>314</locationX>
-        <locationY>323</locationY>
+        <locationY>431</locationY>
         <connector>
             <targetReference>Decision_Attribution</targetReference>
         </connector>
@@ -125,16 +152,9 @@
         <locationX>176</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Contact_Interne</targetReference>
+            <targetReference>Decision_Faut_Il_Reevaluer</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
-        <filters>
-            <field>WhoId</field>
-            <operator>IsChanged</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
         <filters>
             <field>WhoId</field>
             <operator>IsNull</operator>
@@ -146,5 +166,5 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>
