@@ -13,5 +13,5 @@
     <isActive>true</isActive>
     <masterLabel>DupliProjetV2</masterLabel>
     <securityOption>EnforceSharingRules</securityOption>
-    <sortOrder>2</sortOrder>
+    <sortOrder>3</sortOrder>
 </DuplicateRule>

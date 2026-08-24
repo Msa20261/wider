@@ -13,5 +13,5 @@
     <isActive>true</isActive>
     <masterLabel>DupliAccountV2</masterLabel>
     <securityOption>EnforceSharingRules</securityOption>
-    <sortOrder>3</sortOrder>
+    <sortOrder>4</sortOrder>
 </DuplicateRule>
