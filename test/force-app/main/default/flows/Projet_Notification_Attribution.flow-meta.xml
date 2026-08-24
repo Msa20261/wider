@@ -203,7 +203,8 @@
     <formulas>
         <name>frmlCorpsEmail</name>
         <dataType>String</dataType>
-        <expression>&quot;Une tache vous a ete attribuee !&quot; &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
+        <expression>&quot;Bonjour,&quot; &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
+&quot;Une tache vous a ete attribuee sur le projet suivant :&quot; &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
 &quot;Projet : &quot; &amp; {!$Record.Name} &amp; {!cLineBreak} &amp;
 &quot;Compte : &quot; &amp; IF(ISBLANK({!$Record.Nom_du_compte__c}), &quot;-&quot;, {!$Record.Nom_du_compte__r.Name}) &amp; {!cLineBreak} &amp;
 IF({!$Record.Montant__c} &lt;&gt; 0, &quot;Montant estimatif : &quot; &amp; TEXT({!$Record.Montant__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
@@ -213,7 +214,17 @@ IF({!$Record.Montant_Correction_confirm__c} &lt;&gt; 0, &quot;Correction Confirm
 IF({!$Record.Montant_Paiement_client_recevoir__c} &lt;&gt; 0, &quot;A recevoir : &quot; &amp; TEXT({!$Record.Montant_Paiement_client_recevoir__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
 IF({!$Record.Montant_Potentiel_facturation__c} &lt;&gt; 0, &quot;Potentiel facturation : &quot; &amp; TEXT({!$Record.Montant_Potentiel_facturation__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
 IF({!$Record.Montant_S_trait_ext__c} &lt;&gt; 0, &quot;Montant S-trait ext. : &quot; &amp; TEXT({!$Record.Montant_S_trait_ext__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
-IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &quot; &amp; TEXT({!$Record.Montant_S_trait_int__c}) &amp; {!cLineBreak}, &quot;&quot;)</expression>
+IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &quot; &amp; TEXT({!$Record.Montant_S_trait_int__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+{!cLineBreak} &amp;
+&quot;Acceder au projet : &quot; &amp; {!frmlLienProjet} &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
+&quot;Cordialement,&quot; &amp; {!cLineBreak} &amp;
+&quot;L&apos;equipe Wider&quot; &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
+&quot;Ceci est un message automatique, merci de ne pas y repondre directement.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>frmlLienProjet</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; &quot;lightning/r/Projet__c/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
     </formulas>
     <formulas>
         <name>frmlEstTransitionAttributionOuvert</name>
@@ -283,5 +294,5 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>
