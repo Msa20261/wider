@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <actionCalls>
+        <name>Send_Email_Calculateur</name>
+        <label>Envoyer Email Calculateur</label>
+        <locationX>314</locationX>
+        <locationY>755</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Decision_A_Calculateur_2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Calculateur__r.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>frmlCorpsEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>frmlObjetEmail</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_Calculateur_2</name>
+        <label>Envoyer Email Calculateur 2</label>
+        <locationX>314</locationX>
+        <locationY>971</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Create_Tache_Log</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Calculateur_2__r.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>frmlCorpsEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>frmlObjetEmail</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_Responsable_Commercial</name>
+        <label>Envoyer Email Responsable Commercial</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Decision_A_Calculateur</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Responsable_commercial__r.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>frmlCorpsEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>frmlObjetEmail</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <decisions>
+        <name>Decision_A_Calculateur</name>
+        <label>A un Calculateur ?</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>Decision_A_Calculateur_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>Oui_Calculateur</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculateur__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_Calculateur</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decision_A_Calculateur_2</name>
+        <label>A un Calculateur 2 ?</label>
+        <locationX>182</locationX>
+        <locationY>863</locationY>
+        <defaultConnector>
+            <targetReference>Create_Tache_Log</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>Oui_Calculateur_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculateur_2__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_Calculateur_2</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decision_A_Responsable_Commercial</name>
+        <label>A un Responsable Commercial ?</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Decision_A_Calculateur</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>Oui_Responsable_Commercial</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Responsable_commercial__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_Responsable_Commercial</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decision_Est_Transition_Attribution_Ouvert</name>
+        <label>Est-ce la transition Attribution vers Ouvert ?</label>
+        <locationX>182</locationX>
+        <locationY>215</locationY>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>Oui_Transition</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>frmlEstTransitionAttributionOuvert</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_A_Responsable_Commercial</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <constants>
+        <name>cLineBreak</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>
+</stringValue>
+        </value>
+    </constants>
+    <environments>Default</environments>
+    <formulas>
+        <name>frmlCorpsEmail</name>
+        <dataType>String</dataType>
+        <expression>&quot;Une tache vous a ete attribuee !&quot; &amp; {!cLineBreak} &amp; {!cLineBreak} &amp;
+&quot;Projet : &quot; &amp; {!$Record.Name} &amp; {!cLineBreak} &amp;
+&quot;Compte : &quot; &amp; IF(ISBLANK({!$Record.Nom_du_compte__c}), &quot;-&quot;, {!$Record.Nom_du_compte__r.Name}) &amp; {!cLineBreak} &amp;
+IF({!$Record.Montant__c} &lt;&gt; 0, &quot;Montant estimatif : &quot; &amp; TEXT({!$Record.Montant__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_Calculation_net_avec_provisio__c} &lt;&gt; 0, &quot;Calculation PR (avec provisions) : &quot; &amp; TEXT({!$Record.Montant_Calculation_net_avec_provisio__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_Calculation_net_sans_provision__c} &lt;&gt; 0, &quot;Calculation PR (sans provisions) : &quot; &amp; TEXT({!$Record.Montant_Calculation_net_sans_provision__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_Correction_confirm__c} &lt;&gt; 0, &quot;Correction Confirme : &quot; &amp; TEXT({!$Record.Montant_Correction_confirm__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_Paiement_client_recevoir__c} &lt;&gt; 0, &quot;A recevoir : &quot; &amp; TEXT({!$Record.Montant_Paiement_client_recevoir__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_Potentiel_facturation__c} &lt;&gt; 0, &quot;Potentiel facturation : &quot; &amp; TEXT({!$Record.Montant_Potentiel_facturation__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_S_trait_ext__c} &lt;&gt; 0, &quot;Montant S-trait ext. : &quot; &amp; TEXT({!$Record.Montant_S_trait_ext__c}) &amp; {!cLineBreak}, &quot;&quot;) &amp;
+IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &quot; &amp; TEXT({!$Record.Montant_S_trait_int__c}) &amp; {!cLineBreak}, &quot;&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>frmlEstTransitionAttributionOuvert</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(ISCHANGED({!$Record.Etape__c}), PRIORVALUE({!$Record.Etape__c}) = &quot;Attribution&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>frmlObjetEmail</name>
+        <dataType>String</dataType>
+        <expression>&quot;Une tache vous a ete attribuee - &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <interviewLabel>Projet Notification Attribution {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Projet Notification Attribution</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Tache_Log</name>
+        <label>Creer tache de notification</label>
+        <locationX>182</locationX>
+        <locationY>1079</locationY>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Notification d&apos;attribution envoyee</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Decision_Est_Transition_Attribution_Ouvert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Etape__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Ouvert</stringValue>
+            </value>
+        </filters>
+        <object>Projet__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>
