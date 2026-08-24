@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilisateur_Salesforce__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Champ technique. Lien vers le User Salesforce correspondant à ce Contact (collaborateur interne). Rempli automatiquement par matching sur l&apos;email - ne pas afficher sur les pages ni modifier manuellement. Utilisé par le Flow d&apos;attribution automatique des tâches (OwnerId).</description>
+    <label>Utilisateur Salesforce (technique)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Contact_Interne</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>
