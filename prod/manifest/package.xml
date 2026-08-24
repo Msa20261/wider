@@ -9,6 +9,9 @@
     <types>
         <members>PublicationSimap</members>
         <members>SimapPublicationDetailService</members>
+        <members>PublicationSimapTest</members>
+        <members>SimapPublicationDetailServiceTest</members>
+        <members>MockHttpSimapResponse</members>
         <name>ApexClass</name>
     </types>
     <types>

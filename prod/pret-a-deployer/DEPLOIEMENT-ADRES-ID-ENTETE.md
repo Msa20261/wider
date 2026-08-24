@@ -40,6 +40,13 @@ Déjà vérifiés en lecture/édition sur **Admin** et **Custom Platform Profile
 2. Vérifier/accorder le FLS (lecture + édition) sur `ADRES_ID_entete_TECH__c` pour les profils concernés en prod.
 3. Comme les flows se déploient déjà `Active`, l'effet est immédiat sur la prochaine synchronisation Proxy Address → Compte/Contact. Vérifier après déploiement qu'un enregistrement fraîchement synchronisé a bien les deux champs (`ADRES_ID_entete_c__c` et `ADRES_ID_entete_TECH__c`) correctement renseignés.
 
+## 4bis. Mise à jour du 2026-08-24 — modifications ultérieures sur les jobs
+
+Depuis la préparation initiale de ce dossier (2026-08-19), msavane a modifié `ScheduleJobAccount` et `ScheduleJobContact` sur `wider-test` :
+- Les 4 (Account) + 2 (Contact) branches de gestion d'erreur écrivent désormais `Erreurs__c` via une nouvelle formule `Fl_FaultMessage = LEFT($Flow.FaultMessage, 3000)` au lieu de `$Flow.FaultMessage` directement. Vérifié : `Erreurs__c` est un Long Text Area de 32768 caractères, donc la troncature à 3000 n'était pas nécessaire pour éviter un dépassement — c'est une marge de sécurité supplémentaire, sans impact fonctionnel négatif.
+- Les horaires de déclenchement planifié ont changé : `ScheduleJobAccount` 17:37 UTC → **10:59 UTC**, `ScheduleJobContact` 10:40 UTC → **11:11 UTC**.
+- Le dossier `prod/force-app/main/default/flows/` a été mis à jour avec ces versions actuelles — aucune action supplémentaire requise, mais les horaires ci-dessus remplaceront ceux éventuellement déjà configurés en prod.
+
 ## 5. Rollback — ce qui existait avant
 
 Dans `prod/pret-a-deployer/rollback/` :

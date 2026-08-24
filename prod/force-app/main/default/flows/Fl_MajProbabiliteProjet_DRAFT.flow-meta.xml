@@ -184,10 +184,9 @@ ISCHANGED({!$Record.Etape__c}),
 ISCHANGED({!$Record.Mandant__c})
 )
 )</filterFormula>
-        <filterLogic>formula</filterLogic>
         <object>Projet__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

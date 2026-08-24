@@ -27,7 +27,7 @@ Attribution, Chiffrage, Exécuté, Facturé, Terminé, Pas exécuté : **non mod
 Manifeste : `prod/manifest/package-probabilite-projet.xml`
 Fichier source : `prod/force-app/main/default/flows/Fl_MajProbabiliteProjet_DRAFT.flow-meta.xml`
 
-Déployé avec `<status>Draft</status>` — **ne s'active pas automatiquement**.
+**Mise à jour du 2026-08-24** : le fichier packagé est maintenant en `<status>Active</status>` (msavane a activé cette version sur `wider-test` depuis la préparation initiale du dossier, qui la capturait encore en Draft) — **le déploiement l'activera donc immédiatement en prod**, sans étape d'activation manuelle séparée. Vérifié via test Apex (rollback, aucune donnée conservée) le 2026-08-24 : malgré la disparition de la balise `<filterLogic>formula</filterLogic>` dans le XML exporté (probablement une particularité de l'export Metadata API pour cette version, pas une régression), la condition d'entrée (`ISNEW`/`ISCHANGED` sur `Etape__c`/`Mandant__c`) fonctionne toujours correctement — une valeur de probabilité saisie manuellement résiste bien à une sauvegarde qui ne change ni l'étape ni le mandant. Le correctif du bug #1 (section 1) est donc toujours actif.
 
 ## 3. Étapes de déploiement
 
@@ -36,11 +36,11 @@ Déployé avec `<status>Draft</status>` — **ne s'active pas automatiquement**.
    ```
    sf project deploy start --manifest prod/manifest/package-probabilite-projet.xml --target-org <alias-prod>
    ```
+   Le flow sera **actif immédiatement** après déploiement (voir mise à jour section 2) — s'assurer que la table `Probabilit_par_tape__c` est à jour en prod (étape suivante) **avant** de déployer, ou juste après sans délai, pour éviter un recalcul avec des valeurs obsolètes entre les deux.
 3. Exécuter dans l'ordre, via Setup → Apex anonyme, les 2 scripts de `prod/pret-a-deployer/rollback/` :
    - `01_appliquer_nouvelles_probabilites.apex` (corrige la table de référence)
    - `02_backfill_projets_existants.apex` (recalcule les Projets déjà sur une étape concernée — retourne le nombre de lignes mises à jour, à comparer avec l'effectif attendu en prod)
-4. Tester manuellement en Draft (Setup → Flows → Debug) sur un vrai changement d'étape.
-5. Activer la nouvelle version du flow (Setup → Flows → sélectionner la version déployée → Activate).
+4. Vérifier sur un Projet réel en prod qu'un changement d'étape recalcule bien la probabilité, et qu'une sauvegarde neutre (autre champ) ne l'écrase pas.
 
 ## 4. Rollback — ce qui existait avant (mémoire pour annulation)
 

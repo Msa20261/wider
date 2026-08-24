@@ -10,7 +10,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -40,7 +40,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -70,7 +70,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -897,7 +897,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1269,6 +1269,11 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>Fl_FaultMessage</name>
+        <dataType>String</dataType>
+        <expression>LEFT($Flow.FaultMessage, 3000)</expression>
+    </formulas>
+    <formulas>
         <name>FrmlMapEntete</name>
         <dataType>String</dataType>
         <expression>CASE({!$Record.ADRES_ID_entete__c},
@@ -1635,7 +1640,7 @@
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-01-18</startDate>
-            <startTime>17:37:00.000Z</startTime>
+            <startTime>10:59:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

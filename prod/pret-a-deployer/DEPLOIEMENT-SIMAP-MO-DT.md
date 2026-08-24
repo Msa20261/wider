@@ -25,6 +25,9 @@ Voir le manifeste : `prod/manifest/package.xml`
 | `Publication_Simap__c.Contact_service_demandeur__c` | CustomField | Contact individuel du Service demandeur |
 | `PublicationSimap` | ApexClass | Mapping des nouveaux champs depuis l'API SIMAP |
 | `SimapPublicationDetailService` | ApexClass | Ajout du champ `contactPerson` au wrapper `SimapAdress` |
+| `PublicationSimapTest` | ApexClass | Classe de test (ajoutée au dossier le 2026-08-24, absente initialement) |
+| `SimapPublicationDetailServiceTest` | ApexClass | Classe de test (ajoutée au dossier le 2026-08-24, absente initialement) |
+| `MockHttpSimapResponse` | ApexClass | Mock HTTP utilisé par les tests ci-dessus (dépendance de test) |
 | `Fl_ScrenConvertirEnProjet_DRAFT` | Flow | Nouvelle version (logique Compte/Contact MO+DT) |
 
 Fichiers source : `prod/force-app/main/default/**` (copie de la version validée en test).
@@ -69,6 +72,8 @@ Exécutés sur `wider-test` le 2026-08-17 :
 - `PublicationSimapTest`, `SimapPublicationDetailServiceTest`, `SimapUtilsTest`, `SimapHeadersServiceTest` → **42/42 passent (100%)**, aucune régression.
 - Couverture : `SimapPublicationDetailService.cls` 100% ; `PublicationSimap.cls` 97% (les 2 lignes non couvertes sont des branches `else` préexistantes, non liées à cette évolution). Les nouvelles lignes de mapping (Service achat/demandeur, contacts) sont couvertes par `testUpdatePublicationWithDetails`.
 - Aucun nouveau test dédié n'a été écrit spécifiquement pour les 3 nouveaux champs — la couverture vient du test existant qui exerce déjà `updatePublicationWithDetails`.
+
+**Mise à jour du 2026-08-24** : `PublicationSimapTest` et `SimapPublicationDetailServiceTest` (+ `MockHttpSimapResponse`, le mock HTTP dont ils dépendent) manquaient du dossier de déploiement initial — seules les classes d'implémentation y étaient. Corrigé : les 3 classes sont maintenant dans `prod/force-app/main/default/classes/` et dans `prod/manifest/package.xml`. Re-testé sur `wider-test` avec le code actuel : **11/11 tests passent (100%)**. Sans ces classes, un déploiement en prod aurait pu échouer si `PublicationSimapTest`/`SimapPublicationDetailServiceTest` n'existaient pas déjà côté prod (aucun org prod connecté pour le vérifier depuis cette session) — les inclure lève le doute.
 
 ## 5. Point de vigilance vérifié : règle de validation
 
