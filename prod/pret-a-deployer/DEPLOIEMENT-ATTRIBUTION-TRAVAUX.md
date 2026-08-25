@@ -11,16 +11,17 @@ Répond au besoin de msavane (à partir d'un mockup "Attribution des travaux") :
 Nouvel objet `Attribution_Travaux__c` ("Attribution des travaux") :
 - `Projet__c` — lookup requis vers `Projet__c`, relation enfants `Attributions_Travaux__r`
 - `Travaux_CFC__c` — texte, label "Travaux (CFC)"
-- `Sous_traitant__c` — lookup vers `Contact`, label "Sous-traitant"
+- `Sous_traitant__c` / `Sous_traitant_2__c` / `Sous_traitant_3__c` / `Sous_traitant_4__c` — 4 lookups vers `Contact`, labels "Sous-traitant 1" à "4" (jusqu'à 4 sous-traitants par ligne d'attribution, comme sur le mockup)
+- `Montant_S_trait_int__c` / `Montant_S_trait_ext__c` — Currency, labels "Montant S-trait int./ext. (estimation)"
 
-Les montants sous-traitance estimés (interne/externe) restent les champs déjà existants sur `Projet__c` (`Montant_S_trait_int__c`/`Montant_S_trait_ext__c`) — pas dupliqués sur ce nouvel objet, confirmé avec msavane.
+**Mise à jour du 2026-08-25** : à la demande explicite de msavane, les 2 montants sont bien dupliqués sur ce nouvel objet (estimation par ligne d'attribution) — ils ne réutilisent **pas** les champs homonymes déjà existants sur `Projet__c` (ceux-là restent le total au niveau du projet, inchangés).
 
 ## 2. Composants à déployer
 
 Manifeste : `prod/manifest/package-attribution-travaux.xml`
 
-- `prod/force-app/main/default/objects/Attribution_Travaux__c/` (objet + 3 champs)
-- `prod/force-app/main/default/profiles/Admin.profile-meta.xml` et `Custom Platform Profile.profile-meta.xml` — droits sur l'objet (Create/Read/Edit, Delete uniquement pour Admin) et sur les 2 champs non obligatoires (`Travaux_CFC__c`, `Sous_traitant__c` — `Projet__c` étant un champ requis, Salesforce interdit d'y attacher une FLS explicite, l'accès est implicite). Fichiers re-récupérés frais depuis prod le 2026-08-25 avant ajout de ces permissions, pour ne pas déployer à partir d'un état de profil obsolète.
+- `prod/force-app/main/default/objects/Attribution_Travaux__c/` (objet + 8 champs)
+- `prod/force-app/main/default/profiles/Admin.profile-meta.xml` et `Custom Platform Profile.profile-meta.xml` — droits sur l'objet (Create/Read/Edit, Delete uniquement pour Admin) et sur les 7 champs non obligatoires (tous sauf `Projet__c`, requis — Salesforce interdit d'y attacher une FLS explicite, l'accès est implicite). Fichiers re-récupérés frais depuis prod le 2026-08-25 avant ajout de ces permissions, pour ne pas déployer à partir d'un état de profil obsolète.
 
 ## 3. Point d'attention — visibilité sur la page
 
