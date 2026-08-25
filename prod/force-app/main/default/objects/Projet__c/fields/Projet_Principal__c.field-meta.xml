@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Projet_Principal__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Projet principal auquel ce projet est rattache en tant que sous-projet. Laisser vide si ce projet est lui-meme un projet principal.</description>
+    <label>Projet principal</label>
+    <referenceTo>Projet__c</referenceTo>
+    <relationshipLabel>Sous-projets</relationshipLabel>
+    <relationshipName>Sous_Projets</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
