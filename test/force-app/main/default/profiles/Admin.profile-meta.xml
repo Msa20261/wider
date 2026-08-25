@@ -3,9 +3,23 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Projet__c.Projet_Principal__c</field>
+        <field>Attribution_Travaux__c.Sous_traitant__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Attribution_Travaux__c.Travaux_CFC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Attribution_Travaux__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>
