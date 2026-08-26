@@ -11,7 +11,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -41,7 +41,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -274,6 +274,20 @@
                 <elementReference>$Record.ADRES_lettre_entete__c</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewContact.ADRES_ID_entete_c__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlMapEntete</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewContact.ADRES_ID_entete_TECH__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>CreateNewContact</targetReference>
         </connector>
@@ -479,6 +493,20 @@
                 <elementReference>$Record.ADRES_lettre_entete__c</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID_entete_c__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlMapEntete</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID_entete_TECH__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>UpdateContact</targetReference>
         </connector>
@@ -634,6 +662,82 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>Fl_FaultMessage</name>
+        <dataType>String</dataType>
+        <expression>LEFT($Flow.FaultMessage, 3000)</expression>
+    </formulas>
+    <formulas>
+        <name>FrmlMapEntete</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.ADRES_ID_entete__c},
+&quot;mo&quot;,&quot;Monsieur&quot;,
+&quot;ma&quot;,&quot;Madame&quot;,
+&quot;fa&quot;,&quot;Famille&quot;,
+&quot;men&quot;,&quot;Menuiserie&quot;,
+&quot;mm&quot;,&quot;Madame et Monsieur&quot;,
+&quot;eb&quot;,&quot;Ebénisterie&quot;,
+&quot;mes&quot;,&quot;Messieurs&quot;,
+&quot;en&quot;,&quot;Entreprise&quot;,
+&quot;aarchi&quot;,&quot;Atelier d&apos;architecture&quot;,
+&quot;déco&quot;,&quot;Décoration d&apos;intérieur&quot;,
+&quot;café&quot;,&quot;Café, restaurant&quot;,
+&quot;burt&quot;,&quot;Bureau technique&quot;,
+&quot;mm2&quot;,&quot;Monsieur et Madame&quot;,
+&quot;hot&quot;,&quot;Hôtel&quot;,
+&quot;rest&quot;,&quot;Restaurant&quot;,
+&quot;buet&quot;,&quot;Bureau d&apos;études&quot;,
+&quot;burint&quot;,&quot;Architecture d&apos;intérieur&quot;,
+&quot;bout&quot;,&quot;Boutique&quot;,
+&quot;agenc&quot;,&quot;Agencements&quot;,
+&quot;ing&quot;,&quot;Bureau d&apos;ingénieur&quot;,
+&quot;fidu&quot;,&quot;Fiduciaire&quot;,
+&quot;fon&quot;,&quot;Fondation&quot;,
+&quot;const&quot;,&quot;Construction métallique&quot;,
+&quot;danc&quot;,&quot;Dancing nightclub&quot;,
+&quot;bijou&quot;,&quot;Bijouterie&quot;,
+&quot;ins&quot;,&quot;Installations sanitaires&quot;,
+&quot;doc&quot;,&quot;Docteur&quot;,
+&quot;boul&quot;,&quot;Boulangerie&quot;,
+&quot;insti&quot;,&quot;Institut de beauté&quot;,
+&quot;at&quot;,&quot;Atelier&quot;,
+&quot;ent&quot;,&quot;Entreprises Générales&quot;,
+&quot;agi&quot;,&quot;Agence immobilière&quot;,
+&quot;bing&quot;,&quot;Bureau d&apos;ingénieurs&quot;,
+&quot;servt&quot;,&quot;Service technique&quot;,
+&quot;ser&quot;,&quot;Serrurerie&quot;,
+&quot;déc&quot;,&quot;Décolletage&quot;,
+&quot;mca&quot;,&quot;Menuiserie, Charpente, Agencement&quot;,
+&quot;par&quot;,&quot;Parquets&quot;,
+&quot;vit&quot;,&quot;Vitrine&quot;,
+&quot;ass&quot;,&quot;Assurance&quot;,
+&quot;bur&quot;,&quot;Bureau&quot;,
+&quot;renov&quot;,&quot;Rénovation&quot;,
+&quot;quinc&quot;,&quot;Quincaillerie&quot;,
+&quot;av&quot;,&quot;Avocat&quot;,
+&quot;ventil&quot;,&quot;Chauffage, ventillation et climatisation&quot;,
+&quot;adj&quot;,&quot;adjoint&quot;,
+&quot;men_pos&quot;,&quot;Menuisier-Poseur&quot;,
+&quot;etude&quot;,&quot;Etude de notaires&quot;,
+&quot;archi&quot;,&quot;Architecte&quot;,
+&quot;agc&quot;,&quot;Agence cmmerciale&quot;,
+&quot;md&quot;,&quot;Médecin-dentiste&quot;,
+&quot;archint&quot;,&quot;Architecture d&apos;intérieur&quot;,
+&quot;tap&quot;,&quot;Tapissière-Décoratrice&quot;,
+&quot;dent&quot;,&quot;Dentistes&quot;,
+&quot;gar&quot;,&quot;Garage&quot;,
+&quot;archit&quot;,&quot;Architecture&quot;,
+&quot;Imm&quot;,&quot;Immeuble&quot;,
+&quot;med&quot;,&quot;Mesdames&quot;,
+&quot;mag&quot;,&quot;Magasin&quot;,
+&quot;adprive&quot;,&quot;Adresse privée&quot;,
+&quot;st&quot;,&quot;Standard&quot;,
+&quot;soc&quot;,&quot;Société&quot;,
+&quot;fil&quot;,&quot;Filiale&quot;,
+&quot;resp&quot;,&quot;Responsable&quot;,
+&quot;adsup&quot;,&quot;Adresse supplémentaire&quot;,
+{!$Record.ADRES_ID_entete__c})</expression>
+    </formulas>
     <interviewLabel>ScheduleJobContact {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ScheduleJobContact</label>
     <processMetadataValues>
@@ -819,8 +923,8 @@
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-01-21</startDate>
-            <startTime>16:38:00.000Z</startTime>
+            <startDate>2026-01-18</startDate>
+            <startTime>11:11:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
