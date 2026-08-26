@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Travaux_CFC__c</fullName>
     <description>Code des frais de construction (CFC) decrivant les travaux concernes par cette attribution.</description>
+    <externalId>false</externalId>
     <label>Travaux (CFC)</label>
     <length>255</length>
     <required>false</required>

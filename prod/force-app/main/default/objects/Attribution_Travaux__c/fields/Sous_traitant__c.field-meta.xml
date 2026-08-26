@@ -3,7 +3,7 @@
     <fullName>Sous_traitant__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Contact du 1er sous-traitant attribue a ces travaux.</description>
-    <label>Sous-traitant 1</label>
+    <label>Sous-traitant</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Attributions des travaux</relationshipLabel>
     <relationshipName>Attributions_Travaux</relationshipName>
