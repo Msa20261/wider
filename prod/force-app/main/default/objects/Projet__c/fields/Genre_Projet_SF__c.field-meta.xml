@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Genre_Projet_SF__c</fullName>
+    <label>Typologie projet</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Projet classique</fullName>
+                <default>false</default>
+                <label>Projet classique</label>
+            </value>
+            <value>
+                <fullName>Projet multiple</fullName>
+                <default>false</default>
+                <label>Projet multiple</label>
+            </value>
+            <value>
+                <fullName>Projet PPE</fullName>
+                <default>false</default>
+                <label>Projet PPE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

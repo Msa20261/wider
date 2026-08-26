@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Architecte_EG_Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Contact (Architecte/EG)</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Projets (Architecte / EG - Contact)</relationshipLabel>
+    <relationshipName>Projets9</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

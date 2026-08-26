@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incoterm__c</fullName>
+    <label>Incoterm</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>DAP (Delivered At Place)</fullName>
+                <default>false</default>
+                <label>DAP (Delivered At Place)</label>
+            </value>
+            <value>
+                <fullName>DDP (Delivered Duty Paid</fullName>
+                <default>false</default>
+                <label>DDP (Delivered Duty Paid</label>
+            </value>
+            <value>
+                <fullName>DPU (Delivered Unloaded)</fullName>
+                <default>false</default>
+                <label>DPU (Delivered Unloaded)</label>
+            </value>
+            <value>
+                <fullName>EXW (Ex Works)</fullName>
+                <default>false</default>
+                <label>EXW (Ex Works)</label>
+            </value>
+            <value>
+                <fullName>FCA (Free Carrier)</fullName>
+                <default>false</default>
+                <label>FCA (Free Carrier)</label>
+            </value>
+            <value>
+                <fullName>CPT (Carriage Paid To)</fullName>
+                <default>false</default>
+                <label>CPT (Carriage Paid To)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
