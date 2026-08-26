@@ -31,69 +31,68 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>64.0</apiVersion>
-    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <name>Assign_DTAccountCreatedFlag</name>
-        <label>Assign_DTAccountCreatedFlag</label>
+        <name>Assign_SetDTAccount</name>
+        <label>Assign_SetDTAccount</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>VarDTAccountCreated</assignToReference>
+            <assignToReference>VarAccountDTId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Oui</stringValue>
+                <elementReference>LookupDTAccount.recordId</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_NeedRelinkContactDT</targetReference>
+            <targetReference>Screen_RechercheDTContact</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>Assign_DTContactCreatedFlag</name>
-        <label>Assign_DTContactCreatedFlag</label>
+        <name>Assign_SetDTContact</name>
+        <label>Assign_SetDTContact</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>VarDTContactCreated</assignToReference>
+            <assignToReference>VarContactDTId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Oui</stringValue>
+                <elementReference>LookupDTContact.recordId</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_ShowDTCreated</targetReference>
+            <targetReference>Dec_HasAutoAccount</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>Assign_MOAccountCreatedFlag</name>
-        <label>Assign_MOAccountCreatedFlag</label>
+        <name>Assign_SetMOAccount</name>
+        <label>Assign_SetMOAccount</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>VarMOAccountCreated</assignToReference>
+            <assignToReference>VarAccountMOId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Oui</stringValue>
+                <elementReference>LookupMOAccount.recordId</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_NeedRelinkContactMO</targetReference>
+            <targetReference>Screen_RechercheMOContact</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>Assign_MOContactCreatedFlag</name>
-        <label>Assign_MOContactCreatedFlag</label>
+        <name>Assign_SetMOContact</name>
+        <label>Assign_SetMOContact</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>VarMOContactCreated</assignToReference>
+            <assignToReference>VarContactMOId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Oui</stringValue>
+                <elementReference>LookupMOContact.recordId</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Dec_ShowMOCreated</targetReference>
+            <targetReference>Dec_HasServiceDemandeur</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -110,52 +109,6 @@
         </assignmentItems>
         <connector>
             <targetReference>GetProjet</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_UseExistingDT</name>
-        <label>Assign_UseExistingDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarAccountDTId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GetAccountDT.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarContactDTId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GetContactDT.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Dec_NeedCreateAccountDT</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_UseExistingMO</name>
-        <label>Assign_UseExistingMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarAccountMOId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GetAccountMO.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarContactMOId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GetContactMO.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Dec_NeedCreateAccountMO</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -260,38 +213,6 @@
             <targetReference>MajProjet</targetReference>
         </connector>
     </assignments>
-    <choices>
-        <name>Choice_CreerNouveauDT</name>
-        <choiceText>Créer un nouveau</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Non</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Choice_CreerNouveauMO</name>
-        <choiceText>Créer un nouveau</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Non</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Choice_UtiliserExistantDT</name>
-        <choiceText>Utiliser l&apos;existant</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Oui</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Choice_UtiliserExistantMO</name>
-        <choiceText>Utiliser l&apos;existant</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Oui</stringValue>
-        </value>
-    </choices>
     <decisions>
         <name>Check_If_Projet_Exist</name>
         <label>Check If Projet Exist</label>
@@ -315,88 +236,6 @@
                 <targetReference>NumeroSimpaProjet_egal_numero_simap_Publication</targetReference>
             </connector>
             <label>Numero simap equal simapnumeroPublication</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_ConfirmDT</name>
-        <label>Confirmation DT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateAccountDT</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Créer un nouveau</defaultConnectorLabel>
-        <rules>
-            <name>UtiliserExistantDT</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Choix_Confirmation_DT</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_UseExistingDT</targetReference>
-            </connector>
-            <label>Utiliser l&apos;existant</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_ConfirmMO</name>
-        <label>Confirmation MO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateAccountMO</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Créer un nouveau</defaultConnectorLabel>
-        <rules>
-            <name>UtiliserExistantMO</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Choix_Confirmation_MO</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_UseExistingMO</targetReference>
-            </connector>
-            <label>Utiliser l&apos;existant</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_DTFound</name>
-        <label>Compte/Contact DT trouvé ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateAccountDT</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Rien trouvé</defaultConnectorLabel>
-        <rules>
-            <name>DTFound</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>GetAccountDT</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetContactDT</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_ConfirmDT</targetReference>
-            </connector>
-            <label>Trouvé</label>
         </rules>
     </decisions>
     <decisions>
@@ -444,7 +283,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>GetAccountMO</targetReference>
+                <targetReference>Screen_RechercheMOAccount</targetReference>
             </connector>
             <label>Renseigné</label>
         </rules>
@@ -469,283 +308,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>GetAccountDT</targetReference>
+                <targetReference>Screen_RechercheDTAccount</targetReference>
             </connector>
             <label>Renseigné</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_MOFound</name>
-        <label>Compte/Contact MO trouvé ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateAccountMO</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Rien trouvé</defaultConnectorLabel>
-        <rules>
-            <name>MOFound</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>GetAccountMO</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetContactMO</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_ConfirmMO</targetReference>
-            </connector>
-            <label>Trouvé</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedCreateAccountDT</name>
-        <label>Créer le Compte DT ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateContactDT</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non nécessaire</defaultConnectorLabel>
-        <rules>
-            <name>NeedCreateAccountDT</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarAccountDTId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Nom_service_demandeur__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>CreateAccountDT</targetReference>
-            </connector>
-            <label>Nécessaire</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedCreateAccountMO</name>
-        <label>Créer le Compte MO ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateContactMO</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non nécessaire</defaultConnectorLabel>
-        <rules>
-            <name>NeedCreateAccountMO</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarAccountMOId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Bureau_d_achat__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>CreateAccountMO</targetReference>
-            </connector>
-            <label>Nécessaire</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedCreateContactDT</name>
-        <label>Créer le Contact DT ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_ShowDTCreated</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non nécessaire</defaultConnectorLabel>
-        <rules>
-            <name>NeedCreateContactDT</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarContactDTId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Contact_service_demandeur__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>CreateContactDT</targetReference>
-            </connector>
-            <label>Nécessaire</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedCreateContactMO</name>
-        <label>Créer le Contact MO ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_ShowMOCreated</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non nécessaire</defaultConnectorLabel>
-        <rules>
-            <name>NeedCreateContactMO</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarContactMOId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Contact_bureau_d_achat__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>CreateContactMO</targetReference>
-            </connector>
-            <label>Nécessaire</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedRelinkContactDT</name>
-        <label>Recontacter un Contact DT existant au nouveau Compte ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateContactDT</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Pas de contact existant</defaultConnectorLabel>
-        <rules>
-            <name>NeedRelinkContactDT</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarContactDTId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>RelinkContactDT</targetReference>
-            </connector>
-            <label>Contact existant à relier</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_NeedRelinkContactMO</name>
-        <label>Recontacter un Contact MO existant au nouveau Compte ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_NeedCreateContactMO</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Pas de contact existant</defaultConnectorLabel>
-        <rules>
-            <name>NeedRelinkContactMO</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarContactMOId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>RelinkContactMO</targetReference>
-            </connector>
-            <label>Contact existant à relier</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_ShowDTCreated</name>
-        <label>Afficher le récap création DT ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_HasAutoAccount</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Rien créé</defaultConnectorLabel>
-        <rules>
-            <name>ShowDTCreated</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>VarDTAccountCreated</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>VarDTContactCreated</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_DTCreated</targetReference>
-            </connector>
-            <label>Quelque chose a été créé</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_ShowMOCreated</name>
-        <label>Afficher le récap création MO ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_HasServiceDemandeur</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Rien créé</defaultConnectorLabel>
-        <rules>
-            <name>ShowMOCreated</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>VarMOAccountCreated</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>VarMOContactCreated</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Oui</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_MOCreated</targetReference>
-            </connector>
-            <label>Quelque chose a été créé</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -780,150 +345,6 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
-    <recordCreates>
-        <name>CreateAccountDT</name>
-        <label>CreateAccountDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignRecordIdToReference>VarAccountDTId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Assign_DTAccountCreatedFlag</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <inputAssignments>
-            <field>BillingCity</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_contact_formatee__City__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingCountry</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_contact_formatee__CountryCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingPostalCode</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_contact_formatee__PostalCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStreet</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_contact_formatee__Street__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>GetPublicationSimap.Nom_service_demandeur__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordCreates>
-    <recordCreates>
-        <name>CreateAccountMO</name>
-        <label>CreateAccountMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignRecordIdToReference>VarAccountMOId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Assign_MOAccountCreatedFlag</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <inputAssignments>
-            <field>BillingCity</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__City__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingCountry</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__CountryCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingPostalCode</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__PostalCode__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BillingStreet</field>
-            <value>
-                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__Street__s</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>GetPublicationSimap.Bureau_d_achat__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordCreates>
-    <recordCreates>
-        <name>CreateContactDT</name>
-        <label>CreateContactDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignRecordIdToReference>VarContactDTId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Assign_DTContactCreatedFlag</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>VarAccountDTId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>LastName</field>
-            <value>
-                <elementReference>GetPublicationSimap.Contact_service_demandeur__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Contact</object>
-    </recordCreates>
-    <recordCreates>
-        <name>CreateContactMO</name>
-        <label>CreateContactMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignRecordIdToReference>VarContactMOId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Assign_MOContactCreatedFlag</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>VarAccountMOId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>LastName</field>
-            <value>
-                <elementReference>GetPublicationSimap.Contact_bureau_d_achat__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Contact</object>
-    </recordCreates>
     <recordCreates>
         <name>CreationProjet</name>
         <label>Creation Projet</label>
@@ -1018,106 +439,6 @@
         <object>Projet__c</object>
     </recordCreates>
     <recordLookups>
-        <name>GetAccountDT</name>
-        <label>GetAccountDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetContactDT</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetPublicationSimap.Nom_service_demandeur__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetAccountMO</name>
-        <label>GetAccountMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetContactMO</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetPublicationSimap.Bureau_d_achat__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetContactDT</name>
-        <label>GetContactDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Dec_DTFound</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>LastName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetPublicationSimap.Contact_service_demandeur__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetContactMO</name>
-        <label>GetContactMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Dec_MOFound</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>LastName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetPublicationSimap.Contact_bureau_d_achat__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>GetProjet</name>
         <label>GetProjet</label>
         <locationX>0</locationX>
@@ -1197,62 +518,6 @@
             <targetReference>ErrorScreen</targetReference>
         </faultConnector>
         <inputReference>VarSingleSelectedOpportunity</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>RelinkContactDT</name>
-        <label>RelinkContactDT</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>Dec_NeedCreateContactDT</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>VarContactDTId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>VarAccountDTId</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Contact</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>RelinkContactMO</name>
-        <label>RelinkContactMO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>Dec_NeedCreateContactMO</targetReference>
-        </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ErrorScreen</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>VarContactMOId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>VarAccountMOId</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Contact</object>
     </recordUpdates>
     <screens>
         <name>Affichage_Projet_sans_numero_simap</name>
@@ -1563,19 +828,19 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>Screen_ConfirmDT</name>
-        <label>Confirmation Compte/Contact DT</label>
+        <name>Screen_RechercheDTAccount</name>
+        <label>Recherche du Compte Direction des travaux</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Dec_ConfirmDT</targetReference>
+            <targetReference>Assign_SetDTAccount</targetReference>
         </connector>
         <fields>
-            <name>TxtConfirmDT</name>
-            <fieldText>&lt;p&gt;Un compte et/ou un contact correspondant au &lt;b&gt;Service demandeur&lt;/b&gt; de cette publication existent peut-être déjà :&lt;/p&gt;&lt;p&gt;Compte : {!GetAccountDT.Name} — {!GetAccountDT.BillingStreet}, {!GetAccountDT.BillingPostalCode} {!GetAccountDT.BillingCity}&lt;/p&gt;&lt;p&gt;Contact : {!GetContactDT.LastName}&lt;/p&gt;&lt;p&gt;Voulez-vous utiliser cet existant pour la Direction Travaux du projet, ou en créer un nouveau ?&lt;/p&gt;</fieldText>
+            <name>TxtRechercheDTAccount</name>
+            <fieldText>&lt;p&gt;Service demandeur (Simap) : &lt;b&gt;{!GetPublicationSimap.Nom_service_demandeur__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le compte &lt;b&gt;Direction des travaux (DT)&lt;/b&gt; correspondant. Aucun compte ne sera créé automatiquement.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1587,14 +852,30 @@
             </styleProperties>
         </fields>
         <fields>
-            <name>Choix_Confirmation_DT</name>
-            <choiceReferences>Choice_UtiliserExistantDT</choiceReferences>
-            <choiceReferences>Choice_CreerNouveauDT</choiceReferences>
-            <dataType>String</dataType>
-            <defaultSelectedChoiceReference>Choice_UtiliserExistantDT</defaultSelectedChoiceReference>
-            <fieldText>Confirmation</fieldText>
-            <fieldType>RadioButtons</fieldType>
+            <name>LookupDTAccount</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Direction_des_travaux_Compte__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Direction des travaux (compte)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Projet__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -1608,19 +889,19 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Screen_ConfirmMO</name>
-        <label>Confirmation Compte/Contact MO</label>
+        <name>Screen_RechercheDTContact</name>
+        <label>Recherche du Contact Direction des travaux</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Dec_ConfirmMO</targetReference>
+            <targetReference>Assign_SetDTContact</targetReference>
         </connector>
         <fields>
-            <name>TxtConfirmMO</name>
-            <fieldText>&lt;p&gt;Un compte et/ou un contact correspondant au &lt;b&gt;Service achat&lt;/b&gt; de cette publication existent peut-être déjà :&lt;/p&gt;&lt;p&gt;Compte : {!GetAccountMO.Name} — {!GetAccountMO.BillingStreet}, {!GetAccountMO.BillingPostalCode} {!GetAccountMO.BillingCity}&lt;/p&gt;&lt;p&gt;Contact : {!GetContactMO.LastName}&lt;/p&gt;&lt;p&gt;Voulez-vous utiliser cet existant pour le Client/MO du projet, ou en créer un nouveau ?&lt;/p&gt;</fieldText>
+            <name>TxtRechercheDTContact</name>
+            <fieldText>&lt;p&gt;Contact du service demandeur (Simap) : &lt;b&gt;{!GetPublicationSimap.Contact_service_demandeur__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le &lt;b&gt;Contact (Direction Travaux)&lt;/b&gt; correspondant. Aucun contact ne sera créé automatiquement.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1632,14 +913,30 @@
             </styleProperties>
         </fields>
         <fields>
-            <name>Choix_Confirmation_MO</name>
-            <choiceReferences>Choice_UtiliserExistantMO</choiceReferences>
-            <choiceReferences>Choice_CreerNouveauMO</choiceReferences>
-            <dataType>String</dataType>
-            <defaultSelectedChoiceReference>Choice_UtiliserExistantMO</defaultSelectedChoiceReference>
-            <fieldText>Confirmation</fieldText>
-            <fieldType>RadioButtons</fieldType>
+            <name>LookupDTContact</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Direction_des_travaux__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Contact Direction des travaux</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Projet__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -1653,19 +950,19 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Screen_DTCreated</name>
-        <label>Compte/Contact DT créés</label>
+        <name>Screen_RechercheMOAccount</name>
+        <label>Recherche du Compte Client/MO</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <allowBack>false</allowBack>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
         <connector>
-            <targetReference>Dec_HasAutoAccount</targetReference>
+            <targetReference>Assign_SetMOAccount</targetReference>
         </connector>
         <fields>
-            <name>TxtAccountDTCreated</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau compte créé pour le Service demandeur : {!GetPublicationSimap.Nom_service_demandeur__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <name>TxtRechercheMOAccount</name>
+            <fieldText>&lt;p&gt;Service achat (Simap) : &lt;b&gt;{!GetPublicationSimap.Bureau_d_achat__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le compte &lt;b&gt;Client/MO&lt;/b&gt; correspondant. Aucun compte ne sera créé automatiquement.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1675,21 +972,32 @@
                     <stringValue>12</stringValue>
                 </width>
             </styleProperties>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>VarDTAccountCreated</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Oui</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
         <fields>
-            <name>TxtContactDTCreated</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau contact créé pour le Service demandeur : {!GetPublicationSimap.Contact_service_demandeur__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <name>LookupMOAccount</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Maitre_d_ouvrage__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Client/MO</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Projet__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -1698,35 +1006,24 @@
                     <stringValue>12</stringValue>
                 </width>
             </styleProperties>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>VarDTContactCreated</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Oui</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
-        <nextOrFinishButtonLabel>Continuer</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Screen_MOCreated</name>
-        <label>Compte/Contact MO créés</label>
+        <name>Screen_RechercheMOContact</name>
+        <label>Recherche du Contact Client/MO</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <allowBack>false</allowBack>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
         <connector>
-            <targetReference>Dec_HasServiceDemandeur</targetReference>
+            <targetReference>Assign_SetMOContact</targetReference>
         </connector>
         <fields>
-            <name>TxtAccountMOCreated</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau compte créé pour le Service achat : {!GetPublicationSimap.Bureau_d_achat__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <name>TxtRechercheMOContact</name>
+            <fieldText>&lt;p&gt;Contact du service achat (Simap) : &lt;b&gt;{!GetPublicationSimap.Contact_bureau_d_achat__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le contact &lt;b&gt;Client/MO&lt;/b&gt; correspondant. Aucun contact ne sera créé automatiquement.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -1736,21 +1033,32 @@
                     <stringValue>12</stringValue>
                 </width>
             </styleProperties>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>VarMOAccountCreated</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Oui</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
         <fields>
-            <name>TxtContactMOCreated</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau contact créé pour le Service achat : {!GetPublicationSimap.Contact_bureau_d_achat__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <name>LookupMOContact</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Maitre_d_ouvrage_Contact__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Contact Client/MO</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Projet__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -1759,18 +1067,7 @@
                     <stringValue>12</stringValue>
                 </width>
             </styleProperties>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>VarMOContactCreated</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Oui</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
-        <nextOrFinishButtonLabel>Continuer</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -1827,34 +1124,6 @@
     </variables>
     <variables>
         <name>VarContactMOId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarDTAccountCreated</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarDTContactCreated</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarMOAccountCreated</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarMOContactCreated</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
