@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Categorie_Tache__c</fullName>
-    <label>Categorie Tâche</label>
+    <fullName>Type_de_t_che__c</fullName>
+    <label>Type de tâche</label>
     <required>false</required>
     <type>Picklist</type>
     <valueSet>
@@ -10,34 +10,42 @@
             <value>
                 <fullName>Tâche</fullName>
                 <default>false</default>
+                <label>Tâche</label>
             </value>
             <value>
                 <fullName>Tâche SAV</fullName>
                 <default>false</default>
+                <label>Tâche SAV</label>
             </value>
             <value>
                 <fullName>Rédiger offre</fullName>
                 <default>false</default>
+                <label>Rédiger offre</label>
             </value>
             <value>
                 <fullName>Mise à jour offre</fullName>
                 <default>false</default>
+                <label>Mise à jour offre</label>
             </value>
             <value>
                 <fullName>Remplir soumission</fullName>
                 <default>false</default>
+                <label>Remplir soumission</label>
             </value>
             <value>
                 <fullName>Marché Public</fullName>
                 <default>false</default>
+                <label>Marché Public</label>
             </value>
             <value>
                 <fullName>Projet à suivre</fullName>
                 <default>false</default>
+                <label>Projet à suivre</label>
             </value>
             <value>
                 <fullName>Offre interne</fullName>
                 <default>false</default>
+                <label>Offre interne</label>
             </value>
         </valueSetDefinition>
     </valueSet>
