@@ -31,6 +31,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>Assign_DTAccountCreatedFlag</name>
         <label>Assign_DTAccountCreatedFlag</label>
@@ -1268,6 +1269,14 @@
             <name>TxtProjetsExistants</name>
             <fieldText>&lt;p&gt;Voici les projets deja existants pour ce compte, a l&apos;etape Opportunite :&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Projet</name>
@@ -1371,6 +1380,14 @@
                 <assignToReference>VarSelectedProjet</assignToReference>
                 <name>outputSelectedRows</name>
             </outputParameters>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -1390,6 +1407,14 @@
             <name>TxtConfirmation</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(30, 122, 68);&quot;&gt;Le projet a ete converti avec succes. Vous allez etre redirige vers sa fiche.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Continuer</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -1411,18 +1436,42 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <objectFieldReference>GetPublicationSimap.Titre_de_publication__c</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <fieldType>ObjectProvided</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <objectFieldReference>GetPublicationSimap.Numero_de_publication__c</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <fieldType>ObjectProvided</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <objectFieldReference>GetPublicationSimap.Deadline_Offre__c</objectFieldReference>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -1439,6 +1488,14 @@
             <name>TxtErreur</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(194, 57, 52);&quot;&gt;Une erreur est survenue lors de la conversion de l&apos;offre en projet :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(194, 57, 52);&quot;&gt;{!$Flow.FaultMessage}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Merci de contacter votre administrateur Salesforce.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Fermer</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -1459,6 +1516,14 @@
             <name>AfichageProjet</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(241, 26, 26); background-color: rgb(255, 255, 255);&quot;&gt;Titre Publication : &lt;/span&gt;&lt;span style=&quot;font-size: 14px; color: rgb(205, 16, 16);&quot;&gt;{!GetPublicationSimap.Titre_de_publication__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(241, 26, 26);&quot;&gt;Numerio Publication  : {!GetPublicationSimap.Numero_de_publication__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Verifiez si le compte existe deja, puis selectionnez-le. Nous rechercherons ensuite les projets deja existants pour ce compte.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Compte</name>
@@ -1485,6 +1550,14 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -1504,6 +1577,14 @@
             <name>TxtConfirmDT</name>
             <fieldText>&lt;p&gt;Un compte et/ou un contact correspondant au &lt;b&gt;Service demandeur&lt;/b&gt; de cette publication existent peut-être déjà :&lt;/p&gt;&lt;p&gt;Compte : {!GetAccountDT.Name} — {!GetAccountDT.BillingStreet}, {!GetAccountDT.BillingPostalCode} {!GetAccountDT.BillingCity}&lt;/p&gt;&lt;p&gt;Contact : {!GetContactDT.LastName}&lt;/p&gt;&lt;p&gt;Voulez-vous utiliser cet existant pour la Direction Travaux du projet, ou en créer un nouveau ?&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Choix_Confirmation_DT</name>
@@ -1514,6 +1595,14 @@
             <fieldText>Confirmation</fieldText>
             <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -1533,6 +1622,14 @@
             <name>TxtConfirmMO</name>
             <fieldText>&lt;p&gt;Un compte et/ou un contact correspondant au &lt;b&gt;Service achat&lt;/b&gt; de cette publication existent peut-être déjà :&lt;/p&gt;&lt;p&gt;Compte : {!GetAccountMO.Name} — {!GetAccountMO.BillingStreet}, {!GetAccountMO.BillingPostalCode} {!GetAccountMO.BillingCity}&lt;/p&gt;&lt;p&gt;Contact : {!GetContactMO.LastName}&lt;/p&gt;&lt;p&gt;Voulez-vous utiliser cet existant pour le Client/MO du projet, ou en créer un nouveau ?&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Choix_Confirmation_MO</name>
@@ -1543,6 +1640,14 @@
             <fieldText>Confirmation</fieldText>
             <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -1562,6 +1667,14 @@
             <name>TxtAccountDTCreated</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau compte créé pour le Service demandeur : {!GetPublicationSimap.Nom_service_demandeur__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
@@ -1577,6 +1690,14 @@
             <name>TxtContactDTCreated</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau contact créé pour le Service demandeur : {!GetPublicationSimap.Contact_service_demandeur__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
@@ -1607,6 +1728,14 @@
             <name>TxtAccountMOCreated</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau compte créé pour le Service achat : {!GetPublicationSimap.Bureau_d_achat__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
@@ -1622,6 +1751,14 @@
             <name>TxtContactMOCreated</name>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(30, 122, 68);&quot;&gt;Nouveau contact créé pour le Service achat : {!GetPublicationSimap.Contact_bureau_d_achat__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
