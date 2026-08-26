@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionCalls>
-        <name>BypassTriggerProjet</name>
-        <label>BypassTriggerProjet</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <actionName>TriggerHandler</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>GetExistingProjet</targetReference>
-        </connector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <nameSegment>TriggerHandler</nameSegment>
-        <offset>0</offset>
-    </actionCalls>
     <apiVersion>66.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
@@ -32,7 +18,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Flm_ErreurTronquee</elementReference>
+                <elementReference>$Flow.FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -43,8 +29,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>UpdateError</targetReference>
+            <targetReference>UpdateErrorCREate</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -63,7 +48,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Flm_ErreurTronquee</elementReference>
+                <elementReference>$Flow.FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1593,11 +1578,6 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
-        <name>Flm_ErreurTronquee</name>
-        <dataType>String</dataType>
-        <expression>LEFT({!$Flow.FaultMessage}, 3000)</expression>
-    </formulas>
-    <formulas>
         <name>Flm_NameProjet</name>
         <dataType>String</dataType>
         <expression>LEFT($Record.Nom_Projet__c, 80)</expression>
@@ -1952,7 +1932,7 @@
         <connector>
             <targetReference>CheckIsBlanckFacturationCompte</targetReference>
         </connector>
-        <filterLogic>1 OR (2 AND 3)</filterLogic>
+        <filterLogic>1 OR ( 2 AND 3)</filterLogic>
         <filters>
             <field>Numero_projet__c</field>
             <operator>EqualTo</operator>
@@ -1969,10 +1949,7 @@
         </filters>
         <filters>
             <field>SAIS_com_ID__c</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
+            <operator>NotEqualTo</operator>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Projet__c</object>
@@ -2126,6 +2103,13 @@
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <recordUpdates>
+        <name>UpdateErrorCREate</name>
+        <label>UpdateErrorCREate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>UpdateProjet</name>
         <label>UpdateProjet</label>
         <locationX>0</locationX>
@@ -2149,7 +2133,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>BypassTriggerProjet</targetReference>
+            <targetReference>GetExistingProjet</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
@@ -2171,8 +2155,8 @@
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-01-18</startDate>
-            <startTime>16:11:00.000Z</startTime>
+            <startDate>2026-01-21</startDate>
+            <startTime>16:53:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
