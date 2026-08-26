@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_ErrorCreateContact</name>
+        <label>Assign_ErrorCreateContact</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Fl_FaultMessage</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Erreur</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_proxyErrorCreateContact</targetReference>
+        </connector>
+    </assignments>
     <assignments>
         <name>Assign_ErrorUpdateUpdate</name>
         <label>Assign_ErrorUpdateUpdate</label>
@@ -32,33 +63,35 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Copy_1_of_Assign_ErrorCreate</name>
-        <label>Copy 1 of Assign_ErrorCreate</label>
+        <name>AssignIdTrouveParID</name>
+        <label>AssignIdTrouveParID</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <assignToReference>varContactIdTrouve</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Fl_FaultMessage</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Date_Traitement__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Erreur</stringValue>
+                <elementReference>Get_Contact_ParID.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Copy_1_of_Update_proxyErrorCreate</targetReference>
+            <targetReference>GetExistingCompte</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>AssignIdTrouveParTriviso</name>
+        <label>AssignIdTrouveParTriviso</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varContactIdTrouve</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_contact_parTriviso.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>GetExistingCompte</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -228,13 +261,6 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>VarNewContact.ADRES_ID_entete_c__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>FrmlMapEntete</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>VarNewContact.SiteWeb__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -246,6 +272,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_lettre_entete__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewContact.ADRES_ID_entete_c__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -268,7 +301,7 @@
             <assignToReference>VarExistingContact.Id</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetExistingContact.Id</elementReference>
+                <elementReference>varContactIdTrouve</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -447,13 +480,6 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>VarExistingContact.ADRES_ID_entete_c__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>FrmlMapEntete</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>VarExistingContact.SiteWeb__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -465,6 +491,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_lettre_entete__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID_entete_c__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -511,6 +544,9 @@
                 <elementReference>VarNewContact.Id</elementReference>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>UpdateCreateContact</targetReference>
+        </connector>
     </assignments>
     <assignments>
         <name>MappingFromUpdateProxy</name>
@@ -562,13 +598,67 @@
             <name>Yes_Exist</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GetExistingContact</leftValueReference>
+                <leftValueReference>varContactIdTrouve</leftValueReference>
                 <operator>NotEqualTo</operator>
             </conditions>
             <connector>
                 <targetReference>MappingFieldsUpdate</targetReference>
             </connector>
             <label>Yes Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Type_de_recherche</name>
+        <label>Type de recherche</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetExistingCompte</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>AucunIdentifiant</defaultConnectorLabel>
+        <rules>
+            <name>ParIDSalesforce</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Contact_ParID</targetReference>
+            </connector>
+            <label>ParIDSalesforce</label>
+        </rules>
+        <rules>
+            <name>ParIDTriviso</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRESTriviso_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRES_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_contact_parTriviso</targetReference>
+            </connector>
+            <label>ParIDTriviso</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -678,10 +768,59 @@
             <targetReference>MappingFromCreate</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Copy_1_of_Assign_ErrorCreate</targetReference>
+            <targetReference>Assign_ErrorCreateContact</targetReference>
         </faultConnector>
         <inputReference>VarNewContact</inputReference>
     </recordCreates>
+    <recordLookups>
+        <name>Get_Contact_ParID</name>
+        <label>Get Contact ParID</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>AssignIdTrouveParID</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ID_Salesforce__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_contact_parTriviso</name>
+        <label>Get contact parTriviso</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>AssignIdTrouveParTriviso</targetReference>
+        </connector>
+        <filterLogic>1 OR 2</filterLogic>
+        <filters>
+            <field>Identification__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ADRES_Identification__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ADRESTriviso_ID__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>GetExistingCompte</name>
         <label>GetExistingCompte</label>
@@ -703,44 +842,16 @@
         <object>Account</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>GetExistingContact</name>
-        <label>GetExistingContact</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetExistingCompte</targetReference>
-        </connector>
-        <filterLogic>or</filterLogic>
-        <filters>
-            <field>ADRES_ID__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.ADRESTriviso_ID__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.ID_Salesforce__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordUpdates>
-        <name>Copy_1_of_Update_proxyErrorCreate</name>
-        <label>Copy 1 of Update_proxyErrorCreate</label>
+        <name>Update_ProxyContacts</name>
+        <label>Update_ProxyContacts</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_ProxyContacts</name>
-        <label>Update_ProxyContacts</label>
+        <name>Update_proxyErrorCreateContact</name>
+        <label>Update_proxyErrorCreateContact</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <inputReference>$Record</inputReference>
@@ -759,6 +870,13 @@
         <inputReference>VarExistingContact</inputReference>
     </recordUpdates>
     <recordUpdates>
+        <name>UpdateCreateContact</name>
+        <label>UpdateCreateContact</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>UpdateProxyFromContactUpdate</name>
         <label>UpdateProxyFromContactUpdate</label>
         <locationX>0</locationX>
@@ -769,7 +887,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetExistingContact</targetReference>
+            <targetReference>Type_de_recherche</targetReference>
         </connector>
         <filterLogic>(1 OR 2) AND (3 OR 4 )</filterLogic>
         <filters>
@@ -875,6 +993,13 @@
     </variables>
     <variables>
         <name>varContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varContactIdTrouve</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
