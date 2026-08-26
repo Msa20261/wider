@@ -31,102 +31,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>64.0</apiVersion>
-    <assignments>
-        <name>Assign_SetDTAccount</name>
-        <label>Assign_SetDTAccount</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarAccountDTId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>LookupDTAccount.recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Screen_RechercheDTContact</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_SetDTContact</name>
-        <label>Assign_SetDTContact</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarContactDTId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>LookupDTContact.recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Dec_HasAutoAccount</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_SetMOAccount</name>
-        <label>Assign_SetMOAccount</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarAccountMOId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>LookupMOAccount.recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Screen_RechercheMOContact</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_SetMOContact</name>
-        <label>Assign_SetMOContact</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarContactMOId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>LookupMOContact.recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Dec_HasServiceDemandeur</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_UseAutoAccount</name>
-        <label>Assign_UseAutoAccount</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarCompteId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>VarAccountMOId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>GetProjet</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_UseManualAccount</name>
-        <label>Assign_UseManualAccount</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>VarCompteId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Compte.recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>GetProjet</targetReference>
-        </connector>
-    </assignments>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>NumeroSimpaProjet_egal_numero_simap_Publication</name>
         <label>NumeroSimpaProjet egal numero simap Publication</label>
@@ -158,34 +63,6 @@
             <operator>Assign</operator>
             <value>
                 <stringValue>Attribution</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarSingleSelectedOpportunity.Maitre_d_ouvrage__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>VarAccountMOId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarSingleSelectedOpportunity.Maitre_d_ouvrage_Contact__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>VarContactMOId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarSingleSelectedOpportunity.Direction_des_travaux_Compte__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>VarAccountDTId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarSingleSelectedOpportunity.Direction_des_travaux__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>VarContactDTId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -238,81 +115,6 @@
             <label>Numero simap equal simapnumeroPublication</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>Dec_HasAutoAccount</name>
-        <label>Compte MO déjà résolu ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>RechercheCompte</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non, recherche manuelle</defaultConnectorLabel>
-        <rules>
-            <name>HasAutoAccount</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>VarAccountMOId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_UseAutoAccount</targetReference>
-            </connector>
-            <label>Oui</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_HasBureauAchat</name>
-        <label>A un Bureau d&apos;achat ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_HasServiceDemandeur</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non renseigné</defaultConnectorLabel>
-        <rules>
-            <name>HasBureauAchat</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Bureau_d_achat__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_RechercheMOAccount</targetReference>
-            </connector>
-            <label>Renseigné</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Dec_HasServiceDemandeur</name>
-        <label>A un Service demandeur ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Dec_HasAutoAccount</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non renseigné</defaultConnectorLabel>
-        <rules>
-            <name>HasServiceDemandeur</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GetPublicationSimap.Nom_service_demandeur__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Screen_RechercheDTAccount</targetReference>
-            </connector>
-            <label>Renseigné</label>
-        </rules>
-    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>FrmlLienSimap</name>
@@ -359,6 +161,30 @@
             <targetReference>ErrorScreen</targetReference>
         </faultConnector>
         <inputAssignments>
+            <field>Adresse_Facturation__City__s</field>
+            <value>
+                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__City__s</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Adresse_Facturation__CountryCode__s</field>
+            <value>
+                <stringValue>CH</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Adresse_Facturation__PostalCode__s</field>
+            <value>
+                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__PostalCode__s</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Adresse_Facturation__Street__s</field>
+            <value>
+                <elementReference>GetPublicationSimap.Adresse_bureau_d_achat_formatee__Street__s</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Date_de_fermeture__c</field>
             <value>
                 <elementReference>GetPublicationSimap.Deadline_Offre__c</elementReference>
@@ -368,18 +194,6 @@
             <field>Descriptif__c</field>
             <value>
                 <elementReference>GetPublicationSimap.order_description__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Direction_des_travaux_Compte__c</field>
-            <value>
-                <elementReference>VarAccountDTId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Direction_des_travaux__c</field>
-            <value>
-                <elementReference>VarContactDTId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -401,18 +215,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Maitre_d_ouvrage_Contact__c</field>
-            <value>
-                <elementReference>VarContactMOId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Maitre_d_ouvrage__c</field>
-            <value>
-                <elementReference>VarAccountMOId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Name</field>
             <value>
                 <elementReference>TruncateTitreProjet</elementReference>
@@ -421,7 +223,7 @@
         <inputAssignments>
             <field>Nom_du_compte__c</field>
             <value>
-                <elementReference>VarCompteId</elementReference>
+                <elementReference>Compte.recordId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -470,7 +272,7 @@
             <field>Nom_du_compte__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>VarCompteId</elementReference>
+                <elementReference>Compte.recordId</elementReference>
             </value>
         </filters>
         <object>Projet__c</object>
@@ -488,7 +290,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Dec_HasBureauAchat</targetReference>
+            <targetReference>RechercheCompte</targetReference>
         </connector>
         <faultConnector>
             <isGoTo>true</isGoTo>
@@ -655,7 +457,7 @@
             </styleProperties>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>ConfirmationScreen</name>
@@ -775,7 +577,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Assign_UseManualAccount</targetReference>
+            <targetReference>GetProjet</targetReference>
         </connector>
         <fields>
             <name>AfichageProjet</name>
@@ -825,250 +627,6 @@
             </styleProperties>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_RechercheDTAccount</name>
-        <label>Recherche du Compte Direction des travaux</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Assign_SetDTAccount</targetReference>
-        </connector>
-        <fields>
-            <name>TxtRechercheDTAccount</name>
-            <fieldText>&lt;p&gt;Service demandeur (Simap) : &lt;b&gt;{!GetPublicationSimap.Nom_service_demandeur__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le compte &lt;b&gt;Direction des travaux (DT)&lt;/b&gt; correspondant. Aucun compte ne sera créé automatiquement.&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <fields>
-            <name>LookupDTAccount</name>
-            <extensionName>flowruntime:lookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>fieldApiName</name>
-                <value>
-                    <stringValue>Direction_des_travaux_Compte__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Direction des travaux (compte)</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>objectApiName</name>
-                <value>
-                    <stringValue>Projet__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_RechercheDTContact</name>
-        <label>Recherche du Contact Direction des travaux</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Assign_SetDTContact</targetReference>
-        </connector>
-        <fields>
-            <name>TxtRechercheDTContact</name>
-            <fieldText>&lt;p&gt;Contact du service demandeur (Simap) : &lt;b&gt;{!GetPublicationSimap.Contact_service_demandeur__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le &lt;b&gt;Contact (Direction Travaux)&lt;/b&gt; correspondant. Aucun contact ne sera créé automatiquement.&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <fields>
-            <name>LookupDTContact</name>
-            <extensionName>flowruntime:lookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>fieldApiName</name>
-                <value>
-                    <stringValue>Direction_des_travaux__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Contact Direction des travaux</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>objectApiName</name>
-                <value>
-                    <stringValue>Projet__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_RechercheMOAccount</name>
-        <label>Recherche du Compte Client/MO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Assign_SetMOAccount</targetReference>
-        </connector>
-        <fields>
-            <name>TxtRechercheMOAccount</name>
-            <fieldText>&lt;p&gt;Service achat (Simap) : &lt;b&gt;{!GetPublicationSimap.Bureau_d_achat__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le compte &lt;b&gt;Client/MO&lt;/b&gt; correspondant. Aucun compte ne sera créé automatiquement.&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <fields>
-            <name>LookupMOAccount</name>
-            <extensionName>flowruntime:lookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>fieldApiName</name>
-                <value>
-                    <stringValue>Maitre_d_ouvrage__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Client/MO</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>objectApiName</name>
-                <value>
-                    <stringValue>Projet__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_RechercheMOContact</name>
-        <label>Recherche du Contact Client/MO</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Assign_SetMOContact</targetReference>
-        </connector>
-        <fields>
-            <name>TxtRechercheMOContact</name>
-            <fieldText>&lt;p&gt;Contact du service achat (Simap) : &lt;b&gt;{!GetPublicationSimap.Contact_bureau_d_achat__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Recherchez et sélectionnez le contact &lt;b&gt;Client/MO&lt;/b&gt; correspondant. Aucun contact ne sera créé automatiquement.&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <fields>
-            <name>LookupMOContact</name>
-            <extensionName>flowruntime:lookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>fieldApiName</name>
-                <value>
-                    <stringValue>Maitre_d_ouvrage_Contact__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Contact Client/MO</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>objectApiName</name>
-                <value>
-                    <stringValue>Projet__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <start>
@@ -1087,47 +645,12 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>VarAccountDTId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarAccountMOId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>VarCollprojet</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Projet__c</objectType>
-    </variables>
-    <variables>
-        <name>VarCompteId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarContactDTId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>VarContactMOId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>VarProjetId</name>
