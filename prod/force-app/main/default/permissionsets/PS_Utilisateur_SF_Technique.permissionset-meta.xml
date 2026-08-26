@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Acces au champ technique Contact.Utilisateur_Salesforce__c utilise par l&apos;automatisation d&apos;attribution des taches CRM (rapprochement Contact/User).</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Utilisateur_Salesforce__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Utilisateur Salesforce technique (Read/Edit)</label>
+</PermissionSet>

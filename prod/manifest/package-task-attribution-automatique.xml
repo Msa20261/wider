@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Contact.Utilisateur_Salesforce__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>PS_Utilisateur_SF_Technique</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>Taches_non_attribuees</members>
+        <name>Queue</name>
+    </types>
+    <types>
+        <members>Task_Attribution_Automatique</members>
+        <name>Flow</name>
+    </types>
+    <version>64.0</version>
+</Package>
