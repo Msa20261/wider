@@ -78,7 +78,7 @@
             <assignToReference>$Record.Erreurs__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Type de compte incohérent : la valeur ADRES_Tag__c du proxy ne correspond pas au type de Compte Salesforce déjà existant pour cet identifiant (Compte standard vs Compte personne). Vérifier ADRES_Tag__c et le Compte lié avant de relancer.</stringValue>
+                <elementReference>Fl_FaultMessage</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -91,36 +91,6 @@
         <connector>
             <isGoTo>true</isGoTo>
             <targetReference>UpdateProxyperqon</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>AssignReportCompte</name>
-        <label>AssignReportCompte</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Erreur</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Erreurs__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Compte modifié à l&apos;instant par un autre enregistrement du même lot (collision de traitement concurrent). Sera retraité automatiquement au prochain lancement planifié.</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Date_Traitement__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>UpdateProxyBusines</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -296,7 +266,7 @@
             <assignToReference>VarNewAccount.Adresse_compte__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>FrmlPaysValide</elementReference>
+                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -508,7 +478,7 @@
             <assignToReference>varMatchedAccount.Adresse_compte__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>FrmlPaysValide</elementReference>
+                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -835,7 +805,7 @@
             <assignToReference>VarNewAccount.Adresse_compte__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>FrmlPaysValide</elementReference>
+                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1077,7 +1047,7 @@
             <assignToReference>varMatchedAccount.Adresse_compte__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>FrmlPaysValide</elementReference>
+                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1431,34 +1401,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Compte_Fraicheur</targetReference>
+                <targetReference>MAJCompte</targetReference>
             </connector>
             <label>TypeCoherent</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Compte_Recemment_Modifie</name>
-        <label>Compte Récemment Modifié</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>MAJCompte</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Pas de collision</defaultConnectorLabel>
-        <rules>
-            <name>Collision_Probable</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FrmlCompteRecentModifie</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>AssignReportCompte</targetReference>
-            </connector>
-            <label>Collision Probable</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -1466,27 +1411,6 @@
         <name>Fl_FaultMessage</name>
         <dataType>String</dataType>
         <expression>LEFT($Flow.FaultMessage, 3000)</expression>
-    </formulas>
-    <formulas>
-        <name>FrmlCompteRecentModifie</name>
-        <dataType>Boolean</dataType>
-        <expression>IF(
-    ISBLANK({!Get_Compte_Fraicheur.LastModifiedDate}),
-    false,
-    (({!$Flow.CurrentDateTime} - {!Get_Compte_Fraicheur.LastModifiedDate}) * 86400) &lt; 30
-)</expression>
-    </formulas>
-    <formulas>
-        <name>FrmlPaysValide</name>
-        <dataType>String</dataType>
-        <expression>IF(
-    OR(
-        ISBLANK({!$Record.ADRES_PAYS_Identification__c}),
-        {!$Record.ADRES_PAYS_Identification__c} = &quot;PR&quot;
-    ),
-    &quot;&quot;,
-    {!$Record.ADRES_PAYS_Identification__c}
-)</expression>
     </formulas>
     <formulas>
         <name>FrmlMapEntete</name>
@@ -1619,27 +1543,6 @@
         </faultConnector>
         <inputReference>VarNewAccount</inputReference>
     </recordCreates>
-    <recordLookups>
-        <name>Get_Compte_Fraicheur</name>
-        <label>Get Compte Fraicheur</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Compte_Recemment_Modifie</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varAccountIdTrouve</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordLookups>
         <name>Get_Account_ParID</name>
         <label>Get_Account_ParID</label>
