@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ville_Pays_Affichage__c</fullName>
+    <externalId>false</externalId>
+    <formula>Adresse_compte__City__s &amp; &quot; | &quot; &amp; CASE(TEXT(Adresse_compte__CountryCode__s),
+&quot;CH&quot;,&quot;Suisse&quot;,
+&quot;FR&quot;,&quot;France&quot;,
+&quot;IT&quot;,&quot;Italie&quot;,
+&quot;US&quot;,&quot;États-Unis&quot;,
+&quot;GB&quot;,&quot;Royaume-Uni&quot;,
+&quot;DE&quot;,&quot;Allemagne&quot;,
+&quot;BE&quot;,&quot;Belgique&quot;,
+&quot;ES&quot;,&quot;Espagne&quot;,
+&quot;NL&quot;,&quot;Pays-Bas&quot;,
+&quot;AE&quot;,&quot;Émirats Arabes Unis&quot;,
+&quot;PT&quot;,&quot;Portugal&quot;,
+&quot;CA&quot;,&quot;Canada&quot;,
+&quot;AT&quot;,&quot;Autriche&quot;,
+&quot;SG&quot;,&quot;Singapour&quot;,
+&quot;AU&quot;,&quot;Australie&quot;,
+&quot;CN&quot;,&quot;Chine&quot;,
+&quot;SA&quot;,&quot;Arabie Saoudite&quot;,
+&quot;JP&quot;,&quot;Japon&quot;,
+&quot;ZA&quot;,&quot;Afrique du Sud&quot;,
+&quot;TR&quot;,&quot;Turquie&quot;,
+&quot;SE&quot;,&quot;Suède&quot;,
+&quot;MX&quot;,&quot;Mexique&quot;,
+&quot;DK&quot;,&quot;Danemark&quot;,
+&quot;GR&quot;,&quot;Grèce&quot;,
+&quot;MC&quot;,&quot;Monaco&quot;,
+&quot;LI&quot;,&quot;Liechtenstein&quot;,
+&quot;RU&quot;,&quot;Russie&quot;,
+&quot;NO&quot;,&quot;Norvège&quot;,
+&quot;HK&quot;,&quot;Hong Kong&quot;,
+&quot;LU&quot;,&quot;Luxembourg&quot;,
+TEXT(Adresse_compte__CountryCode__s))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Ville Pays</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

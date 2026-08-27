@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>T_che__c</fullName>
+    <label>Tâche</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Offre</fullName>
+                <default>false</default>
+                <label>Offre</label>
+            </value>
+            <value>
+                <fullName>Maj offre</fullName>
+                <default>false</default>
+                <label>Maj offre</label>
+            </value>
+            <value>
+                <fullName>Soum</fullName>
+                <default>false</default>
+                <label>Soum</label>
+            </value>
+            <value>
+                <fullName>Marché P</fullName>
+                <default>false</default>
+                <label>Marché P</label>
+            </value>
+            <value>
+                <fullName>RDV</fullName>
+                <default>false</default>
+                <label>RDV</label>
+            </value>
+            <value>
+                <fullName>Suivi</fullName>
+                <default>false</default>
+                <label>Suivi</label>
+            </value>
+            <value>
+                <fullName>SAV</fullName>
+                <default>false</default>
+                <label>SAV</label>
+            </value>
+            <value>
+                <fullName>Offre int.</fullName>
+                <default>false</default>
+                <label>Offre int.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

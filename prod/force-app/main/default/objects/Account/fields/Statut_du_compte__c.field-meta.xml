@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut_du_compte__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+  Compte_Actif__c,
+  IMAGE(
+    &quot;https://widersa2025--devupmind.sandbox.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=068FS000006qTNS&amp;operationContext=DELIVERY&amp;contentId=05TFS00000EAai8&amp;page=0&amp;d=/a/FS000009k1Lh/hzZ_XVAb2ZsQka.7RxGqrwuQuYDma.fKM_m2KI32.GE&amp;oid=00DFS000007xR3N&amp;dpt=null&amp;viewId=&quot;,
+    &quot;Compte Actif&quot;
+  ),
+  IMAGE(
+    &quot;https://widersa2025--devupmind.sandbox.file.force.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=068FS000006qQz7&amp;operationContext=DELIVERY&amp;contentId=05TFS00000EAbzB&amp;page=0&amp;d=/a/FS000009k1NJ/RmuQoBgsUxBaSXZqo2Pq7fnFWQ4rk9TGFfoXn1YedVc&amp;oid=00DFS000007xR3N&amp;dpt=null&amp;viewId=&quot;,
+    &quot;Compte Inactif&quot;
+  )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Statut du compte</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

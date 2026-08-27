@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Nouvelle_t_che</fullName>
-    <active>true</active>
+    <active>false</active>
     <label>Nouvelle tâche</label>
+    <picklistValues>
+        <picklist>Niveau_de_priorit__c</picklist>
+        <values>
+            <fullName>Normal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioritaire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secondaire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Urgent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>Priority</picklist>
         <values>
@@ -12,6 +31,29 @@
         <values>
             <fullName>Normal</fullName>
             <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Site__c</picklist>
+        <values>
+            <fullName>WBU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WCL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WGE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WVS</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -30,21 +72,37 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Subject</picklist>
+        <picklist>T_che__c</picklist>
         <values>
-            <fullName>Call</fullName>
+            <fullName>Maj offre</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Marché P</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Send Letter</fullName>
+            <fullName>Offre</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Send Quote</fullName>
+            <fullName>Offre int%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RDV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Soum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suivi</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -68,6 +126,41 @@
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projet à suivre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remplir soumission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rédiger offre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tâche</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tâche SAV</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_de_t_che__c</picklist>
+        <values>
+            <fullName>Marché Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mise à jour offre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offre interne</fullName>
             <default>false</default>
         </values>
         <values>

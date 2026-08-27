@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Famille_commerciale__c</fullName>
+    <label>Famille commerciale</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Secteur_d_activite__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>fc.00.54 Boutique</fullName>
+                <default>false</default>
+                <label>Boutique</label>
+            </value>
+            <value>
+                <fullName>fc.00.55 Corner</fullName>
+                <default>false</default>
+                <label>Corner</label>
+            </value>
+            <value>
+                <fullName>fc.00.56 Shop in shop</fullName>
+                <default>false</default>
+                <label>Shop-in-shop</label>
+            </value>
+            <value>
+                <fullName>fc.00.57 Pop-up</fullName>
+                <default>false</default>
+                <label>Pop-up</label>
+            </value>
+            <value>
+                <fullName>fc.00.58 Mobilier de série</fullName>
+                <default>false</default>
+                <label>Mobilier de série</label>
+            </value>
+            <value>
+                <fullName>fc.00.59 Stands d&apos;exposition</fullName>
+                <default>false</default>
+                <label>Stand d’exposition</label>
+            </value>
+            <value>
+                <fullName>fc.01.04 Hôtellerie</fullName>
+                <default>false</default>
+                <label>Hôtellerie</label>
+            </value>
+            <value>
+                <fullName>fc.01.06 Santé</fullName>
+                <default>false</default>
+                <label>Santé</label>
+            </value>
+            <value>
+                <fullName>fc.01.07 Musées</fullName>
+                <default>false</default>
+                <label>Musées</label>
+            </value>
+            <value>
+                <fullName>fc.01.08 Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>fc.01.09 Immeuble</fullName>
+                <default>false</default>
+                <label>Immeuble</label>
+            </value>
+            <value>
+                <fullName>fc.01.10 Privé</fullName>
+                <default>false</default>
+                <label>Privé</label>
+            </value>
+            <value>
+                <fullName>fc.01.14 Administratif</fullName>
+                <default>false</default>
+                <label>Administratif</label>
+            </value>
+            <value>
+                <fullName>fc.01.16 Scolaire</fullName>
+                <default>false</default>
+                <label>Scolaire</label>
+            </value>
+            <value>
+                <fullName>fc.01.17 Airkel</fullName>
+                <default>false</default>
+                <label>Airkel</label>
+            </value>
+            <value>
+                <fullName>fc.01.18 Écrin/PLV</fullName>
+                <default>false</default>
+                <label>Écrin/PLV</label>
+            </value>
+            <value>
+                <fullName>fc.00.57, Pop-up</fullName>
+                <default>false</default>
+                <label>fc.00.57, Pop-up</label>
+            </value>
+            <value>
+                <fullName>Interco</fullName>
+                <default>false</default>
+                <label>Interco</label>
+            </value>
+            <value>
+                <fullName>Travaux internes</fullName>
+                <default>false</default>
+                <label>Travaux internes</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.54 Boutique</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.55 Corner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.56 Shop in shop</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.57 Pop-up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.58 Mobilier de série</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.00 Dép. Horlogerie - Bijouterie</controllingFieldValue>
+            <valueName>fc.00.59 Stands d&apos;exposition</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.04 Hôtellerie</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.06 Santé</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.07 Musées</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.08 Commercial</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.09 Immeuble</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.10 Privé</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.14 Administratif</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>fc.01 Dép. Agencement - Menuiserie</controllingFieldValue>
+            <valueName>fc.01.17 Airkel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Interne</controllingFieldValue>
+            <valueName>Interco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Interne</controllingFieldValue>
+            <valueName>Travaux internes</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

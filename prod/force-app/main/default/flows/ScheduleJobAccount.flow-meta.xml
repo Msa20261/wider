@@ -388,13 +388,6 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarNewAccount.ADRES_ID_entete_TECH__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>Create_Accounts_business</targetReference>
         </connector>
@@ -556,13 +549,6 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>FrmlMapEntete</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>varMatchedAccount.ADRES_ID_entete_TECH__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -739,14 +725,14 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>VarNewAccount.PersonMobilePhone</assignToReference>
+            <assignToReference>VarNewAccount.Phone_2__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_Natel1__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>VarNewAccount.Phone_2__c</assignToReference>
+            <assignToReference>VarNewAccount.Mobile_2__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_Natel2__c</elementReference>
@@ -948,13 +934,6 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarNewAccount.ADRES_ID_entete_TECH__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>CreatePersonAccount</targetReference>
         </connector>
@@ -1107,14 +1086,14 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>varMatchedAccount.PersonMobilePhone</assignToReference>
+            <assignToReference>varMatchedAccount.Phone_2__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_Natel1__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>varMatchedAccount.Mobile_2__pc</assignToReference>
+            <assignToReference>varMatchedAccount.Mobile_2__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.ADRES_Natel2__c</elementReference>
@@ -1181,13 +1160,6 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>FrmlMapEntete</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>varMatchedAccount.ADRES_ID_entete_TECH__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1363,6 +1335,13 @@
             <conditions>
                 <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
                 <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
+                <operator>IsBlank</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
@@ -1594,7 +1573,7 @@
         <connector>
             <targetReference>Get_AccountParTriviso</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>1 OR 2 OR 3 OR 4</filterLogic>
         <filters>
             <field>Identification__c</field>
             <operator>EqualTo</operator>
@@ -1840,8 +1819,8 @@
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-01-21</startDate>
-            <startTime>16:33:00.000Z</startTime>
+            <startDate>2026-01-18</startDate>
+            <startTime>10:59:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

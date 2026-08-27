@@ -1,0 +1,156 @@
+<template>
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        aria-labelledby="id-of-modalheader-h1"
+        class="slds-modal slds-fade-in-open slds-modal_large"
+    >
+        <div class="slds-modal__container">
+            <div class="slds-modal__header ubd-modal-header slds-list_horizontal slds-grid_align-center slds-media_center ubd-modal-header">
+                <h1 id="id-of-modalheader-h1" class="slds-text-heading_medium">
+                    <span class="slds-page-header__title" title="titre">{title}</span>
+                </h1>
+            </div>
+            <div
+                class="slds-modal__content"
+                id="modal-content-id-1"
+            >
+                <template if:false={isFetching}>
+                    <!-- <lightning-tree-grid
+                        columns={gridColumns}
+                        data={layoutData}
+                        key-field="key"
+                        hide-checkbox-column="true"
+                    ></lightning-tree-grid> -->
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item padding="around-small" size="12">
+                            <h1 class="slds-text-heading_small">
+                                <div class="page-section page-header">Informations de la publication</div>
+                            </h1>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-record-edit-form
+                                id="recordViewForm1"
+                                record-id={insertedRecordId}
+                                record-type-id="012000000000000AAA"
+                                object-api-name="Publication_Simap__c"
+                                class="record-view-form"
+                            >
+                                <lightning-input-field field-name="Nom_de_l_offre__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Numero_de_projet__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Date_de_publication__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Type_de_process__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Deadline_Offre__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Type_de_Publication__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Numero_de_publication__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Lieu_d_execution__c" readonly="true"></lightning-input-field>
+                            </lightning-record-edit-form>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <h1 class="slds-text-heading_small">
+                                <div class="page-section page-header">Bureau d'achat</div>
+                            </h1>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-record-edit-form
+                                id="recordViewForm2"
+                                record-id={insertedRecordId}
+                                record-type-id="012000000000000AAA"
+                                object-api-name="Publication_Simap__c"
+                            >
+                                <lightning-input-field field-name="Bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Adresse_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Telephone_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Email_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Type_de_projet__c" readonly="true"></lightning-input-field>
+                            </lightning-record-edit-form>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <h1 class="slds-text-heading_small">
+                                <div class="page-section page-header">Information de l'offre</div>
+                            </h1>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-record-edit-form
+                                id="recordViewForm3"
+                                record-id={insertedRecordId}
+                                record-type-id="012000000000000AAA"
+                                object-api-name="Publication_Simap__c"
+                            >
+                                <lightning-input-field field-name="Type_de_l_offre__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Reference_de_l_offre__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Adresse_de_l_offre__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="offre_canton__c" readonly="true"></lightning-input-field>
+                            </lightning-record-edit-form>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <h1 class="slds-text-heading_small">
+                                <div class="page-section page-header">Bureau d'achat</div>
+                            </h1>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-record-edit-form
+                                id="recordViewForm4"
+                                record-id={insertedRecordId}
+                                record-type-id="012000000000000AAA"
+                                object-api-name="Publication_Simap__c"
+                            >
+                                <lightning-input-field field-name="Adresse_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Telephone_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Email_bureau_d_achat__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Adresse_contact__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Telephone_contact__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Email_contact__c" readonly="true"></lightning-input-field>
+                            </lightning-record-edit-form>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <h1 class="slds-text-heading_small">
+                                <div class="page-section page-header">Détails</div>
+                            </h1>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-record-edit-form
+                                id="recordViewForm5"
+                                record-id={insertedRecordId}
+                                record-type-id="012000000000000AAA"
+                                object-api-name="Publication_Simap__c"
+                            >
+                                <lightning-input-field field-name="Info_generale__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="order_description__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="statut__c" readonly="true"></lightning-input-field>
+                                <lightning-input-field field-name="Url__c" readonly="true"></lightning-input-field>
+                            </lightning-record-edit-form>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+                <template if:true={isFetching}>
+                    <div class="slds-is-relative" style="min-height: 8rem !important; min-width: 100% !important;">
+                        <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning-button
+                    onclick={handleCloseModal}
+                    label="Fermer"
+                ></lightning-button>
+                <lightning-button
+                    onclick={seeOnSimap}
+                    label="Aller sur SIMAP"
+                ></lightning-button>
+                <lightning-button
+                    onclick={seePDFOnSimap}
+                    label="PDF"
+                ></lightning-button>
+                <template if:true={displayProjetFlowButton}>
+                    <lightning-button
+                        variant="brand"
+                        label="Convertir en projet"
+                        onclick={handleShowProjetFlow}
+                    ></lightning-button>
+                </template>
+            </div>
+        </div>
+    </section>
+</template>

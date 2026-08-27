@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>CheckAccountTag</name>
         <label>CheckAccountTag</label>
@@ -115,10 +116,8 @@
                 <elementReference>$Record.ADRES_Identification__c</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
         <outputReference>varAccountTrouve</outputReference>
-        <storeOutputAutomatically>false</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>GetAccount_ParTrivisoOuIdentification</name>
@@ -144,10 +143,8 @@
                 <elementReference>$Record.ADRESTriviso_ID__c</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
         <outputReference>varAccountTrouve</outputReference>
-        <storeOutputAutomatically>false</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>GetParentAccount</name>

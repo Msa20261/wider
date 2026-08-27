@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TestDocument</fullName>
+    <columns>NAME</columns>
+    <columns>DOC_ADR_DEST_ID__c</columns>
+    <columns>DOC_Projet_ID__c</columns>
+    <columns>Action__c</columns>
+    <columns>Statut__c</columns>
+    <columns>ID_Salesforce__c</columns>
+    <columns>Date_Traitement__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date_Traitement__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>TestDocument</label>
+</ListView>

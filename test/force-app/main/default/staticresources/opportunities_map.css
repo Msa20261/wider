@@ -1,0 +1,56 @@
+.custom-popup .leaflet-popup-content-wrapper {
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+
+.custom-popup .leaflet-popup-tip {
+    background: black;
+}
+
+.custom-popup .leaflet-popup-content div {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-popup h2 {
+    font-weight: 900;
+}
+
+.custom-popup .address-container[data-city='null'] {
+    display: none;
+}
+
+.marker-cluster {
+    background: rgba(180, 180, 180, 0.8);
+    border: 2px solid #b4b4b4;
+    border-radius: 50%;
+    color: white;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    width: 40px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.marker-cluster:hover {
+    background: rgba(180, 180, 180, 1);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+    background: rgba(180, 180, 180, 0.8);
+    border-color: #b4b4b4;
+}
+
+.marker-cluster-small:hover,
+.marker-cluster-medium:hover,
+.marker-cluster-large:hover {
+    background: rgba(180, 180, 180, 1);
+}

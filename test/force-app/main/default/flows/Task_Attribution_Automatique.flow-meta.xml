@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>Assign_Owner_Queue</name>
         <label>Assigner OwnerId a la Queue</label>
@@ -106,6 +107,7 @@
         <label>Get Contact Interne</label>
         <locationX>314</locationX>
         <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Queue_Taches_Non_Attribuees</targetReference>
         </connector>
@@ -126,6 +128,7 @@
         <label>Get Queue Taches Non Attribuees</label>
         <locationX>314</locationX>
         <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_Attribution</targetReference>
         </connector>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Boutique</fullName>
+        <default>false</default>
+        <label>Boutique</label>
+    </customValue>
+    <customValue>
+        <fullName>Santé</fullName>
+        <default>false</default>
+        <label>Santé</label>
+    </customValue>
+    <customValue>
+        <fullName>Immeuble</fullName>
+        <default>false</default>
+        <label>Immeuble</label>
+    </customValue>
+    <customValue>
+        <fullName>Hôtelerie</fullName>
+        <default>false</default>
+        <label>Hôtelerie</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial</fullName>
+        <default>false</default>
+        <label>Commercial</label>
+    </customValue>
+    <customValue>
+        <fullName>Privé</fullName>
+        <default>false</default>
+        <label>Privé</label>
+    </customValue>
+    <customValue>
+        <fullName>Publique</fullName>
+        <default>false</default>
+        <label>Publique</label>
+    </customValue>
+    <customValue>
+        <fullName>Autres</fullName>
+        <default>false</default>
+        <label>Autres</label>
+    </customValue>
+    <masterLabel>Secteur d&apos;activité</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

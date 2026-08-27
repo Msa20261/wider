@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Architecte_EG</fullName>
+    <active>true</active>
+    <description>renseigner le Compte Architecte/EG avant de sélectionner un Contact.</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK( Architecte_EG_Contact__c )),
+    ISBLANK( Architecte__c )
+)</errorConditionFormula>
+    <errorMessage>&quot;Veuillez renseigner le Compte Architecte/EG avant de sélectionner un Contact.&quot;</errorMessage>
+</ValidationRule>

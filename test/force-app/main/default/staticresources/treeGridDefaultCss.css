@@ -1,0 +1,6 @@
+lightning-primitive-icon{
+    display:none;
+}
+lightning-button lightning-primitive-icon{
+    display:block;
+} 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Meeting</fullName>
+        <default>false</default>
+        <label>Meeting</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tâche</fullName>
+        <default>false</default>
+        <label>Tâche</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tâche SAV</fullName>
+        <default>false</default>
+        <label>Tâche SAV</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Rédiger offre</fullName>
+        <default>false</default>
+        <label>Rédiger offre</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Mise à jour offre</fullName>
+        <default>false</default>
+        <label>Mise à jour offre</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Remplir soumission</fullName>
+        <default>false</default>
+        <label>Remplir soumission</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Marché Public</fullName>
+        <default>false</default>
+        <label>Marché Public</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Projet à suivre</fullName>
+        <default>false</default>
+        <label>Projet à suivre</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Offre interne</fullName>
+        <default>false</default>
+        <label>Offre interne</label>
+    </standardValue>
+</StandardValueSet>

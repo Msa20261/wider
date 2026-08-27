@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Provenance_projet__c</fullName>
+    <label>Provenance Projet</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>Téléphone</fullName>
+                <default>false</default>
+                <label>Téléphone</label>
+            </value>
+            <value>
+                <fullName>Rendez-vous</fullName>
+                <default>false</default>
+                <label>Rendez-vous</label>
+            </value>
+            <value>
+                <fullName>Plateforme web</fullName>
+                <default>false</default>
+                <label>Plateforme web</label>
+            </value>
+            <value>
+                <fullName>Autres</fullName>
+                <default>false</default>
+                <label>Autres</label>
+            </value>
+            <value>
+                <fullName>Partenaire</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Partenaire</label>
+            </value>
+            <value>
+                <fullName>Publicité</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Publicité</label>
+            </value>
+            <value>
+                <fullName>Recommandation d&apos;un employé</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Recommandation d&apos;un employé</label>
+            </value>
+            <value>
+                <fullName>Recommandation externe</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Recommandation externe</label>
+            </value>
+            <value>
+                <fullName>Site web</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Site web</label>
+            </value>
+            <value>
+                <fullName>Événement client</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Événement client</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

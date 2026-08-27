@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Soci_t_du_groupe__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Société du groupe</label>
+    <referenceTo>Soci_t_du_groupe__c</referenceTo>
+    <relationshipLabel>Probabilités par Étapes</relationshipLabel>
+    <relationshipName>Probabilit_s_par_tapes</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Unit__c</fullName>
+    <label>Business Unit</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Armoires</fullName>
+                <default>false</default>
+                <label>Armoires</label>
+            </value>
+            <value>
+                <fullName>Portes</fullName>
+                <default>false</default>
+                <label>Portes</label>
+            </value>
+            <value>
+                <fullName>Cuisines</fullName>
+                <default>false</default>
+                <label>Cuisines</label>
+            </value>
+            <value>
+                <fullName>Reno</fullName>
+                <default>false</default>
+                <label>Reno</label>
+            </value>
+            <value>
+                <fullName>Airkel</fullName>
+                <default>false</default>
+                <label>Airkel</label>
+            </value>
+            <value>
+                <fullName>Architecture</fullName>
+                <default>false</default>
+                <label>Architecture</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

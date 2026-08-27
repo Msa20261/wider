@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>62.0</apiVersion>
     <actionCalls>
         <name>Send_Email_Calculateur</name>
         <label>Envoyer Email Calculateur</label>
-        <locationX>314</locationX>
-        <locationY>755</locationY>
+        <locationX>50</locationX>
+        <locationY>839</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -30,13 +29,15 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
         <name>Send_Email_Calculateur_2</name>
         <label>Envoyer Email Calculateur 2</label>
-        <locationX>314</locationX>
-        <locationY>971</locationY>
+        <locationX>50</locationX>
+        <locationY>1139</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -61,12 +62,14 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
         <name>Send_Email_Responsable_Commercial</name>
         <label>Envoyer Email Responsable Commercial</label>
-        <locationX>314</locationX>
+        <locationX>50</locationX>
         <locationY>539</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
@@ -92,13 +95,25 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <constants>
+        <name>cLineBreak</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>
+</stringValue>
+        </value>
+    </constants>
     <decisions>
         <name>Decision_A_Calculateur</name>
         <label>A un Calculateur ?</label>
         <locationX>182</locationX>
-        <locationY>647</locationY>
+        <locationY>731</locationY>
         <defaultConnector>
             <targetReference>Decision_A_Calculateur_2</targetReference>
         </defaultConnector>
@@ -123,7 +138,7 @@
         <name>Decision_A_Calculateur_2</name>
         <label>A un Calculateur 2 ?</label>
         <locationX>182</locationX>
-        <locationY>863</locationY>
+        <locationY>1031</locationY>
         <defaultConnector>
             <targetReference>Create_Tache_Log</targetReference>
         </defaultConnector>
@@ -172,8 +187,8 @@
     <decisions>
         <name>Decision_Est_Transition_Attribution_Ouvert</name>
         <label>Est-ce la transition Attribution vers Ouvert ?</label>
-        <locationX>182</locationX>
-        <locationY>215</locationY>
+        <locationX>336</locationX>
+        <locationY>323</locationY>
         <defaultConnectorLabel>Non</defaultConnectorLabel>
         <rules>
             <name>Oui_Transition</name>
@@ -191,14 +206,6 @@
             <label>Oui</label>
         </rules>
     </decisions>
-    <constants>
-        <name>cLineBreak</name>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>
-</stringValue>
-        </value>
-    </constants>
     <environments>Default</environments>
     <formulas>
         <name>frmlCorpsEmail</name>
@@ -222,14 +229,14 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
 &quot;Ceci est un message automatique, merci de ne pas y repondre directement.&quot;</expression>
     </formulas>
     <formulas>
-        <name>frmlLienProjet</name>
-        <dataType>String</dataType>
-        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; &quot;lightning/r/Projet__c/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
-    </formulas>
-    <formulas>
         <name>frmlEstTransitionAttributionOuvert</name>
         <dataType>Boolean</dataType>
         <expression>AND(ISCHANGED({!$Record.Etape__c}), PRIORVALUE({!$Record.Etape__c}) = &quot;Attribution&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>frmlLienProjet</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; &quot;lightning/r/Projet__c/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
     </formulas>
     <formulas>
         <name>frmlObjetEmail</name>
@@ -244,22 +251,22 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
             <stringValue>LightningFlowBuilder</stringValue>
         </value>
     </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
         <name>Create_Tache_Log</name>
         <label>Creer tache de notification</label>
         <locationX>182</locationX>
-        <locationY>1079</locationY>
+        <locationY>1331</locationY>
         <inputAssignments>
-            <field>WhatId</field>
+            <field>ActivityDate</field>
             <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Subject</field>
-            <value>
-                <stringValue>Notification d&apos;attribution envoyee</stringValue>
+                <elementReference>$Flow.CurrentDate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -269,19 +276,26 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>ActivityDate</field>
+            <field>Subject</field>
             <value>
-                <elementReference>$Flow.CurrentDate</elementReference>
+                <stringValue>Notification d&apos;attribution envoyee</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputAssignments>
         <object>Task</object>
     </recordCreates>
     <start>
-        <locationX>50</locationX>
+        <locationX>210</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Decision_Est_Transition_Attribution_Ouvert</targetReference>
         </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Etape__c</field>

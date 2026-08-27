@@ -1,0 +1,57 @@
+<template>
+    <template lwc:if={projets}>
+        <template if:false={recordId}>
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning-combobox
+                        name="account"
+                        label="Compte"
+                        value={selectedAccount}
+                        placeholder="Sélectionner un compte"
+                        options={accounts}
+                        onchange={handleAccountSelection}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning-combobox
+                        name="etape"
+                        label="Étape"
+                        value={selectedEtape}
+                        placeholder="Sélectionner une étape"
+                        options={etapes}
+                        onchange={handleEtapeSelection}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning-combobox
+                        name="mandant"
+                        label="Mandant"
+                        value={selectedMandant}
+                        placeholder="Sélectionner un mandant"
+                        options={mandants}
+                        onchange={handleMandantSelection}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning-combobox
+                        name="date"
+                        label="Année de création"
+                        value={selectedDate}
+                        placeholder="Sélectionner une année"
+                        options={creationsDate}
+                        onchange={handleDateSelection}>
+                    </lightning-combobox>
+                </div>
+            </div>
+        </template>
+        <c-opportunity_map
+            record-id={recordId}
+            projets={projets}
+            selected-account={selectedAccount}
+            selected-category={selectedCategory}
+            selected-date={selectedDate}
+            selected-etape={selectedEtape}
+            selected-mandant={selectedMandant}
+        ></c-opportunity_map>
+    </template>
+</template>

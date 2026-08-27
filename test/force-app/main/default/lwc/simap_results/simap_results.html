@@ -1,0 +1,61 @@
+<template>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__body">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_10-of-12">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span class="slds-page-header__title slds-truncate" title="Interface SIMAP">Interface SIMAP</span>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <p class="slds-page-header__name-meta">Nombre de publications affichées : {publicationsLength}</p>
+                                <template if:true={currentKeyWord}>
+                                    <p class="slds-page-header__name-meta">Résultats pour le mot clé: {keyWord}</p>
+                                </template>
+                            </div>
+                            <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+                                <template if:true={displayFetchButton}>
+                                    <lightning-button onclick={handleSearch} label="Plus"></lightning-button>
+                                </template>
+                            </div>
+                        </div>
+                        <template if:true={publicationsFetched}>
+                            <lightning-combobox
+                                name="progress"
+                                label="Status"
+                                value={value}
+                                placeholder="Filtrer par statut"
+                                options={options}
+                                onchange={handleOptionChange}
+                                data-filter="actionStatus"
+                            ></lightning-combobox>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template if:true={publicationsFetched}>
+        <template for:each={publications} for:item="publication">
+            <c-publication-header-card
+                key={publication.publicationId}
+                publication={publication}
+            ></c-publication-header-card>
+        </template>
+    </template>
+    <template if:true={displayModal}>
+        <div 
+            tabindex="-1" 
+            class="modal-glass slds-backdrop slds-backdrop_open"
+        >
+            <c-publication-simap-detail
+                publication={publicationOnDisplay}
+            ></c-publication-simap-detail>
+        </div>
+    </template>
+</template>

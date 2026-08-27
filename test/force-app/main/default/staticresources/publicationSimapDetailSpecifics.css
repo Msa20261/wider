@@ -1,0 +1,8 @@
+
+.record-view-form lightning-timepicker {
+    display: none;
+}
+
+.record-view-form input:focus {
+    box-shadow: none;
+}

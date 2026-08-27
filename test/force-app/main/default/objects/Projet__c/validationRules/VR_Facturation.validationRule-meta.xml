@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Facturation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(  Facturation_Contact__c  )),
+    ISBLANK(  Compte_Facturation__c  )
+)</errorConditionFormula>
+    <errorMessage>Veuillez renseigner le champ &apos;Facturation-Compte&apos;</errorMessage>
+</ValidationRule>

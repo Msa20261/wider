@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut_compte__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    Compte_Actif__c = TRUE,
+    IMAGE(&quot;/resource/IconCompteActif&quot;, &quot;Compte Actif&quot;, 25, 25),
+    IMAGE(&quot;/resource/IconCompteInactif&quot;, &quot;Compte Inactif&quot;, 25, 25)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Statut compte</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

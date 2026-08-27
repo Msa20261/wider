@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>MSJ App</label>
+    <navType>Console</navType>
+    <tabs>standard-JourneyHome</tabs>
+    <tabs>standard-SalesforceJourney</tabs>
+    <tabs>standard-JourneyMap</tabs>
+    <tabs>Simap_Code_CPV__c</tabs>
+    <tabs>Publication_Simap_Detail__c</tabs>
+    <tabs>Simap_Adjudications_et_mises_a_jour__c</tabs>
+    <uiType>Lightning</uiType>
+    <workspaceConfig>
+        <mappings>
+            <tab>Publication_Simap_Detail__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Simap_Adjudications_et_mises_a_jour__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Simap_Code_CPV__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-JourneyHome</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-JourneyMap</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-SalesforceJourney</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

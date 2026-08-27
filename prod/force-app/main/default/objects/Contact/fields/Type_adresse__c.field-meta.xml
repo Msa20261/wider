@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_adresse__c</fullName>
+    <label>Type adresse</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Adresse professionnelle</fullName>
+                <default>false</default>
+                <label>Adresse professionnelle</label>
+            </value>
+            <value>
+                <fullName>Résidence principale</fullName>
+                <default>false</default>
+                <label>Résidence principale</label>
+            </value>
+            <value>
+                <fullName>Résidence secondaire</fullName>
+                <default>false</default>
+                <label>Résidence secondaire</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

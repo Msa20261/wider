@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Genre_contact__c</fullName>
+    <label>Genre contact</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pers.contact</fullName>
+                <default>false</default>
+                <label>Pers.contact</label>
+            </value>
+            <value>
+                <fullName>Architecte</fullName>
+                <default>false</default>
+                <label>Architecte</label>
+            </value>
+            <value>
+                <fullName>S-traitant</fullName>
+                <default>false</default>
+                <label>S-traitant</label>
+            </value>
+            <value>
+                <fullName>Collab.Groupe</fullName>
+                <default>false</default>
+                <label>Collab.Groupe</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

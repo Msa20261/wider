@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secteur_d_activite__c</fullName>
+    <label>Secteur d&apos;activité</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>fc.00 Dép. Horlogerie - Bijouterie</fullName>
+                <default>false</default>
+                <label>Dép. Horlogerie</label>
+            </value>
+            <value>
+                <fullName>fc.01 Dép. Agencement - Menuiserie</fullName>
+                <default>false</default>
+                <label>Dép. Agencement</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,11 @@
+.card-new {
+    background: white;
+}
+
+.card-visited {
+    background: rgb(206, 206, 206);
+}
+
+.card-converted {
+    background: rgb(255, 168, 149);
+}

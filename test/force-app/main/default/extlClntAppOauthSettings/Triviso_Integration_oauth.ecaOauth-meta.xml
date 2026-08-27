@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtlClntAppOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <commaSeparatedOauthScopes>Basic, Api, Full</commaSeparatedOauthScopes>
+    <externalClientApplication>Triviso_Integration</externalClientApplication>
+    <isFirstPartyAppEnabled>false</isFirstPartyAppEnabled>
+    <label>Triviso_Integration_oauth</label>
+    <oauthLink>00DbW000002VqkL:888bW000000RVsX</oauthLink>
+</ExtlClntAppOauthSettings>

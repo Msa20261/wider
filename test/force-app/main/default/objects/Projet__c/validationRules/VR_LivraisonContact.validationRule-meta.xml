@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_LivraisonContact</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(  Adresse_de_Livraison_2__c  )),
+    ISBLANK(  Adresse_de_Livraison__c  )
+)</errorConditionFormula>
+    <errorMessage>Veuillez renseigner le champ &apos;Adresse Livraison&apos;</errorMessage>
+</ValidationRule>

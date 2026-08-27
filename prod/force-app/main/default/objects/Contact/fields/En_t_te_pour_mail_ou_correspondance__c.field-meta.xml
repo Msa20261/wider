@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>En_t_te_pour_mail_ou_correspondance__c</fullName>
+    <label>En-tête pour mail ou correspondance</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Madame,</fullName>
+                <default>false</default>
+                <label>Madame,</label>
+            </value>
+            <value>
+                <fullName>Maître,</fullName>
+                <default>false</default>
+                <label>Maître,</label>
+            </value>
+            <value>
+                <fullName>Messieurs,</fullName>
+                <default>false</default>
+                <label>Messieurs,</label>
+            </value>
+            <value>
+                <fullName>Madame, Monsieur</fullName>
+                <default>false</default>
+                <label>Madame, Monsieur</label>
+            </value>
+            <value>
+                <fullName>Monsieur, Madame</fullName>
+                <default>false</default>
+                <label>Monsieur, Madame</label>
+            </value>
+            <value>
+                <fullName>Mesdames,</fullName>
+                <default>false</default>
+                <label>Mesdames,</label>
+            </value>
+            <value>
+                <fullName>Mesdames, Messieurs</fullName>
+                <default>false</default>
+                <label>Mesdames, Messieurs</label>
+            </value>
+            <value>
+                <fullName>Monsieur,</fullName>
+                <default>false</default>
+                <label>Monsieur,</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

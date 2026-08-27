@@ -1,0 +1,9 @@
+*::after, *::before{
+    color: rgba(167, 39, 31, 255) !important;
+    background-color: rgba(167, 39, 31, 255) !important;
+    background: rgba(167, 39, 31, 255) !important;
+}
+
+.wider_title {
+    color: #001846;
+}

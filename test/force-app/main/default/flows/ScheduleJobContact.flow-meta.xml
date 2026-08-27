@@ -626,6 +626,13 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Get_Contact_ParID</targetReference>
             </connector>
@@ -633,7 +640,7 @@
         </rules>
         <rules>
             <name>ParIDTriviso</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND ( ( 2 AND 4) OR ( 3 AND 5))</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
                 <operator>IsNull</operator>
@@ -651,6 +658,20 @@
             <conditions>
                 <leftValueReference>$Record.ADRES_ID__c</leftValueReference>
                 <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRESTriviso_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRES_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>

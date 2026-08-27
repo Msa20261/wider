@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nouvo_prospect</fullName>
+    <active>true</active>
+    <label>Nouvo projet</label>
+    <picklistValues>
+        <picklist>Business_Unit__c</picklist>
+        <values>
+            <fullName>Airkel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Architecture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armoires</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cuisines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reno</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Etape__c</picklist>
+        <values>
+            <fullName>Attribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chiffrage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En préparation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exécuté</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facturé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunité</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Ouvert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ouvert %28Offre envoyée%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pas exécuté</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminé</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Etat__c</picklist>
+        <values>
+            <fullName>Confirmé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En préparation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exécuté</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facturé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ouvert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pas exécuté</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminé</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Famille_commerciale__c</picklist>
+        <values>
+            <fullName>Interco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travaux internes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E54 Boutique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E55 Corner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E56 Shop in shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E57 Pop-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E58 Mobilier de série</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00%2E59 Stands d%27exposition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E04 Hôtellerie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E06 Santé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E07 Musées</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E08 Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E09 Immeuble</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E10 Privé</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E14 Administratif</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E16 Scolaire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E17 Airkel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01%2E18 Écrin%2FPLV</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Genre_Projet_SF__c</picklist>
+        <values>
+            <fullName>Projet PPE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projet classique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projet multiple</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Incoterm__c</picklist>
+        <values>
+            <fullName>CPT %28Carriage Paid To%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DAP %28Delivered At Place%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DDP %28Delivered Duty Paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPU %28Delivered Unloaded%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EXW %28Ex Works%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FCA %28Free Carrier%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Monnaie__c</picklist>
+        <values>
+            <fullName>CHF</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>EUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Probabilit__c</picklist>
+        <values>
+            <fullName>0%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>25%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>40%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>75%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>80%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>95%25</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Provenance_projet__c</picklist>
+        <values>
+            <fullName>Autres</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plateforme web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rendez-vous</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Téléphone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Raison_de_la_perte__c</picklist>
+        <values>
+            <fullName>Aucune décision %2F Non-réponse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pas de budget %2F Perte de financement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perdu contre un concurrent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prix</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Secteur_d_activite__c</picklist>
+        <values>
+            <fullName>Interne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E00 Dép%2E Horlogerie - Bijouterie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fc%2E01 Dép%2E Agencement - Menuiserie</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

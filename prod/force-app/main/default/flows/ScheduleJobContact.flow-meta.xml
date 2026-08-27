@@ -281,13 +281,6 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarNewContact.ADRES_ID_entete_TECH__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>CreateNewContact</targetReference>
         </connector>
@@ -500,13 +493,6 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VarExistingContact.ADRES_ID_entete_TECH__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>UpdateContact</targetReference>
         </connector>
@@ -626,6 +612,13 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Get_Contact_ParID</targetReference>
             </connector>
@@ -633,7 +626,7 @@
         </rules>
         <rules>
             <name>ParIDTriviso</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND ( ( 2 AND 4) OR ( 3 AND 5))</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.ID_Salesforce__c</leftValueReference>
                 <operator>IsNull</operator>
@@ -651,6 +644,20 @@
             <conditions>
                 <leftValueReference>$Record.ADRES_ID__c</leftValueReference>
                 <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRESTriviso_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ADRES_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
@@ -923,8 +930,8 @@
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-01-21</startDate>
-            <startTime>16:38:00.000Z</startTime>
+            <startDate>2026-01-18</startDate>
+            <startTime>11:11:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

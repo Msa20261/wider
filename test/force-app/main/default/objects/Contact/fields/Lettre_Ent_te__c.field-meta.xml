@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lettre_Ent_te__c</fullName>
+    <label>Lettre Entête</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mr</fullName>
+                <default>false</default>
+                <label>Mr</label>
+            </value>
+            <value>
+                <fullName>Ms</fullName>
+                <default>false</default>
+                <label>Ms</label>
+            </value>
+            <value>
+                <fullName>Prof</fullName>
+                <default>false</default>
+                <label>Prof</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

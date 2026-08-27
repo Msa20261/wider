@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>proxy_traiter</fullName>
+    <columns>NAME</columns>
+    <columns>Action__c</columns>
+    <columns>Erreurs__c</columns>
+    <columns>Statut__c</columns>
+    <columns>Id_Salesforce__c</columns>
+    <columns>Date_Traitement__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Id_Salesforce__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>proxy projet à traiter</label>
+</ListView>

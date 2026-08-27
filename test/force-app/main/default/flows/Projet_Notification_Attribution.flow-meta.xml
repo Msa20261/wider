@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>62.0</apiVersion>
     <actionCalls>
         <name>Send_Email_Calculateur</name>
         <label>Envoyer Email Calculateur</label>
@@ -30,6 +29,7 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -61,6 +61,7 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
@@ -92,8 +93,19 @@
                 <elementReference>frmlObjetEmail</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <constants>
+        <name>cLineBreak</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>
+</stringValue>
+        </value>
+    </constants>
     <decisions>
         <name>Decision_A_Calculateur</name>
         <label>A un Calculateur ?</label>
@@ -191,14 +203,6 @@
             <label>Oui</label>
         </rules>
     </decisions>
-    <constants>
-        <name>cLineBreak</name>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>
-</stringValue>
-        </value>
-    </constants>
     <environments>Default</environments>
     <formulas>
         <name>frmlCorpsEmail</name>
@@ -222,14 +226,14 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
 &quot;Ceci est un message automatique, merci de ne pas y repondre directement.&quot;</expression>
     </formulas>
     <formulas>
-        <name>frmlLienProjet</name>
-        <dataType>String</dataType>
-        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; &quot;lightning/r/Projet__c/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
-    </formulas>
-    <formulas>
         <name>frmlEstTransitionAttributionOuvert</name>
         <dataType>Boolean</dataType>
         <expression>AND(ISCHANGED({!$Record.Etape__c}), PRIORVALUE({!$Record.Etape__c}) = &quot;Attribution&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>frmlLienProjet</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; &quot;lightning/r/Projet__c/&quot; &amp; {!$Record.Id} &amp; &quot;/view&quot;</expression>
     </formulas>
     <formulas>
         <name>frmlObjetEmail</name>
@@ -251,15 +255,9 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
         <locationX>182</locationX>
         <locationY>1079</locationY>
         <inputAssignments>
-            <field>WhatId</field>
+            <field>ActivityDate</field>
             <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Subject</field>
-            <value>
-                <stringValue>Notification d&apos;attribution envoyee</stringValue>
+                <elementReference>$Flow.CurrentDate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -269,9 +267,15 @@ IF({!$Record.Montant_S_trait_int__c} &lt;&gt; 0, &quot;Montant S-trait int. : &q
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>ActivityDate</field>
+            <field>Subject</field>
             <value>
-                <elementReference>$Flow.CurrentDate</elementReference>
+                <stringValue>Notification d&apos;attribution envoyee</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputAssignments>
         <object>Task</object>
