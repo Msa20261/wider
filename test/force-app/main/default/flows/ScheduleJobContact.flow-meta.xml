@@ -33,6 +33,36 @@
         </connector>
     </assignments>
     <assignments>
+        <name>AssignReportContact</name>
+        <label>AssignReportContact</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Erreur</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Contact modifié à l&apos;instant par un autre enregistrement du même lot (collision de traitement concurrent). Sera retraité automatiquement au prochain lancement planifié.</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_ProxyContacts</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_ErrorUpdateUpdate</name>
         <label>Assign_ErrorUpdateUpdate</label>
         <locationX>0</locationX>
@@ -166,7 +196,7 @@
             <assignToReference>VarNewContact.Adresse_Contact__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
+                <elementReference>FrmlPaysValide</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -364,7 +394,7 @@
             <assignToReference>VarExistingContact.Adresse_Contact__CountryCode__s</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Record.ADRES_PAYS_Identification__c</elementReference>
+                <elementReference>FrmlPaysValide</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -435,6 +465,218 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>GetExistingCompte.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Supplement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Supplement__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Case_postale__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Case_postale__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.HomePhone</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Natel1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.MobilePhone</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Natel1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Mobile_2__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Natel2__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRESTriviso_ID__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.SiteWeb__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Site_Web__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.En_t_te_pour_mail_ou_correspondance__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_lettre_entete__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID_entete_c__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlMapEntete</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.ADRES_ID_entete_TECH__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>UpdateContact</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>MappingFieldsUpdate_SansReparent</name>
+        <label>MappingFieldsUpdate SansReparent</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varContactIdTrouve</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Salutation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_entete__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Prenom__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Nom__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Email</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Email__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Email_2__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Email2__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Telephone_1__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Telephone1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Telephone_3__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Telephone3__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Telephone_2__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Telephone2__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Adresse_Contact__CountryCode__s</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FrmlPaysValide</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Adresse_Contact__City__s</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Lieu__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Adresse_Contact__Street__s</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Rue__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Adresse_Contact__PostalCode__s</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_NPL__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Type_adresse__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Adresse professionnelle</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Title</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Titre__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Department</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Departement__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Identification__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Identification__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Langue__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_Langue__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.Genre_contact__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Pers.contact</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -602,9 +844,59 @@
                 <operator>NotEqualTo</operator>
             </conditions>
             <connector>
-                <targetReference>MappingFieldsUpdate</targetReference>
+                <targetReference>Get_Contact_Fraicheur</targetReference>
             </connector>
             <label>Yes Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Recemment_Modifie</name>
+        <label>Contact Récemment Modifié</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>A_Plusieurs_Comptes</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pas de collision</defaultConnectorLabel>
+        <rules>
+            <name>Collision_Probable</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FrmlContactRecentModifie</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AssignReportContact</targetReference>
+            </connector>
+            <label>Collision Probable</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>A_Plusieurs_Comptes</name>
+        <label>A Plusieurs Comptes</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>MappingFieldsUpdate</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Compte unique</defaultConnectorLabel>
+        <rules>
+            <name>Compte_Deja_Partage</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_AutresRelationsCompte.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MappingFieldsUpdate_SansReparent</targetReference>
+            </connector>
+            <label>Compte Déjà Partagé</label>
         </rules>
     </decisions>
     <decisions>
@@ -687,6 +979,27 @@
         <name>Fl_FaultMessage</name>
         <dataType>String</dataType>
         <expression>LEFT($Flow.FaultMessage, 3000)</expression>
+    </formulas>
+    <formulas>
+        <name>FrmlContactRecentModifie</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+    ISBLANK({!Get_Contact_Fraicheur.LastModifiedDate}),
+    false,
+    (({!$Flow.CurrentDateTime} - {!Get_Contact_Fraicheur.LastModifiedDate}) * 86400) &lt; 30
+)</expression>
+    </formulas>
+    <formulas>
+        <name>FrmlPaysValide</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    OR(
+        ISBLANK({!$Record.ADRES_PAYS_Identification__c}),
+        {!$Record.ADRES_PAYS_Identification__c} = &quot;PR&quot;
+    ),
+    &quot;&quot;,
+    {!$Record.ADRES_PAYS_Identification__c}
+)</expression>
     </formulas>
     <formulas>
         <name>FrmlMapEntete</name>
@@ -849,7 +1162,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>CheckContactExist</targetReference>
+            <targetReference>Get_AutresRelationsCompte</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -861,6 +1174,55 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Contact_Fraicheur</name>
+        <label>Get Contact Fraicheur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Contact_Recemment_Modifie</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varContactIdTrouve</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_AutresRelationsCompte</name>
+        <label>Get Autres Relations Compte</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CheckContactExist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varContactIdTrouve</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AccountId</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>GetExistingCompte.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountContactRelation</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
