@@ -846,48 +846,20 @@
         <enabled>true</enabled>
         <name>ViewUserPII</name>
     </userPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>Attribution_Travaux__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+
     <fieldPermissions>
         <editable>true</editable>
-        <field>Attribution_Travaux__c.Sous_traitant__c</field>
+        <field>Publication_Simap__c.Contact_bureau_d_achat__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Attribution_Travaux__c.Sous_traitant_2__c</field>
+        <field>Publication_Simap__c.Contact_service_demandeur__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Attribution_Travaux__c.Sous_traitant_3__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Attribution_Travaux__c.Sous_traitant_4__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Attribution_Travaux__c.Travaux_CFC__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Attribution_Travaux__c.Montant_S_trait_ext__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Attribution_Travaux__c.Montant_S_trait_int__c</field>
+        <field>Publication_Simap__c.Nom_service_demandeur__c</field>
         <readable>true</readable>
     </fieldPermissions>
 </Profile>

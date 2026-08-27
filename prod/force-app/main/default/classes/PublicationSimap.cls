@@ -16,6 +16,7 @@ public class PublicationSimap {
         publicationSimap.Id_publication_page__c = rawPubData.id;
         publicationSimap.Lien_PDF__c = SIMAP_BASE_DETAIL_URL + rawPubData.id + SIMAP_PDF_SUFFIX;
         publicationSimap.Titre_de_publication__c = SimapUtils.getValidPublicationTitle(rawPubData);
+        publicationSimap.Lieu_d_execution__c = SimapUtils.orderAddressConverter(rawPubData.orderAddress);
         publicationSimap.Name = PUBLICATION_PREFIX + rawPubData.publicationNumber;
         if (rawPubData.publicationDate != null) {
             publicationSimap.Date_de_publication__c = Date.valueOf(rawPubData.publicationDate);
@@ -79,20 +80,10 @@ public class PublicationSimap {
             
             publication.Telephone_bureau_d_achat__c = projectInfo.procOfficeAddress?.phone;
             publication.Email_bureau_d_achat__c = projectInfo.procOfficeAddress?.email;
-            publication.Contact_bureau_d_achat__c = SimapUtils.getValidField(projectInfo.procOfficeAddress?.contactPerson);
 
             publication.Adresse_contact__c = SimapUtils.addressConverter(projectInfo.procurementRecipientAddress);
-            // This address is used in the Projet transformation flow in order to allow
-            // the Projet trigger to fetch geographical coords
-            publication.Adresse_contact_formatee__City__s = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.city);
-            publication.Adresse_contact_formatee__PostalCode__s = projectInfo.procurementRecipientAddress?.postalCode;
-            publication.Adresse_contact_formatee__Street__s = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.street);
-            publication.Adresse_contact_formatee__CountryCode__s = projectInfo.procurementRecipientAddress?.countryId;
-
             publication.Telephone_contact__c = projectInfo.procurementRecipientAddress?.phone;
             publication.Email_contact__c = projectInfo.procurementRecipientAddress?.email;
-            publication.Nom_service_demandeur__c = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.name);
-            publication.Contact_service_demandeur__c = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.contactPerson);
             
             publication.Adresse_de_l_offre__c = SimapUtils.addressConverter(projectInfo.offerAddress);
             publication.Reference_de_l_offre__c = projectInfo.offerAddress?.reference;
@@ -141,10 +132,11 @@ public class PublicationSimap {
     public static Publication_Simap__c getPublicationById(Id publicationSimapId) {
         return [
             SELECT
-                Id, 
+                Id,
                 Id_publication_detail__c,
                 Id_publication_page__c,
-                offre_canton__c
+                offre_canton__c,
+                Lieu_d_execution__c
             FROM
                 Publication_Simap__c
             WHERE
