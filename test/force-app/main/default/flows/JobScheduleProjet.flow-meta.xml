@@ -109,7 +109,7 @@
             <assignToReference>VarCompteArchitecteId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetLivraisonContact.AccountId</elementReference>
+                <elementReference>GetArchitecteContact.AccountId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1007,7 +1007,7 @@
             <name>Yes_Is_contact</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Compte_Architecte_Is_Contact.Id</leftValueReference>
+                <leftValueReference>Get_Compte_Architecte_Is_Contact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1182,7 +1182,7 @@
             <name>Yes_Contact_Livraison_Trouv</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GetLivraisonContact.Id</leftValueReference>
+                <leftValueReference>GetLivraisonContact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1282,7 +1282,7 @@
             <name>Yes_MO_Contact_Exist</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>GetMaitreOuvrageContact.Id</leftValueReference>
+                <leftValueReference>GetMaitreOuvrageContact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1529,7 +1529,7 @@
             <name>Yes_Is_Contact_Facturation</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Compte_Facturation_Is_Contact.Id</leftValueReference>
+                <leftValueReference>Get_Compte_Facturation_Is_Contact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1554,7 +1554,7 @@
             <name>Yes_Is_Contact_Livraison</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Compte_Livraison_Is_Contact.Id</leftValueReference>
+                <leftValueReference>Get_Compte_Livraison_Is_Contact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1579,7 +1579,7 @@
             <name>Yes_MO_is_Contact</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_MO_Is_Contact.Id</leftValueReference>
+                <leftValueReference>Get_MO_Is_Contact.AccountId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
