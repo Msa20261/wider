@@ -80,11 +80,14 @@ public class PublicationSimap {
             
             publication.Telephone_bureau_d_achat__c = projectInfo.procOfficeAddress?.phone;
             publication.Email_bureau_d_achat__c = projectInfo.procOfficeAddress?.email;
+            publication.Contact_bureau_d_achat__c = SimapUtils.getValidField(projectInfo.procOfficeAddress?.contactPerson);
 
             publication.Adresse_contact__c = SimapUtils.addressConverter(projectInfo.procurementRecipientAddress);
             publication.Telephone_contact__c = projectInfo.procurementRecipientAddress?.phone;
             publication.Email_contact__c = projectInfo.procurementRecipientAddress?.email;
-            
+            publication.Nom_service_demandeur__c = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.name);
+            publication.Contact_service_demandeur__c = SimapUtils.getValidField(projectInfo.procurementRecipientAddress?.contactPerson);
+
             publication.Adresse_de_l_offre__c = SimapUtils.addressConverter(projectInfo.offerAddress);
             publication.Reference_de_l_offre__c = projectInfo.offerAddress?.reference;
             publication.Info_generale__c = SimapUtils.getValidField(projectInfo.offerSpecificNote).stripHtmlTags();
