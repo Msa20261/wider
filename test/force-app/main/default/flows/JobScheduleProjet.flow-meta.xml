@@ -386,7 +386,37 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Check_projet_Existe</targetReference>
+            <targetReference>Check_Commande_Interne</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>SkipCommandeInterne</name>
+        <label>Skip Commande Interne</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Succès</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Action__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ignoré (Commandé interne)</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>ProxyUpdate</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -469,6 +499,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>VarEtapeSalesforce</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewProjet.Actif__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fmlProjetActif</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -718,6 +755,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>VarEtapeSalesforce</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarProjetExis.Actif__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fmlProjetActif</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1395,6 +1439,31 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Check_Commande_Interne</name>
+        <label>Check Commande Interne</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Check_projet_Existe</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Traiter normalement</defaultConnectorLabel>
+        <rules>
+            <name>EstCommandeInterne</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fmlIsCommandeInterne</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SkipCommandeInterne</targetReference>
+            </connector>
+            <label>Commande interne</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Check_projet_Existe</name>
         <label>Check projet Existe</label>
         <locationX>0</locationX>
@@ -1619,14 +1688,23 @@
     &quot;02 9D681A4E 1A51&quot;, &quot;Ancien offert&quot;,
     &quot;505050 9D681A4E 1A7B 5.04&quot;, &quot;Commandé interne&quot;,
     &quot;505050 9D681A4E 1A7C 5.04&quot;, &quot;Confirmé&quot;,
-    &quot;05 9D681A4E 1A54&quot;, &quot;En production&quot;,
+    &quot;05 9D681A4E 1A54&quot;, &quot;Confirmé&quot;,
     &quot;04 9D681A4E 1A53&quot;, &quot;Exécuté&quot;,
     &quot;555555 9D681A4E 1A59 2.5&quot;, &quot;Facturé&quot;,
     &quot;505050 9D681A4E 1A81 5.04&quot;, &quot;Terminé&quot;,
-    &quot;443805 9D681A4E 1BC6 12.01&quot;, &quot;A effacer !!&quot;,
     &quot;En attente&quot;
   )
 )</expression>
+    </formulas>
+    <formulas>
+        <name>fmlIsCommandeInterne</name>
+        <dataType>Boolean</dataType>
+        <expression>TRIM({!$Record.ID_Etape_Projet__c}) = &quot;505050 9D681A4E 1A7B 5.04&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>fmlProjetActif</name>
+        <dataType>Boolean</dataType>
+        <expression>TRIM({!$Record.ID_Etape_Projet__c}) &lt;&gt; &quot;443805 9D681A4E 1BC6 12.01&quot;</expression>
     </formulas>
     <interviewLabel>JobScheduleProjet {!$Flow.CurrentDateTime}</interviewLabel>
     <label>JobScheduleProjet</label>

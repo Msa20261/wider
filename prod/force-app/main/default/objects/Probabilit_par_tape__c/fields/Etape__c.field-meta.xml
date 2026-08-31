@@ -20,11 +20,6 @@
                 <label>Attribution</label>
             </value>
             <value>
-                <fullName>Chiffrage</fullName>
-                <default>false</default>
-                <label>Chiffrage</label>
-            </value>
-            <value>
                 <fullName>Ouvert (Offre envoyée)</fullName>
                 <default>false</default>
                 <label>Ouvert (Offre envoyée)</label>

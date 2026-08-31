@@ -56,11 +56,6 @@
                 <label>Facturé</label>
             </value>
             <value>
-                <fullName>En production</fullName>
-                <default>false</default>
-                <label>En production</label>
-            </value>
-            <value>
                 <fullName>Terminé</fullName>
                 <default>false</default>
                 <label>Terminé</label>
