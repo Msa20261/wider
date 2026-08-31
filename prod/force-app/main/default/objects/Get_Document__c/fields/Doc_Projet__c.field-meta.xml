@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Doc_Projet__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
     <label>Doc Projet</label>
     <referenceTo>Projet__c</referenceTo>
     <relationshipLabel>Get Documents</relationshipLabel>
     <relationshipName>Get_Documents</relationshipName>
-    <reparentableMasterDetail>false</reparentableMasterDetail>
-    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>MasterDetail</type>
+    <type>Lookup</type>
 </CustomField>
