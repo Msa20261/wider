@@ -386,12 +386,12 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Check_Commande_Interne</targetReference>
+            <targetReference>Check_Etat_A_Ignorer</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>SkipCommandeInterne</name>
-        <label>Skip Commande Interne</label>
+        <name>SkipEtatIgnore</name>
+        <label>Skip Etat Ignore</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
@@ -405,7 +405,7 @@
             <assignToReference>$Record.Action__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Ignoré (Commandé interne)</stringValue>
+                <stringValue>Ignoré (état Triviso non traité ou vide)</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1439,17 +1439,17 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Check_Commande_Interne</name>
-        <label>Check Commande Interne</label>
+        <name>Check_Etat_A_Ignorer</name>
+        <label>Check Etat A Ignorer</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
             <targetReference>Check_projet_Existe</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Traiter normalement</defaultConnectorLabel>
+        <defaultConnectorLabel>Etat reconnu</defaultConnectorLabel>
         <rules>
-            <name>EstCommandeInterne</name>
-            <conditionLogic>and</conditionLogic>
+            <name>EtatAIgnorer</name>
+            <conditionLogic>1 OR 2</conditionLogic>
             <conditions>
                 <leftValueReference>fmlIsCommandeInterne</leftValueReference>
                 <operator>EqualTo</operator>
@@ -1457,10 +1457,17 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>VarEtapeSalesforce</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>En attente</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>SkipCommandeInterne</targetReference>
+                <targetReference>SkipEtatIgnore</targetReference>
             </connector>
-            <label>Commande interne</label>
+            <label>Commande interne, vide ou code inconnu</label>
         </rules>
     </decisions>
     <decisions>
