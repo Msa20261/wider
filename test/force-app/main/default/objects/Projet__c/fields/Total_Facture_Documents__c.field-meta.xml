@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Facture_Documents__c</fullName>
+    <label>Total Facturé (Documents)</label>
+    <type>Summary</type>
+    <summarizedField>Get_Document__c.Montant_document_Num__c</summarizedField>
+    <summaryForeignKey>Get_Document__c.Doc_Projet__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <summaryFilterItems>
+        <field>Get_Document__c.DOC_Etat_Facture__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Get_Document__c.Doc_Brouillon__c</field>
+        <operation>notEqual</operation>
+        <value>Brouillon</value>
+    </summaryFilterItems>
+</CustomField>

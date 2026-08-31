@@ -38,6 +38,9 @@ public class ProxyDocumentMapper {
         document.DOC_Condition_paiement__c = csvRecord.DOC_Condition_paiement;
         document.DOC_Etat_doc__c = csvRecord.DOC_Etat_doc;
         document.DOC_Etat_Pond__c = parseDecimal(csvRecord.DOC_Etat_Pond);
+        document.DOC_Etat_Offert__c = csvRecord.DOC_Etat_Offert;
+        document.DOC_Etat_Commande__c = csvRecord.DOC_Etat_Commande;
+        document.DOC_Etat_Facture__c = csvRecord.DOC_Etat_Facture;
         document.DOC_DEB_Montant__c = parseDecimal(csvRecord.DOC_DEB_Montant);
         document.DOC_DEB_Monnaie__c = csvRecord.DOC_DEB_Monnaie;
         document.DOC_DEB_Solde_a_paye_CHF__c = parseDecimal(csvRecord.DOC_DEB_Solde_a_paye_CHF);
@@ -48,7 +51,9 @@ public class ProxyDocumentMapper {
             document.DOC_DEB_Echeance_adapte__c = parsedDate;
         }
         
-        // document.DOC_ADR_DEST_ID__c = parseDecimal(csvRecord.DOC_ADR_DEST_ID);
+        // L'ID adresse Triviso arrive paddé de zéros ("0000014278") et doit le rester :
+        // c'est la forme stockée dans ADRES_ID__c. Aucune conversion numérique ici.
+        document.DOC_ADR_DEST_ID__c = csvRecord.DOC_ADR_DEST_ID;
         document.DOC_ADR_DEST_Nom_Prenom__c = csvRecord.DOC_ADR_DEST_Nom_Prenom;
         
         return document;

@@ -64,6 +64,9 @@ global class TrivisoDocumentExport {
         global String DOC_Condition_paiement;
         global String DOC_Etat_doc;
         global String DOC_Etat_Pond;
+        global String DOC_Etat_Offert;
+        global String DOC_Etat_Commande;
+        global String DOC_Etat_Facture;
         global String DOC_DEB_Montant;
         global String DOC_DEB_Monnaie;
         global String DOC_DEB_Solde_a_paye_CHF;

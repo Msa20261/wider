@@ -141,6 +141,27 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>GetDocumentExistant.DOC_Etat_Offert__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Offert__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.DOC_Etat_Commande__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Commande__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.DOC_Etat_Facture__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Facture__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>GetDocumentExistant.Paiement_client_recevoir__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -158,7 +179,7 @@
             <assignToReference>GetDocumentExistant.Adresse_Compte__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetCompte.Id</elementReference>
+                <elementReference>Flm_CompteId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -304,6 +325,27 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>VarNewDoc.DOC_Etat_Offert__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Offert__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.DOC_Etat_Commande__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Commande__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.DOC_Etat_Facture__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Etat_Facture__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>VarNewDoc.Paiement_client_recevoir__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -321,7 +363,7 @@
             <assignToReference>VarNewDoc.Adresse_Compte__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetCompte.Id</elementReference>
+                <elementReference>Flm_CompteId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -348,7 +390,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>$Record.Date_traitement__c</assignToReference>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Flow.CurrentDateTime</elementReference>
@@ -402,6 +444,117 @@
             <targetReference>UpdateFromCreateDoc</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Assign_Erreur</name>
+        <label>Assign Erreur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Erreur</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_ProxyEnErreur</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Compte_Trouve_Exact</name>
+        <label>Compte Trouvé (Exact) ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetCompte_SansZero</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>TrouveExact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetCompte_Exact.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>GetProjet</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Compte_Trouve_SansZero</name>
+        <label>Compte Trouvé (Sans Zéro) ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetAdresseProxy</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>TrouveSansZero</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetCompte_SansZero.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>GetProjet</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Proxy_Trouve_AvecCompte</name>
+        <label>Proxy Address Trouvé Avec Compte Lié ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetProjet</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>TrouveViaProxy</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetAdresseProxy.ID_Salesforce__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>GetCompte_ViaProxy</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Projet_Trouve</name>
+        <label>Projet Trouvé ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Document_Exist</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Oui</defaultConnectorLabel>
+        <rules>
+            <name>NonTrouve</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetProjet.Id</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Erreur</targetReference>
+            </connector>
+            <label>Non</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Document_Exist</name>
         <label>Document Exist ?</label>
@@ -425,6 +578,24 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>Flm_TextAdress_SansZero</name>
+        <dataType>String</dataType>
+        <expression>IF(
+ AND(NOT(ISBLANK({!$Record.TextAdress__c})), REGEX({!$Record.TextAdress__c}, &quot;[0-9]+&quot;)),
+ TEXT(VALUE({!$Record.TextAdress__c})),
+ {!$Record.TextAdress__c}
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Flm_CompteId</name>
+        <dataType>String</dataType>
+        <expression>IF(
+ NOT(ISBLANK({!GetCompte_Exact.Id})), {!GetCompte_Exact.Id},
+ IF(NOT(ISBLANK({!GetCompte_SansZero.Id})), {!GetCompte_SansZero.Id},
+ {!GetCompte_ViaProxy.Id})
+)</expression>
+    </formulas>
     <formulas>
         <name>Flm_Brouillon</name>
         <dataType>String</dataType>
@@ -472,16 +643,19 @@
         <connector>
             <targetReference>PrepareProxyFromCreate</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Assign_Erreur</targetReference>
+        </faultConnector>
         <inputReference>VarNewDoc</inputReference>
     </recordCreates>
     <recordLookups>
-        <name>GetCompte</name>
-        <label>GetCompte</label>
+        <name>GetCompte_Exact</name>
+        <label>GetCompte Exact</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetProjet</targetReference>
+            <targetReference>Compte_Trouve_Exact</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -496,13 +670,83 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>GetCompte_SansZero</name>
+        <label>GetCompte Sans Zéro</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Compte_Trouve_SansZero</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Identification__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Flm_TextAdress_SansZero</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetAdresseProxy</name>
+        <label>GetAdresseProxy</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Proxy_Trouve_AvecCompte</targetReference>
+        </connector>
+        <filterLogic>1 OR 2</filterLogic>
+        <filters>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.TextAdress__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Flm_TextAdress_SansZero</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Proxy_Address__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetCompte_ViaProxy</name>
+        <label>GetCompte Via Proxy</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetProjet</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetAdresseProxy.ID_Salesforce__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>GetDocumentExistant</name>
         <label>GetDocumentExistant</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetCompte</targetReference>
+            <targetReference>GetCompte_Exact</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -523,7 +767,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Document_Exist</targetReference>
+            <targetReference>Projet_Trouve</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -545,7 +789,17 @@
         <connector>
             <targetReference>PrepareProxyForUpdate</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Assign_Erreur</targetReference>
+        </faultConnector>
         <inputReference>GetDocumentExistant</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_ProxyEnErreur</name>
+        <label>Update Proxy En Erreur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>$Record</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateFromCreateDoc</name>
@@ -588,11 +842,11 @@
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-01-18</startDate>
-            <startTime>10:06:00.000Z</startTime>
+            <startTime>16:30:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>VarNewDoc</name>
         <dataType>SObject</dataType>
