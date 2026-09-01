@@ -212,6 +212,48 @@
                 <elementReference>Flm_CompteId</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Montant_TTC__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Montant_TTC__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Paye_TTC__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Paye_TTC__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Devise_DEB__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Monnaie__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Montant_DEB__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Montant__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Solde_a_payer_ME__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Solde_a_paye_ME__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>GetDocumentExistant.Nom_Destinataire__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_ADR_DEST_Nom_Prenom__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>UpdateExistingDocument</targetReference>
         </connector>
@@ -394,6 +436,48 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Flm_CompteId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Montant_TTC__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Montant_TTC__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Paye_TTC__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_Paye_TTC__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Devise_DEB__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Monnaie__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Montant_DEB__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Montant__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Solde_a_payer_ME__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_DEB_Solde_a_paye_ME__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewDoc.Nom_Destinataire__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.DOC_ADR_DEST_Nom_Prenom__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
