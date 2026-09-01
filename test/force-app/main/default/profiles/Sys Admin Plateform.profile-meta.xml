@@ -3918,6 +3918,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Proxy_Document__c.Erreurs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Proxy_Document__c.ID_Journal_commande__c</field>
         <readable>false</readable>

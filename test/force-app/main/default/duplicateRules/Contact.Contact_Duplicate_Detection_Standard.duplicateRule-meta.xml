@@ -10,7 +10,7 @@
         <matchingRule>Contact_Matching_Email_Telephone_Langue_Compte</matchingRule>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <masterLabel>Contact_Duplicate_Detection_Standard</masterLabel>
     <operationsOnUpdate>Alert</operationsOnUpdate>
     <operationsOnUpdate>Report</operationsOnUpdate>

@@ -33,36 +33,6 @@
         </connector>
     </assignments>
     <assignments>
-        <name>AssignReportContact</name>
-        <label>AssignReportContact</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Erreur</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Erreurs__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Contact modifié à l&apos;instant par un autre enregistrement du même lot (collision de traitement concurrent). Sera retraité automatiquement au prochain lancement planifié.</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Date_Traitement__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_ProxyContacts</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Assign_ErrorUpdateUpdate</name>
         <label>Assign_ErrorUpdateUpdate</label>
         <locationX>0</locationX>
@@ -89,6 +59,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Update_ProxyContacts</targetReference>
         </connector>
     </assignments>
@@ -125,6 +96,36 @@
         </connector>
     </assignments>
     <assignments>
+        <name>AssignReportContact</name>
+        <label>AssignReportContact</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Erreur</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Contact modifié à l&apos;instant par un autre enregistrement du même lot (collision de traitement concurrent). Sera retraité automatiquement au prochain lancement planifié.</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_ProxyContacts</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>MappingCreate</name>
         <label>MappingCreate</label>
         <locationX>0</locationX>
@@ -140,7 +141,7 @@
             <assignToReference>VarNewContact.AccountId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetExistingCompte.Id</elementReference>
+                <elementReference>Fl_CompteIdSecurise</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -311,6 +312,13 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarNewContact.null__NotFound</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>CreateNewContact</targetReference>
         </connector>
@@ -457,7 +465,7 @@
             <assignToReference>VarExistingContact.AccountId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetExistingCompte.Id</elementReference>
+                <elementReference>Fl_CompteIdSecurise</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -521,6 +529,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>FrmlMapEntete</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.null__NotFound</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -728,6 +743,13 @@
                 <elementReference>FrmlMapEntete</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VarExistingContact.null__NotFound</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ADRES_ID_entete__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>UpdateContact</targetReference>
         </connector>
@@ -807,6 +829,31 @@
         </connector>
     </assignments>
     <decisions>
+        <name>A_Plusieurs_Comptes</name>
+        <label>A Plusieurs Comptes</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>MappingFieldsUpdate</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Compte unique</defaultConnectorLabel>
+        <rules>
+            <name>Compte_Deja_Partage</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_AutresRelationsCompte.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MappingFieldsUpdate_SansReparent</targetReference>
+            </connector>
+            <label>Compte Déjà Partagé</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>CheckContactExist</name>
         <label>CheckContactExist</label>
         <locationX>0</locationX>
@@ -851,31 +898,6 @@
                 <targetReference>AssignReportContact</targetReference>
             </connector>
             <label>Collision Probable</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>A_Plusieurs_Comptes</name>
-        <label>A Plusieurs Comptes</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>MappingFieldsUpdate</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Compte unique</defaultConnectorLabel>
-        <rules>
-            <name>Compte_Deja_Partage</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_AutresRelationsCompte.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>MappingFieldsUpdate_SansReparent</targetReference>
-            </connector>
-            <label>Compte Déjà Partagé</label>
         </rules>
     </decisions>
     <decisions>
@@ -955,6 +977,11 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>Fl_CompteIdSecurise</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!$Record.ADRES_Organisation_Identif__c}), &quot;&quot;, {!GetExistingCompte.Id})</expression>
+    </formulas>
+    <formulas>
         <name>Fl_FaultMessage</name>
         <dataType>String</dataType>
         <expression>LEFT($Flow.FaultMessage, 3000)</expression>
@@ -966,18 +993,6 @@
     ISBLANK({!Get_Contact_Fraicheur.LastModifiedDate}),
     false,
     (({!$Flow.CurrentDateTime} - {!Get_Contact_Fraicheur.LastModifiedDate}) * 86400) &lt; 30
-)</expression>
-    </formulas>
-    <formulas>
-        <name>FrmlPaysValide</name>
-        <dataType>String</dataType>
-        <expression>IF(
-    OR(
-        ISBLANK({!$Record.ADRES_PAYS_Identification__c}),
-        {!$Record.ADRES_PAYS_Identification__c} = &quot;PR&quot;
-    ),
-    &quot;&quot;,
-    {!$Record.ADRES_PAYS_Identification__c}
 )</expression>
     </formulas>
     <formulas>
@@ -1051,6 +1066,18 @@
 &quot;adsup&quot;,&quot;Adresse supplémentaire&quot;,
 {!$Record.ADRES_ID_entete__c})</expression>
     </formulas>
+    <formulas>
+        <name>FrmlPaysValide</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    OR(
+        ISBLANK({!$Record.ADRES_PAYS_Identification__c}),
+        {!$Record.ADRES_PAYS_Identification__c} = &quot;PR&quot;
+    ),
+    &quot;&quot;,
+    {!$Record.ADRES_PAYS_Identification__c}
+)</expression>
+    </formulas>
     <interviewLabel>ScheduleJobContact {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ScheduleJobContact</label>
     <processMetadataValues>
@@ -1085,6 +1112,55 @@
         </faultConnector>
         <inputReference>VarNewContact</inputReference>
     </recordCreates>
+    <recordLookups>
+        <name>Get_AutresRelationsCompte</name>
+        <label>Get Autres Relations Compte</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CheckContactExist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varContactIdTrouve</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AccountId</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>GetExistingCompte.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountContactRelation</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Contact_Fraicheur</name>
+        <label>Get Contact Fraicheur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Contact_Recemment_Modifie</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varContactIdTrouve</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Get_Contact_ParID</name>
         <label>Get Contact ParID</label>
@@ -1153,55 +1229,6 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Contact_Fraicheur</name>
-        <label>Get Contact Fraicheur</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Contact_Recemment_Modifie</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varContactIdTrouve</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_AutresRelationsCompte</name>
-        <label>Get Autres Relations Compte</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>CheckContactExist</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>ContactId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varContactIdTrouve</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>AccountId</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <elementReference>GetExistingCompte.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>AccountContactRelation</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
@@ -1286,11 +1313,11 @@
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-01-18</startDate>
-            <startTime>11:11:00.000Z</startTime>
+            <startTime>02:45:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
-    <status>Active</status>
+    <status>InvalidDraft</status>
     <variables>
         <name>ColContactsToCreate</name>
         <dataType>SObject</dataType>

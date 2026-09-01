@@ -10,7 +10,7 @@
         <matchingRule>RuleProjetV3</matchingRule>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <masterLabel>DupliProjetV3</masterLabel>
     <securityOption>EnforceSharingRules</securityOption>
     <sortOrder>3</sortOrder>

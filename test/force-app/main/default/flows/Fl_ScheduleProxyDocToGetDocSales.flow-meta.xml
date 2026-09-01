@@ -3,6 +3,36 @@
     <apiVersion>66.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
+        <name>Assign_Erreur</name>
+        <label>Assign Erreur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Erreur</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Date_Traitement__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Fl_ErreurDoc</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_ProxyEnErreur</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Prepare_Get_Document_To_Update</name>
         <label>Prepare Get Document To Update</label>
         <locationX>0</locationX>
@@ -444,29 +474,6 @@
             <targetReference>UpdateFromCreateDoc</targetReference>
         </connector>
     </assignments>
-    <assignments>
-        <name>Assign_Erreur</name>
-        <label>Assign Erreur</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Erreur</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Date_Traitement__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_ProxyEnErreur</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <name>Compte_Trouve_Exact</name>
         <label>Compte Trouvé (Exact) ?</label>
@@ -482,6 +489,13 @@
             <conditions>
                 <leftValueReference>GetCompte_Exact.Id</leftValueReference>
                 <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>GetProjet</targetReference>
@@ -505,54 +519,17 @@
                 <leftValueReference>GetCompte_SansZero.Id</leftValueReference>
                 <operator>NotEqualTo</operator>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>GetProjet</targetReference>
             </connector>
             <label>Oui</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Proxy_Trouve_AvecCompte</name>
-        <label>Proxy Address Trouvé Avec Compte Lié ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>GetProjet</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Non</defaultConnectorLabel>
-        <rules>
-            <name>TrouveViaProxy</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GetAdresseProxy.ID_Salesforce__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-            </conditions>
-            <connector>
-                <targetReference>GetCompte_ViaProxy</targetReference>
-            </connector>
-            <label>Oui</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Projet_Trouve</name>
-        <label>Projet Trouvé ?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Document_Exist</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Oui</defaultConnectorLabel>
-        <rules>
-            <name>NonTrouve</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>GetProjet.Id</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Erreur</targetReference>
-            </connector>
-            <label>Non</label>
         </rules>
     </decisions>
     <decisions>
@@ -577,14 +554,81 @@
             <label>Oui</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Projet_Trouve</name>
+        <label>Projet Trouvé ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Document_Exist</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Oui</defaultConnectorLabel>
+        <rules>
+            <name>NonTrouve</name>
+            <conditionLogic>1 OR 2</conditionLogic>
+            <conditions>
+                <leftValueReference>GetProjet.Id</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.DOC_Projet_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Erreur</targetReference>
+            </connector>
+            <label>Non</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Proxy_Trouve_AvecCompte</name>
+        <label>Proxy Address Trouvé Avec Compte Lié ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetProjet</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non</defaultConnectorLabel>
+        <rules>
+            <name>TrouveViaProxy</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetAdresseProxy.ID_Salesforce__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetCompte_ViaProxy</targetReference>
+            </connector>
+            <label>Oui</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
-        <name>Flm_TextAdress_SansZero</name>
+        <name>Fl_ErreurDoc</name>
         <dataType>String</dataType>
         <expression>IF(
- AND(NOT(ISBLANK({!$Record.TextAdress__c})), REGEX({!$Record.TextAdress__c}, &quot;[0-9]+&quot;)),
- TEXT(VALUE({!$Record.TextAdress__c})),
- {!$Record.TextAdress__c}
+ NOT(ISBLANK({!$Flow.FaultMessage})),
+ LEFT({!$Flow.FaultMessage}, 3000),
+ &quot;Projet Triviso introuvable : DOC_Projet_ID__c=&apos;&quot; &amp; {!$Record.DOC_Projet_ID__c} &amp; &quot;&apos; ne correspond à aucun Projet__c.Numero_projet__c. Vérifier le mapping de l&apos;import Proxy_Document__c (TextAdress__c=&apos;&quot; &amp; {!$Record.TextAdress__c} &amp; &quot;&apos;, DOC_Identification__c=&apos;&quot; &amp; {!$Record.DOC_Identification__c} &amp; &quot;&apos;).&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Flm_Brouillon</name>
+        <dataType>String</dataType>
+        <expression>IF(
+ {!$Record.DOC_Brouillon__c} = 1,
+  &quot;Brouillon&quot;,
+  &quot;Actif&quot;
 )</expression>
     </formulas>
     <formulas>
@@ -597,12 +641,12 @@
 )</expression>
     </formulas>
     <formulas>
-        <name>Flm_Brouillon</name>
+        <name>Flm_TextAdress_SansZero</name>
         <dataType>String</dataType>
         <expression>IF(
- {!$Record.DOC_Brouillon__c} = 1,
-  &quot;Brouillon&quot;,
-  &quot;Actif&quot;
+ AND(NOT(ISBLANK({!$Record.TextAdress__c})), REGEX({!$Record.TextAdress__c}, &quot;[0-9]+&quot;)),
+ TEXT(VALUE({!$Record.TextAdress__c})),
+ {!$Record.TextAdress__c}
 )</expression>
     </formulas>
     <formulas>
@@ -644,10 +688,39 @@
             <targetReference>PrepareProxyFromCreate</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Erreur</targetReference>
         </faultConnector>
         <inputReference>VarNewDoc</inputReference>
     </recordCreates>
+    <recordLookups>
+        <name>GetAdresseProxy</name>
+        <label>GetAdresseProxy</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Proxy_Trouve_AvecCompte</targetReference>
+        </connector>
+        <filterLogic>1 OR 2</filterLogic>
+        <filters>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.TextAdress__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Flm_TextAdress_SansZero</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Proxy_Address__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>GetCompte_Exact</name>
         <label>GetCompte Exact</label>
@@ -688,34 +761,6 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetAdresseProxy</name>
-        <label>GetAdresseProxy</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Proxy_Trouve_AvecCompte</targetReference>
-        </connector>
-        <filterLogic>1 OR 2</filterLogic>
-        <filters>
-            <field>ADRES_ID__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.TextAdress__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>ADRES_ID__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Flm_TextAdress_SansZero</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Proxy_Address__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -782,6 +827,13 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Update_ProxyEnErreur</name>
+        <label>Update Proxy En Erreur</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>UpdateExistingDocument</name>
         <label>UpdateExistingDocument</label>
         <locationX>0</locationX>
@@ -790,16 +842,10 @@
             <targetReference>PrepareProxyForUpdate</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Erreur</targetReference>
         </faultConnector>
         <inputReference>GetDocumentExistant</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_ProxyEnErreur</name>
-        <label>Update Proxy En Erreur</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <inputReference>$Record</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>UpdateFromCreateDoc</name>
@@ -841,8 +887,8 @@
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-01-18</startDate>
-            <startTime>16:30:00.000Z</startTime>
+            <startDate>2026-09-01</startDate>
+            <startTime>14:06:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

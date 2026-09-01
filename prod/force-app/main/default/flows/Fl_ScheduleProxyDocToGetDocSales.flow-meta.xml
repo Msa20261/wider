@@ -21,6 +21,13 @@
                 <elementReference>$Flow.CurrentDateTime</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Erreurs__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Fl_ErreurDoc</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_ProxyEnErreur</targetReference>
         </connector>
@@ -483,6 +490,13 @@
                 <leftValueReference>GetCompte_Exact.Id</leftValueReference>
                 <operator>NotEqualTo</operator>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>GetProjet</targetReference>
             </connector>
@@ -504,6 +518,13 @@
             <conditions>
                 <leftValueReference>GetCompte_SansZero.Id</leftValueReference>
                 <operator>NotEqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>GetProjet</targetReference>
@@ -544,10 +565,17 @@
         <defaultConnectorLabel>Oui</defaultConnectorLabel>
         <rules>
             <name>NonTrouve</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 OR 2</conditionLogic>
             <conditions>
                 <leftValueReference>GetProjet.Id</leftValueReference>
                 <operator>EqualTo</operator>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.DOC_Projet_ID__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>Assign_Erreur</targetReference>
@@ -571,6 +599,13 @@
                 <leftValueReference>GetAdresseProxy.ID_Salesforce__c</leftValueReference>
                 <operator>NotEqualTo</operator>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>GetCompte_ViaProxy</targetReference>
             </connector>
@@ -578,6 +613,15 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>Fl_ErreurDoc</name>
+        <dataType>String</dataType>
+        <expression>IF(
+ NOT(ISBLANK({!$Flow.FaultMessage})),
+ LEFT({!$Flow.FaultMessage}, 3000),
+ &quot;Projet Triviso introuvable : DOC_Projet_ID__c=&apos;&quot; &amp; {!$Record.DOC_Projet_ID__c} &amp; &quot;&apos; ne correspond à aucun Projet__c.Numero_projet__c. Vérifier le mapping de l&apos;import Proxy_Document__c (TextAdress__c=&apos;&quot; &amp; {!$Record.TextAdress__c} &amp; &quot;&apos;, DOC_Identification__c=&apos;&quot; &amp; {!$Record.DOC_Identification__c} &amp; &quot;&apos;).&quot;
+)</expression>
+    </formulas>
     <formulas>
         <name>Flm_Brouillon</name>
         <dataType>String</dataType>
@@ -644,6 +688,7 @@
             <targetReference>PrepareProxyFromCreate</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Erreur</targetReference>
         </faultConnector>
         <inputReference>VarNewDoc</inputReference>
@@ -797,6 +842,7 @@
             <targetReference>PrepareProxyForUpdate</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Erreur</targetReference>
         </faultConnector>
         <inputReference>GetDocumentExistant</inputReference>
@@ -842,7 +888,7 @@
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-01-18</startDate>
-            <startTime>16:30:00.000Z</startTime>
+            <startTime>04:30:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
