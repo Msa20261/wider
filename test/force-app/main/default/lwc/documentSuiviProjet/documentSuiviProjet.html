@@ -1,0 +1,81 @@
+<template>
+    <lightning-card title="Suivi financier des documents" icon-name="standard:document">
+        <template if:true={isLoading}>
+            <div class="slds-align_absolute-center slds-p-around_medium">
+                <lightning-spinner alternative-text="Chargement" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <div class="slds-text-color_error">{error}</div>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="slds-box slds-theme_success slds-text-align_center">
+                            <p class="slds-text-title_caps">Confirmé</p>
+                            <lightning-formatted-number value={totalConfirme} format-style="currency" currency-code="CHF" class="slds-text-heading_medium"></lightning-formatted-number>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="slds-box slds-theme_warning slds-text-align_center">
+                            <p class="slds-text-title_caps">En cours (non confirmé)</p>
+                            <lightning-formatted-number value={totalEnCours} format-style="currency" currency-code="CHF" class="slds-text-heading_medium"></lightning-formatted-number>
+                            <p class="slds-text-body_small">Pondéré : <lightning-formatted-number value={totalEnCoursPondere} format-style="currency" currency-code="CHF"></lightning-formatted-number></p>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <div class="slds-box slds-theme_inverse slds-text-align_center">
+                            <p class="slds-text-title_caps">Facturé</p>
+                            <lightning-formatted-number value={totalFacture} format-style="currency" currency-code="CHF" class="slds-text-heading_medium"></lightning-formatted-number>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <template if:true={hasDocuments}>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">Référence</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Genre</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col" class="slds-text-align_right">Montant HT</th>
+                            <th scope="col" class="slds-text-align_right">Pondération</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={documents} for:item="doc">
+                            <tr key={doc.key}>
+                                <td>{doc.reference}</td>
+                                <td>{doc.description}</td>
+                                <td>{doc.genre}</td>
+                                <td>
+                                    <span class={doc.badgeClass}>{doc.categorie}</span>
+                                    <div class="slds-text-body_small slds-text-color_weak">{doc.etat}</div>
+                                </td>
+                                <td class="slds-text-align_right">
+                                    <lightning-formatted-number value={doc.montant} format-style="currency" currency-code="CHF"></lightning-formatted-number>
+                                </td>
+                                <td class="slds-text-align_right">
+                                    <template if:true={doc.ponderation}>{doc.ponderation}%</template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+
+            <template if:false={hasDocuments}>
+                <div class="slds-p-horizontal_medium slds-p-bottom_medium slds-text-color_weak">
+                    Aucun document rattaché à ce projet.
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

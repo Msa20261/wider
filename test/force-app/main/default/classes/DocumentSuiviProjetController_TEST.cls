@@ -1,0 +1,87 @@
+@isTest
+private class DocumentSuiviProjetController_TEST {
+
+    @TestSetup
+    static void setup() {
+        Projet__c projet = new Projet__c(Numero_projet__c = 'TEST-LWC-001');
+        insert projet;
+
+        List<Get_Document__c> docs = new List<Get_Document__c>();
+
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projet.Id, ID_Document__c = 'T1', numero_document__c = 'A1',
+            Description_du_document__c = 'Offre confirmée', Genre_document__c = 'Offre',
+            Etat_document__c = 'offert, commandé', Montant_document__c = '600',
+            Ponderation_pour_les_offres__c = '100', DOC_Etat_Offert__c = '1',
+            DOC_Etat_Commande__c = '1', DOC_Etat_Facture__c = '0', Doc_Brouillon__c = 'Actif'));
+
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projet.Id, ID_Document__c = 'T2', numero_document__c = 'A2',
+            Description_du_document__c = 'Offre complémentaire', Genre_document__c = 'Offre',
+            Etat_document__c = 'offert, pas encore commandé, prob. 50%', Montant_document__c = '400',
+            Ponderation_pour_les_offres__c = '50', DOC_Etat_Offert__c = '1',
+            DOC_Etat_Commande__c = '0', DOC_Etat_Facture__c = '0', Doc_Brouillon__c = 'Actif'));
+
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projet.Id, ID_Document__c = 'T3', numero_document__c = 'A3',
+            Description_du_document__c = 'Facture acompte', Genre_document__c = 'Facture d\'acompte',
+            Etat_document__c = 'payé, facturé avec offre', Montant_document__c = '200',
+            Ponderation_pour_les_offres__c = '100', DOC_Etat_Offert__c = '0',
+            DOC_Etat_Commande__c = '0', DOC_Etat_Facture__c = '1', Doc_Brouillon__c = 'Actif'));
+
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projet.Id, ID_Document__c = 'T4', numero_document__c = 'A4',
+            Description_du_document__c = 'Brouillon a exclure', Genre_document__c = 'Offre',
+            Etat_document__c = 'offert, pas encore commandé', Montant_document__c = '99999',
+            Ponderation_pour_les_offres__c = '100', DOC_Etat_Offert__c = '1',
+            DOC_Etat_Commande__c = '0', DOC_Etat_Facture__c = '0', Doc_Brouillon__c = 'Brouillon'));
+
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projet.Id, ID_Document__c = 'T5', numero_document__c = 'A5',
+            Description_du_document__c = 'Montant vide', Genre_document__c = 'Offre',
+            Etat_document__c = 'offert, pas encore commandé', Montant_document__c = null,
+            Ponderation_pour_les_offres__c = null, DOC_Etat_Offert__c = '1',
+            DOC_Etat_Commande__c = '0', DOC_Etat_Facture__c = '0', Doc_Brouillon__c = 'Actif'));
+
+        insert docs;
+    }
+
+    @isTest
+    static void testGetSuiviDocuments_CategoriesEtTotaux() {
+        Projet__c projet = [SELECT Id FROM Projet__c WHERE Numero_projet__c = 'TEST-LWC-001'];
+
+        Test.startTest();
+        DocumentSuiviProjetController.SuiviProjet resultat = DocumentSuiviProjetController.getSuiviDocuments(projet.Id);
+        Test.stopTest();
+
+        System.assertEquals(600, resultat.totalConfirme, 'Total confirme incorrect');
+        System.assertEquals(400, resultat.totalEnCours, 'Total en cours incorrect');
+        System.assertEquals(200, resultat.totalEnCoursPondere, 'Total en cours pondere incorrect (400 * 50%)');
+        System.assertEquals(200, resultat.totalFacture, 'Total facture incorrect');
+        System.assertEquals(4, resultat.documents.size(), 'Le brouillon doit etre exclu (5 crees, 1 brouillon)');
+
+        Boolean montantVideTrouve = false;
+        for (DocumentSuiviProjetController.DocumentLigne ligne : resultat.documents) {
+            if (ligne.reference == 'A5') {
+                montantVideTrouve = true;
+                System.assertEquals(null, ligne.montant, 'Montant vide doit rester null, pas planter');
+            }
+        }
+        System.assert(montantVideTrouve, 'Le document avec montant vide doit etre present');
+    }
+
+    @isTest
+    static void testGetSuiviDocuments_AucunDocument() {
+        Projet__c projetVide = new Projet__c(Numero_projet__c = 'TEST-LWC-VIDE');
+        insert projetVide;
+
+        Test.startTest();
+        DocumentSuiviProjetController.SuiviProjet resultat = DocumentSuiviProjetController.getSuiviDocuments(projetVide.Id);
+        Test.stopTest();
+
+        System.assertEquals(0, resultat.totalConfirme);
+        System.assertEquals(0, resultat.totalEnCours);
+        System.assertEquals(0, resultat.totalFacture);
+        System.assertEquals(0, resultat.documents.size());
+    }
+}
