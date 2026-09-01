@@ -1,6 +1,9 @@
 import { LightningElement, api, wire } from 'lwc';
 import getSuiviDocuments from '@salesforce/apex/DocumentSuiviProjetController.getSuiviDocuments';
 
+const CHECK_ICON = 'utility:check';
+const DASH_ICON = 'utility:dash';
+
 export default class DocumentSuiviProjet extends LightningElement {
     @api recordId;
 
@@ -9,6 +12,7 @@ export default class DocumentSuiviProjet extends LightningElement {
     totalEnCoursPondere = 0;
     totalFacture = 0;
     documents = [];
+    repartitionParStatut = [];
     error;
     isLoading = true;
 
@@ -23,12 +27,20 @@ export default class DocumentSuiviProjet extends LightningElement {
             this.documents = data.documents.map((doc, index) => ({
                 ...doc,
                 key: doc.reference ? doc.reference : 'doc-' + index,
-                badgeClass: this.badgeClassFor(doc.categorie)
+                badgeClass: this.badgeClassFor(doc.categorie),
+                offertIcon: doc.offert ? CHECK_ICON : DASH_ICON,
+                commandeIcon: doc.commande ? CHECK_ICON : DASH_ICON,
+                factureIcon: doc.facture ? CHECK_ICON : DASH_ICON
             }));
+            this.repartitionParStatut = (data.repartitionParStatut || [])
+                .slice()
+                .sort((a, b) => b.totalMontant - a.totalMontant)
+                .map((r, index) => ({ ...r, key: 'statut-' + index }));
             this.error = undefined;
         } else if (error) {
             this.error = error.body ? error.body.message : error.message;
             this.documents = [];
+            this.repartitionParStatut = [];
         }
     }
 
@@ -47,6 +59,10 @@ export default class DocumentSuiviProjet extends LightningElement {
 
     get hasDocuments() {
         return this.documents && this.documents.length > 0;
+    }
+
+    get hasRepartition() {
+        return this.repartitionParStatut && this.repartitionParStatut.length > 0;
     }
 
     get hasError() {

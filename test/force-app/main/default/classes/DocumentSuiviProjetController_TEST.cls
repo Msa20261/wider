@@ -61,13 +61,37 @@ private class DocumentSuiviProjetController_TEST {
         System.assertEquals(4, resultat.documents.size(), 'Le brouillon doit etre exclu (5 crees, 1 brouillon)');
 
         Boolean montantVideTrouve = false;
+        Boolean confirmeTrouve = false;
+        Boolean enCoursTrouve = false;
         for (DocumentSuiviProjetController.DocumentLigne ligne : resultat.documents) {
             if (ligne.reference == 'A5') {
                 montantVideTrouve = true;
                 System.assertEquals(null, ligne.montant, 'Montant vide doit rester null, pas planter');
+                System.assertEquals(null, ligne.montantPondere, 'Montant pondere doit rester null si montant vide');
+            }
+            if (ligne.reference == 'A1') {
+                confirmeTrouve = true;
+                System.assertEquals(true, ligne.commande, 'A1 doit avoir commande=true');
+                System.assertEquals(false, ligne.facture, 'A1 ne doit pas etre facture');
+                System.assertEquals(600, ligne.montantPondere, 'Montant pondere doit etre le montant plein (pond=100)');
+            }
+            if (ligne.reference == 'A2') {
+                enCoursTrouve = true;
+                System.assertEquals(true, ligne.offert, 'A2 doit etre offert');
+                System.assertEquals(false, ligne.commande, 'A2 ne doit pas etre commande');
+                System.assertEquals(200, ligne.montantPondere, 'Montant pondere A2 incorrect (400 * 50%)');
             }
         }
         System.assert(montantVideTrouve, 'Le document avec montant vide doit etre present');
+        System.assert(confirmeTrouve, 'Le document confirme doit etre present');
+        System.assert(enCoursTrouve, 'Le document en cours doit etre present');
+
+        System.assert(!resultat.repartitionParStatut.isEmpty(), 'La repartition par statut doit contenir des entrees');
+        Integer totalDocumentsRepartis = 0;
+        for (DocumentSuiviProjetController.RepartitionStatut r : resultat.repartitionParStatut) {
+            totalDocumentsRepartis += r.nombreDocuments;
+        }
+        System.assertEquals(4, totalDocumentsRepartis, 'La somme de la repartition doit couvrir tous les documents non-brouillon');
     }
 
     @isTest

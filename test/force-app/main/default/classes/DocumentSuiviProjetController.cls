@@ -9,6 +9,16 @@ public with sharing class DocumentSuiviProjetController {
         @AuraEnabled public Decimal ponderation;
         @AuraEnabled public Decimal montantPondere;
         @AuraEnabled public String categorie;
+        @AuraEnabled public Boolean offert;
+        @AuraEnabled public Boolean commande;
+        @AuraEnabled public Boolean facture;
+    }
+
+    public class RepartitionStatut {
+        @AuraEnabled public String statut;
+        @AuraEnabled public Integer nombreDocuments;
+        @AuraEnabled public Decimal totalMontant;
+        @AuraEnabled public Decimal totalMontantPondere;
     }
 
     public class SuiviProjet {
@@ -17,12 +27,14 @@ public with sharing class DocumentSuiviProjetController {
         @AuraEnabled public Decimal totalEnCoursPondere;
         @AuraEnabled public Decimal totalFacture;
         @AuraEnabled public List<DocumentLigne> documents;
+        @AuraEnabled public List<RepartitionStatut> repartitionParStatut;
     }
 
     private static final String CATEGORIE_CONFIRME = 'Confirmé';
     private static final String CATEGORIE_EN_COURS = 'En cours';
     private static final String CATEGORIE_FACTURE = 'Facturé';
     private static final String CATEGORIE_AUTRE = 'Autre';
+    private static final String STATUT_INCONNU = '(Statut non renseigné)';
 
     @AuraEnabled(cacheable=true)
     public static SuiviProjet getSuiviDocuments(Id projetId) {
@@ -32,6 +44,7 @@ public with sharing class DocumentSuiviProjetController {
         resultat.totalEnCoursPondere = 0;
         resultat.totalFacture = 0;
         resultat.documents = new List<DocumentLigne>();
+        resultat.repartitionParStatut = new List<RepartitionStatut>();
 
         List<Get_Document__c> docs = [
             SELECT numero_document__c, Description_du_document__c, Genre_document__c,
@@ -44,9 +57,14 @@ public with sharing class DocumentSuiviProjetController {
             ORDER BY Date_creation_Triviso__c DESC NULLS LAST
         ];
 
+        Map<String, RepartitionStatut> repartitionParCle = new Map<String, RepartitionStatut>();
+
         for (Get_Document__c doc : docs) {
             Decimal montant = parseDecimal(doc.Montant_document__c);
             Decimal ponderation = parseDecimal(doc.Ponderation_pour_les_offres__c);
+            Boolean offert = estCoche(doc.DOC_Etat_Offert__c);
+            Boolean commande = estCoche(doc.DOC_Etat_Commande__c);
+            Boolean facture = estCoche(doc.DOC_Etat_Facture__c);
 
             DocumentLigne ligne = new DocumentLigne();
             ligne.reference = doc.numero_document__c;
@@ -55,7 +73,16 @@ public with sharing class DocumentSuiviProjetController {
             ligne.etat = doc.Etat_document__c;
             ligne.montant = montant;
             ligne.ponderation = ponderation;
-            ligne.categorie = categoriser(doc.DOC_Etat_Offert__c, doc.DOC_Etat_Commande__c, doc.DOC_Etat_Facture__c);
+            ligne.offert = offert;
+            ligne.commande = commande;
+            ligne.facture = facture;
+            ligne.categorie = categoriser(offert, commande, facture);
+
+            // Une pondération absente veut dire "certain" (déjà confirmé/facturé) : on ne dégrade pas le montant.
+            Decimal ponderationEffective = (ponderation != null) ? ponderation : 100;
+            if (montant != null) {
+                ligne.montantPondere = montant * ponderationEffective / 100;
+            }
 
             if (montant != null) {
                 if (ligne.categorie == CATEGORIE_CONFIRME) {
@@ -64,26 +91,41 @@ public with sharing class DocumentSuiviProjetController {
                     resultat.totalFacture += montant;
                 } else if (ligne.categorie == CATEGORIE_EN_COURS) {
                     resultat.totalEnCours += montant;
-                    Decimal pondere = (ponderation != null) ? montant * ponderation / 100 : montant;
-                    ligne.montantPondere = pondere;
-                    resultat.totalEnCoursPondere += pondere;
+                    resultat.totalEnCoursPondere += ligne.montantPondere;
                 }
             }
 
             resultat.documents.add(ligne);
+
+            String cleStatut = String.isNotBlank(doc.Etat_document__c) ? doc.Etat_document__c : STATUT_INCONNU;
+            RepartitionStatut repartition = repartitionParCle.get(cleStatut);
+            if (repartition == null) {
+                repartition = new RepartitionStatut();
+                repartition.statut = cleStatut;
+                repartition.nombreDocuments = 0;
+                repartition.totalMontant = 0;
+                repartition.totalMontantPondere = 0;
+                repartitionParCle.put(cleStatut, repartition);
+            }
+            repartition.nombreDocuments += 1;
+            if (montant != null) {
+                repartition.totalMontant += montant;
+                repartition.totalMontantPondere += ligne.montantPondere;
+            }
         }
 
+        resultat.repartitionParStatut = repartitionParCle.values();
         return resultat;
     }
 
-    private static String categoriser(String etatOffert, String etatCommande, String etatFacture) {
-        if (estCoche(etatCommande)) {
+    private static String categoriser(Boolean offert, Boolean commande, Boolean facture) {
+        if (commande) {
             return CATEGORIE_CONFIRME;
         }
-        if (estCoche(etatFacture)) {
+        if (facture) {
             return CATEGORIE_FACTURE;
         }
-        if (estCoche(etatOffert)) {
+        if (offert) {
             return CATEGORIE_EN_COURS;
         }
         return CATEGORIE_AUTRE;
