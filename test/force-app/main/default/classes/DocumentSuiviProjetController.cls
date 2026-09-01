@@ -135,12 +135,18 @@ public with sharing class DocumentSuiviProjetController {
         return valeur != null && valeur.trim() == '1';
     }
 
+    // Les montants stockes en Texte suivent le format numerique de la locale de l'utilisateur qui a
+    // execute le flow (ex. FR/CH : "24 343,7" avec espace fine insecable U+202F en separateur de
+    // milliers et virgule en separateur decimal). On normalise avant de parser en Decimal.
+    // \p{Zs} = categorie Unicode "Space Separator" : couvre l'espace normal, l'espace insecable
+    // (U+00A0) et l'espace fine insecable (U+202F) vus dans les exports Triviso.
     private static Decimal parseDecimal(String valeur) {
         if (String.isBlank(valeur)) {
             return null;
         }
+        String nettoye = valeur.trim().replaceAll('\\p{Zs}', '').replace(',', '.');
         try {
-            return Decimal.valueOf(valeur.trim());
+            return Decimal.valueOf(nettoye);
         } catch (Exception e) {
             return null;
         }
