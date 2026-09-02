@@ -14,11 +14,5 @@
         <members>Soci_t_du_groupe_Record_Page</members>
         <name>FlexiPage</name>
     </types>
-    <types>
-        <members>Admin</members>
-        <members>Sys Admin Plateform</members>
-        <members>Custom Platform Profile</members>
-        <name>Profile</name>
-    </types>
     <version>64.0</version>
 </Package>

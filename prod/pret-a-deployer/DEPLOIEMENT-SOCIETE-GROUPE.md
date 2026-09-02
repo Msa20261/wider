@@ -34,12 +34,23 @@ Contenu :
 - `CustomField` : `Soci_t_du_groupe__c.Compte_Associe__c` (nouveau), `TVA__c` (type modifié Picklist→Texte), `Pays__c` (nouveau)
 - `Flow` : `Fl_SyncAccountVersSocieteGroupe` (nouveau, sera actif immédiatement après déploiement — c'est voulu, cf. section 2 pour la protection)
 - `FlexiPage` : `Soci_t_du_groupe_Record_Page` (ajout du champ Pays à côté de Ville — **seule page existante pour cet objet en prod**, contrairement à test qui en a deux)
-- `Profile` (FLS) : `Admin`, `Sys Admin Plateform`, `Custom Platform Profile` — lecture/édition sur les 3 nouveaux champs. Pattern déjà utilisé sans incident sur ce projet (contrairement à un déploiement `Profile:System Administrator` — mauvais nom d'API, à éviter, cf. mémoire projet).
+
+**⚠️ FLS non incluse dans ce manifeste, volontairement — voir étape 2bis ci-dessous.** Les fichiers `profiles/*.profile-meta.xml` trackés dans le repo sont les versions complètes et périmées (écart connu vs l'org réelle, cf. mémoire projet) — les inclure dans un déploiement manifeste pousserait ces fichiers entiers, pas un petit ajout ciblé. La FLS doit être déployée séparément via un fragment minimal (pattern utilisé sans incident tout au long de ce projet, à condition d'utiliser le bon nom d'API `Admin` pour System Administrator — **pas** `Profile:System Administrator`, qui crée un profil dupliqué, cf. mémoire projet).
 
 ## 4. Étapes de déploiement — ordre important
 
 1. **Vérifier avant de déployer** : `TVA__c` est actuellement vide sur les 6 enregistrements en prod (à reconfirmer juste avant, la conversion Picklist→Texte est sûre à 0 donnée mais mérite une double vérification).
 2. Déployer le manifeste (commande ci-dessus).
+2bis. **Accorder la FLS sur les 3 nouveaux champs**, séparément — créer temporairement ces 3 fichiers minimaux (un par profil, remplacer le nom de fichier/contenu selon le profil) et déployer uniquement ceux-là (`sf project deploy start -m "Profile:Admin" -m "Profile:Sys Admin Plateform" -m "Profile:Custom Platform Profile"` depuis un dossier où seuls ces fragments existent, **pas** depuis `prod/force-app` qui contient les fichiers complets) :
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+       <fieldPermissions><field>Soci_t_du_groupe__c.Compte_Associe__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+       <fieldPermissions><field>Soci_t_du_groupe__c.TVA__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+       <fieldPermissions><field>Soci_t_du_groupe__c.Pays__c</field><editable>true</editable><readable>true</readable></fieldPermissions>
+   </Profile>
+   ```
+   Vérifier après coup : `SELECT COUNT(Id) FROM FieldPermissions WHERE Field IN ('Soci_t_du_groupe__c.Compte_Associe__c','Soci_t_du_groupe__c.TVA__c','Soci_t_du_groupe__c.Pays__c') AND Parent.Profile.Name IN ('System Administrator','Sys Admin Plateform','Custom Platform Profile') AND PermissionsRead = true` → doit renvoyer 9 (3 champs × 3 profils).
 3. **Peupler manuellement les 6 enregistrements** — script Apex, à exécuter en Anonymous Apex après le déploiement :
    ```apex
    Map<String, Account> comptesParId = new Map<String, Account>();
