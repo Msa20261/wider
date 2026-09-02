@@ -20,6 +20,12 @@ IF(NOT(ISBLANK({!$Record.BillingPostalCode})), {!$Record.BillingPostalCode}, {!$
         <expression>IF(NOT(ISBLANK({!$Record.Adresse_compte__City__s})), {!$Record.Adresse_compte__City__s},
 IF(NOT(ISBLANK({!$Record.BillingCity})), {!$Record.BillingCity}, {!$Record.ShippingCity}))</expression>
     </formulas>
+    <formulas>
+        <name>Flm_Pays</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK(TEXT({!$Record.Adresse_compte__CountryCode__s}))), TEXT({!$Record.Adresse_compte__CountryCode__s}),
+IF(NOT(ISBLANK({!$Record.BillingCountry})), {!$Record.BillingCountry}, {!$Record.ShippingCountry}))</expression>
+    </formulas>
     <interviewLabel>Fl_SyncAccountVersSocieteGroupe {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Fl_SyncAccountVersSocieteGroupe</label>
     <processMetadataValues>
@@ -54,6 +60,12 @@ IF(NOT(ISBLANK({!$Record.BillingCity})), {!$Record.BillingCity}, {!$Record.Shipp
                 <elementReference>$Record.Id</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>TVA__c</field>
+            <value>
+                <elementReference>$Record.Numero_TVA__c</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>TVA_intra_communautaire__c</field>
             <value>
@@ -96,6 +108,12 @@ IF(NOT(ISBLANK({!$Record.BillingCity})), {!$Record.BillingCity}, {!$Record.Shipp
                 <elementReference>Flm_Ville</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Pays__c</field>
+            <value>
+                <elementReference>Flm_Pays</elementReference>
+            </value>
+        </inputAssignments>
         <object>Soci_t_du_groupe__c</object>
     </recordUpdates>
     <start>
@@ -104,11 +122,20 @@ IF(NOT(ISBLANK({!$Record.BillingCity})), {!$Record.BillingCity}, {!$Record.Shipp
         <connector>
             <targetReference>UpdateSocieteGroupe</targetReference>
         </connector>
-        <filterFormula>OR(
+        <filterFormula>AND(
+OR(
+{!$Record.Identification__c} = &quot;1000&quot;,
+{!$Record.Identification__c} = &quot;2000&quot;,
+{!$Record.Identification__c} = &quot;3000&quot;,
+{!$Record.Identification__c} = &quot;4000&quot;,
+{!$Record.Identification__c} = &quot;7000&quot;,
+{!$Record.Identification__c} = &quot;9000&quot;
+),
+OR(
 ISCHANGED({!$Record.Adresse_compte__Street__s}),
 ISCHANGED({!$Record.Adresse_compte__City__s}),
 ISCHANGED({!$Record.Adresse_compte__PostalCode__s}),
-ISCHANGED({!$Record.Adresse_compte__CountryCode__s}),
+ISCHANGED({!$Record.Numero_TVA__c}),
 ISCHANGED({!$Record.No_TVA_EU__c}),
 ISCHANGED({!$Record.Phone}),
 ISCHANGED({!$Record.Website}),
@@ -116,9 +143,12 @@ ISCHANGED({!$Record.Supplement_adresse__c}),
 ISCHANGED({!$Record.BillingStreet}),
 ISCHANGED({!$Record.BillingPostalCode}),
 ISCHANGED({!$Record.BillingCity}),
+ISCHANGED({!$Record.BillingCountry}),
 ISCHANGED({!$Record.ShippingStreet}),
 ISCHANGED({!$Record.ShippingPostalCode}),
-ISCHANGED({!$Record.ShippingCity})
+ISCHANGED({!$Record.ShippingCity}),
+ISCHANGED({!$Record.ShippingCountry})
+)
 )</filterFormula>
         <object>Account</object>
         <recordTriggerType>Update</recordTriggerType>
