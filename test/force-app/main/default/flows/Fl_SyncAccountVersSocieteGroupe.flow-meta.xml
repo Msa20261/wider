@@ -26,6 +26,11 @@ IF(NOT(ISBLANK({!$Record.BillingCity})), {!$Record.BillingCity}, {!$Record.Shipp
         <expression>IF(NOT(ISBLANK(TEXT({!$Record.Adresse_compte__CountryCode__s}))), TEXT({!$Record.Adresse_compte__CountryCode__s}),
 IF(NOT(ISBLANK({!$Record.BillingCountry})), {!$Record.BillingCountry}, {!$Record.ShippingCountry}))</expression>
     </formulas>
+    <formulas>
+        <name>Flm_Telephone</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!$Record.Telephone_1__c})), {!$Record.Telephone_1__c}, {!$Record.Phone})</expression>
+    </formulas>
     <interviewLabel>Fl_SyncAccountVersSocieteGroupe {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Fl_SyncAccountVersSocieteGroupe</label>
     <processMetadataValues>
@@ -75,7 +80,13 @@ IF(NOT(ISBLANK({!$Record.BillingCountry})), {!$Record.BillingCountry}, {!$Record
         <inputAssignments>
             <field>T_l_phone__c</field>
             <value>
-                <elementReference>$Record.Phone</elementReference>
+                <elementReference>Flm_Telephone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email__c</field>
+            <value>
+                <elementReference>$Record.Email_1__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -138,6 +149,8 @@ ISCHANGED({!$Record.Adresse_compte__PostalCode__s}),
 ISCHANGED({!$Record.Numero_TVA__c}),
 ISCHANGED({!$Record.No_TVA_EU__c}),
 ISCHANGED({!$Record.Phone}),
+ISCHANGED({!$Record.Telephone_1__c}),
+ISCHANGED({!$Record.Email_1__c}),
 ISCHANGED({!$Record.Website}),
 ISCHANGED({!$Record.Supplement_adresse__c}),
 ISCHANGED({!$Record.BillingStreet}),
