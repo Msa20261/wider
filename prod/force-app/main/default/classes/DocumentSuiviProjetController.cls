@@ -65,6 +65,10 @@ public with sharing class DocumentSuiviProjetController {
             Boolean offert = estCoche(doc.DOC_Etat_Offert__c);
             Boolean commande = estCoche(doc.DOC_Etat_Commande__c);
             Boolean facture = estCoche(doc.DOC_Etat_Facture__c);
+            // "En cours (non confirmé)" = offert mais pas encore commandé, cf. formule de reference
+            // "Document Wider.xlsx" (onglet Exemple_Calcul, colonne "Potentiel offres pondérées") :
+            // ce montant n'existe nulle part au niveau Projet dans Triviso, seulement au document.
+            Boolean enCoursNonConfirme = offert && !commande;
 
             DocumentLigne ligne = new DocumentLigne();
             ligne.reference = doc.numero_document__c;
@@ -76,7 +80,9 @@ public with sharing class DocumentSuiviProjetController {
             ligne.offert = offert;
             ligne.commande = commande;
             ligne.facture = facture;
-            ligne.categorie = categoriser(offert, commande, facture);
+            // Etiquette d'affichage uniquement (badge) : commande > facture > offert, sans impact
+            // sur les totaux ci-dessous, qui suivent des sommes indépendantes par flag.
+            ligne.categorie = etiquetteAffichage(offert, commande, facture);
 
             // Une pondération absente veut dire "certain" (déjà confirmé/facturé) : on ne dégrade pas le montant.
             Decimal ponderationEffective = (ponderation != null) ? ponderation : 100;
@@ -84,12 +90,16 @@ public with sharing class DocumentSuiviProjetController {
                 ligne.montantPondere = montant * ponderationEffective / 100;
             }
 
+            // Sommes indépendantes par flag (un document peut être à la fois Offert=1 ET Commande=1,
+            // par ex.) : chaque flag alimente sa propre somme, comme dans Triviso (onglet Exemple_Calcul).
             if (montant != null) {
-                if (ligne.categorie == CATEGORIE_CONFIRME) {
+                if (commande) {
                     resultat.totalConfirme += montant;
-                } else if (ligne.categorie == CATEGORIE_FACTURE) {
+                }
+                if (facture) {
                     resultat.totalFacture += montant;
-                } else if (ligne.categorie == CATEGORIE_EN_COURS) {
+                }
+                if (enCoursNonConfirme) {
                     resultat.totalEnCours += montant;
                     resultat.totalEnCoursPondere += ligne.montantPondere;
                 }
@@ -118,7 +128,7 @@ public with sharing class DocumentSuiviProjetController {
         return resultat;
     }
 
-    private static String categoriser(Boolean offert, Boolean commande, Boolean facture) {
+    private static String etiquetteAffichage(Boolean offert, Boolean commande, Boolean facture) {
         if (commande) {
             return CATEGORIE_CONFIRME;
         }

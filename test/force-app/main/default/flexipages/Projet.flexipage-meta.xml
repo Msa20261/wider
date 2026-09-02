@@ -1617,6 +1617,12 @@
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>documentSuiviProjet</componentName>
+                <identifier>c_documentSuiviProjet</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>

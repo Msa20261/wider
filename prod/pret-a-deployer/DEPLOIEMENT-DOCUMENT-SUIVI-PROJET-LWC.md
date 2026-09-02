@@ -10,10 +10,20 @@ Composant Lightning sur la page Projet, remplace l'approche Roll-Up abandonnée 
 - 3 tuiles de synthèse : Confirmé / En cours (non confirmé) + montant pondéré / Facturé.
 - Tableau détaillé par document : référence, description, genre, statut Triviso complet, icônes Offert/Commandé/Facturé, montant HT, pondération, montant pondéré (calculé pour **chaque** document, pas seulement "en cours" — une pondération absente vaut 100%).
 - Tableau de répartition par statut Triviso distinct (nombre de documents, montant total, montant pondéré total).
-- Catégorisation par les flags fiables `DOC_Etat_Offert/Commande/Facture`, pas par le texte libre `Etat_document__c`.
+- Catégorisation par les flags `DOC_Etat_Offert/Commande/Facture`, pas par le texte libre `Etat_document__c` (celui-ci sert uniquement à la répartition par statut, informative).
 - Brouillons exclus.
 
 Bug trouvé et corrigé en cours de route : les montants stockés en Texte suivent le format numérique de la locale de l'org (`"24 343,7"` avec espace fine insécable en séparateur de milliers, virgule en décimal) — `Decimal.valueOf()` échouait silencieusement dessus. `parseDecimal()` normalise désormais avant conversion (`\p{Zs}` + remplacement virgule→point).
+
+**[2026-09-02] Correction majeure de la logique de calcul, validée contre le fichier de référence `Document Wider.xlsx` (Bureau, onglet `Exemple_Calcul`) fourni par msavane.** Constat initial de msavane : des projets avec documents et montants réels affichaient des tuiles à 0. Diagnostic : la 1ère version traitait Offert/Commandé/Facturé comme une catégorie unique exclusive (priorité Commandé > Facturé > Offert) — un document Commandé=1 ET Facturé=1 en même temps (cas réel, cf. Excel) voyait son montant disparaître du total Facturé, masqué par Commandé. Triviso calcule en réalité **3 sommes indépendantes par flag** :
+- Offert = SOMME(Montant HT) où `DOC_Etat_Offert=1`
+- Confirmé = SOMME(Montant HT) où `DOC_Etat_Commande=1`
+- Facturé = SOMME(Montant HT) où `DOC_Etat_Facture=1`
+- En cours (pondéré) = SOMME(Montant HT × Pondération/100) où `DOC_Etat_Offert=1 ET DOC_Etat_Commande=0` — ce montant n'existe **nulle part au niveau Projet** dans Triviso (confirmé sur l'onglet `Exemple_Projet` : seuls Offert/Confirmé/Facturé/Payé y figurent), c'est la vraie valeur ajoutée du composant.
+
+Validé en rejouant les 13 documents de l'onglet `Exemple_Calcul` : Confirmé/Facturé/En cours pondéré calculés par le contrôleur correspondent exactement aux totaux du fichier (411'594.22 / 264'224.33 / 53'356.06).
+
+**⚠️ Point bloquant côté données, hors périmètre Salesforce** : au 2026-09-02, **0 document sur 8941** dans l'export réel (`Proxy_Document__c`) a un seul des 3 flags renseigné — confirmé à la source, pas un bug de mapping côté flow. Le composant affichera des tuiles à 0 en prod tant que ces colonnes ne sont pas alimentées par l'import Triviso (msavane prévoit de les ajouter à l'import).
 
 ## 2. Composants à déployer
 

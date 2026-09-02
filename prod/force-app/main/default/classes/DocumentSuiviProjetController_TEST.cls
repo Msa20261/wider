@@ -53,6 +53,22 @@ private class DocumentSuiviProjetController_TEST {
             DOC_Etat_Commande__c = '1', DOC_Etat_Facture__c = '0', Doc_Brouillon__c = 'Actif'));
 
         insert docs;
+
+        // Cas reel confirme par le fichier de reference "Document Wider.xlsx" (onglet Exemple_Calcul) :
+        // un document peut avoir Commande=1 ET Facture=1 en meme temps (entierement livre ET facture).
+        // Chaque flag doit alimenter sa propre somme independamment, pas une categorie exclusive.
+        // Projet dedie pour ne pas fausser les totaux du 1er test.
+        Projet__c projetIndep = new Projet__c(Numero_projet__c = 'TEST-LWC-INDEP');
+        insert projetIndep;
+
+        docs = new List<Get_Document__c>();
+        docs.add(new Get_Document__c(
+            Doc_Projet__c = projetIndep.Id, ID_Document__c = 'TI1', numero_document__c = 'B1',
+            Description_du_document__c = 'Commande ET facture en meme temps', Genre_document__c = 'Facture',
+            Etat_document__c = 'facturé, avec offre', Montant_document__c = '1000',
+            Ponderation_pour_les_offres__c = '100', DOC_Etat_Offert__c = '1',
+            DOC_Etat_Commande__c = '1', DOC_Etat_Facture__c = '1', Doc_Brouillon__c = 'Actif'));
+        insert docs;
     }
 
     @isTest
@@ -107,6 +123,19 @@ private class DocumentSuiviProjetController_TEST {
             totalDocumentsRepartis += r.nombreDocuments;
         }
         System.assertEquals(5, totalDocumentsRepartis, 'La somme de la repartition doit couvrir tous les documents non-brouillon');
+    }
+
+    @isTest
+    static void testGetSuiviDocuments_FlagsIndependants() {
+        Projet__c projetIndep = [SELECT Id FROM Projet__c WHERE Numero_projet__c = 'TEST-LWC-INDEP'];
+
+        Test.startTest();
+        DocumentSuiviProjetController.SuiviProjet resultat = DocumentSuiviProjetController.getSuiviDocuments(projetIndep.Id);
+        Test.stopTest();
+
+        System.assertEquals(1000, resultat.totalConfirme, 'Commande=1 doit compter dans Confirme meme si Facture=1 aussi');
+        System.assertEquals(1000, resultat.totalFacture, 'Facture=1 doit compter dans Facture meme si Commande=1 aussi');
+        System.assertEquals(0, resultat.totalEnCours, 'Commande=1 exclut le document de En cours, malgre Offert=1');
     }
 
     @isTest
