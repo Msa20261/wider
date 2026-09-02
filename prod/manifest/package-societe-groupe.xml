@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Soci_t_du_groupe__c.Compte_Associe__c</members>
+        <members>Soci_t_du_groupe__c.TVA__c</members>
+        <members>Soci_t_du_groupe__c.Pays__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Fl_SyncAccountVersSocieteGroupe</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>Soci_t_du_groupe_Record_Page</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <members>Sys Admin Plateform</members>
+        <members>Custom Platform Profile</members>
+        <name>Profile</name>
+    </types>
+    <version>64.0</version>
+</Package>
