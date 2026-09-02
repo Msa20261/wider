@@ -276,6 +276,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Pays__c</fieldItem>
+                <identifier>RecordPays_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Complement_d_adresse__c</fieldItem>
                 <identifier>RecordComplement_d_adresse_cField</identifier>
             </fieldInstance>
