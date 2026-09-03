@@ -559,6 +559,31 @@
         </connector>
     </assignments>
     <decisions>
+        <name>Skip_Recherche_Compte_Si_Vide</name>
+        <label>Skip Recherche Compte Si TextAdress Vide ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetCompte_Exact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Non (TextAdress rempli)</defaultConnectorLabel>
+        <rules>
+            <name>TextAdressVide</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TextAdress__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetProjet</targetReference>
+            </connector>
+            <label>Oui (vide, on saute la recherche compte)</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Compte_Trouve_Exact</name>
         <label>Compte Trouvé (Exact) ?</label>
         <locationX>0</locationX>
@@ -814,9 +839,16 @@
         <connector>
             <targetReference>Compte_Trouve_Exact</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
-            <field>Identification__c</field>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.TextAdress__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ADRES_ID__pc</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>$Record.TextAdress__c</elementReference>
@@ -835,9 +867,16 @@
         <connector>
             <targetReference>Compte_Trouve_SansZero</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
-            <field>Identification__c</field>
+            <field>ADRES_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Flm_TextAdress_SansZero</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ADRES_ID__pc</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Flm_TextAdress_SansZero</elementReference>
@@ -875,7 +914,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetCompte_Exact</targetReference>
+            <targetReference>Skip_Recherche_Compte_Si_Vide</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -959,24 +998,17 @@
                 <stringValue>Reçu</stringValue>
             </value>
         </filters>
-        <filters>
-            <field>Statut__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Erreur</stringValue>
-            </value>
-        </filters>
         <object>Proxy_Document__c</object>
         <schedule>
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-01-18</startDate>
-            <startTime>04:30:00.000Z</startTime>
+            <startTime>17:38:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>VarNewDoc</name>
         <dataType>SObject</dataType>
