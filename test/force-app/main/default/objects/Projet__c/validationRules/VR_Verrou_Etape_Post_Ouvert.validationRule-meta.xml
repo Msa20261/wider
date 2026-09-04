@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Verrou_Etape_Post_Ouvert</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    ISCHANGED(Etape__c),
+    NOT($Permission.Bypass_Verrou_Triviso),
+    NOT(ISPICKVAL(PRIORVALUE(Etape__c), &quot;Opportunité&quot;)),
+    NOT(ISPICKVAL(PRIORVALUE(Etape__c), &quot;Attribution&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Etape__c</errorDisplayField>
+    <errorMessage>Cette étape est pilotée automatiquement par la synchronisation Triviso à partir du statut &apos;Ouvert&apos;. Contactez l&apos;équipe technique pour toute correction manuelle.</errorMessage>
+</ValidationRule>
