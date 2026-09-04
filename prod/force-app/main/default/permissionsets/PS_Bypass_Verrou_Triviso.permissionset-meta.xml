@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Bypass_Verrou_Triviso</name>
+    </customPermissions>
+    <description>A assigner uniquement a l&apos;utilisateur qui active le flow JobScheduleProjet (execution planifiee = droits de l&apos;utilisateur activateur) et aux admins habilites a corriger manuellement une etape Projet post-Ouvert.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Bypass Verrou Etape Triviso</label>
+</PermissionSet>
